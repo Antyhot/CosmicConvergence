@@ -1,4 +1,3 @@
-// import java.awt.Color;
 import java.awt.Graphics2D;
 
 /**
@@ -28,7 +27,6 @@ public class GameObject {
 
     public void init() {
         // Override this method
-        // this.position.add(100, 100);
     }
 
     public void update() {
@@ -37,12 +35,5 @@ public class GameObject {
 
     public void draw(Graphics2D g2d) {
         // Override this method
-        // g2d.setColor(Color.WHITE);
-        // g2d.fillRect(
-        //     (int) this.position.x,
-        //     (int) this.position.y,
-        //     10,
-        //     10
-        // );
     }
 }
