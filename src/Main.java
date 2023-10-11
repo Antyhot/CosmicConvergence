@@ -10,14 +10,14 @@ public class Main {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setTitle("Cosmic Convergence");
 
-        GamePanel gamePanel = new GamePanel();
-        window.add(gamePanel);
+        GameManager gameManager = new GameManager();
+        window.add(gameManager);
 
         window.pack();
 
         window.setLocationRelativeTo(null);
         window.setVisible(true);
 
-        gamePanel.startGameThread();
+        gameManager.startGameThread();
     }
 }

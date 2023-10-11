@@ -45,6 +45,17 @@ public class Vector2D {
     }
 
     /**
+     * Adds the given x and y to this Vector2D.
+     * 
+     * @param x x-coordinate to add
+     * @param y y-coordinate to add
+     */
+    public void add(double x, double y) {
+        this.x += x;
+        this.y += y;
+    }
+
+    /**
      * Subtracts the given Vector2D from this Vector2D.
      * 
      * @param v Vector2D to subtract
@@ -52,6 +63,17 @@ public class Vector2D {
     public void subtract(Vector2D v) {
         this.x -= v.x;
         this.y -= v.y;
+    }
+
+    /**
+     * Subtracts the given x and y from this Vector2D.
+     * 
+     * @param x x-coordinate to subtract
+     * @param y y-coordinate to subtract
+     */
+    public void subtract(double x, double y) {
+        this.x -= x;
+        this.y -= y;
     }
 
     /**
