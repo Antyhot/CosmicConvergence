@@ -11,10 +11,10 @@ import javax.swing.JPanel;
  */
 public class GameManager extends JPanel implements Runnable {
     // SCREEN SETTINGS
-    final int screenWidth = 800;
-    final int screenHeight = 600;
+    static final int SCREEN_WIDTH = 800;
+    static final int SCREEN_HEIGHT = 600;
 
-    final int FPS = 60;
+    static final int FPS = 60;
 
     public ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 
@@ -25,7 +25,7 @@ public class GameManager extends JPanel implements Runnable {
      * Constructor for the GameManager class.
      */
     public GameManager() {
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
 
@@ -46,6 +46,9 @@ public class GameManager extends JPanel implements Runnable {
      */
     public void init() {
         Player player = new Player(inputHandler);
+        Camera camera = new Camera(player);
+
+        // this.gameObjects.add(camera);
         this.gameObjects.add(player);
         
         for (GameObject object : this.gameObjects) {
@@ -57,7 +60,7 @@ public class GameManager extends JPanel implements Runnable {
     public void run() {
         this.init();
 
-        double drawInterval = 1e9 / this.FPS;
+        double drawInterval = 1e9 / FPS;
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
@@ -104,7 +107,8 @@ public class GameManager extends JPanel implements Runnable {
         Graphics2D g2d = (Graphics2D) g;
         for (GameObject object : this.gameObjects) {
             object.draw(g2d);
-            g2d.dispose();
         }
+
+        g2d.dispose();
     }
 }

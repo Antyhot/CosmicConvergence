@@ -38,10 +38,13 @@ public class Vector2D {
      * Adds the given Vector2D to this Vector2D.
      * 
      * @param v Vector2D to add
+     * @return v resulting arrow
      */
-    public void add(Vector2D v) {
+    public Vector2D add(Vector2D v) {
         this.x += v.x;
         this.y += v.y;
+
+        return this;
     }
 
     /**
@@ -50,9 +53,11 @@ public class Vector2D {
      * @param x x-coordinate to add
      * @param y y-coordinate to add
      */
-    public void add(double x, double y) {
+    public Vector2D add(double x, double y) {
         this.x += x;
         this.y += y;
+
+        return this;
     }
 
     /**
@@ -60,9 +65,11 @@ public class Vector2D {
      * 
      * @param v Vector2D to subtract
      */
-    public void subtract(Vector2D v) {
+    public Vector2D subtract(Vector2D v) {
         this.x -= v.x;
         this.y -= v.y;
+
+        return this;
     }
 
     /**
@@ -71,9 +78,11 @@ public class Vector2D {
      * @param x x-coordinate to subtract
      * @param y y-coordinate to subtract
      */
-    public void subtract(double x, double y) {
+    public Vector2D subtract(double x, double y) {
         this.x -= x;
         this.y -= y;
+
+        return this;
     }
 
     /**
@@ -81,9 +90,11 @@ public class Vector2D {
      * 
      * @param scalar scalar to multiply by
      */
-    public void multiply(double scalar) {
+    public Vector2D multiply(double scalar) {
         this.x *= scalar;
         this.y *= scalar;
+
+        return this;
     }
 
     /**
@@ -91,9 +102,11 @@ public class Vector2D {
      * 
      * @param scalar scalar to divide by
      */
-    public void divide(double scalar) {
+    public Vector2D divide(double scalar) {
         this.x /= scalar;
         this.y /= scalar;
+
+        return this;
     }
 
     /**
@@ -108,11 +121,13 @@ public class Vector2D {
     /**
      * Normalizes this Vector2D.
      */
-    public void normalize() {
+    public Vector2D normalize() {
         double magnitude = this.magnitude();
         if (magnitude != 0) {
             this.divide(magnitude);
         }
+
+        return this;
     }
 
     /**
@@ -120,11 +135,13 @@ public class Vector2D {
      * 
      * @param max maximum magnitude
      */
-    public void limit(double max) {
+    public Vector2D limit(double max) {
         if (this.magnitude() > max) {
             this.normalize();
             this.multiply(max);
         }
+
+        return this;
     }
 
     /**
@@ -152,9 +169,11 @@ public class Vector2D {
      * 
      * @param magnitude magnitude to set
      */
-    public void setMagnitude(double magnitude) {
+    public Vector2D setMagnitude(double magnitude) {
         this.normalize();
         this.multiply(magnitude);
+
+        return this;
     }
 
     /**
@@ -162,10 +181,12 @@ public class Vector2D {
      * 
      * @param direction direction to set in radians
      */
-    public void setDirection(double direction) {
+    public Vector2D setDirection(double direction) {
         double magnitude = this.magnitude();
         this.x = Math.cos(direction) * magnitude;
         this.y = Math.sin(direction) * magnitude;
+
+        return this;
     }
 
     /**
@@ -173,10 +194,12 @@ public class Vector2D {
      * 
      * @param v Vector2D to set direction to
      */
-    public void setDirection(Vector2D v) {
+    public Vector2D setDirection(Vector2D v) {
         double magnitude = this.magnitude();
         this.x = v.x / magnitude;
         this.y = v.y / magnitude;
+
+        return this;
     }
 
     /**
@@ -185,10 +208,12 @@ public class Vector2D {
      * @param x x-coordinate to set direction to
      * @param y y-coordinate to set direction to
      */
-    public void setDirection(double x, double y) {
+    public Vector2D setDirection(double x, double y) {
         double magnitude = this.magnitude();
         this.x = x / magnitude;
         this.y = y / magnitude;
+
+        return this;
     }
 
     /**
@@ -197,9 +222,11 @@ public class Vector2D {
      * @param x x-coordinate to set
      * @param y y-coordinate to set
      */
-    public void set(double x, double y) {
+    public Vector2D set(double x, double y) {
         this.x = x;
         this.y = y;
+
+        return this;
     }
 
     /**
@@ -207,9 +234,11 @@ public class Vector2D {
      * 
      * @param v Vector2D to set
      */
-    public void set(Vector2D v) {
+    public Vector2D set(Vector2D v) {
         this.x = v.x;
         this.y = v.y;
+
+        return this;
     }
 
     /**

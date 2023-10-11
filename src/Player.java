@@ -1,14 +1,12 @@
-import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 /**
  * Player class for the game.
  */
-public class Player extends PhysicsObject {
+public class Player extends GameObject {
     InputHandler inputHandler;
-    final double maxSpeed = 5;
-    final double maxForce = 2;
-    final double radius = 10;
+    public ArrayList<Blob> blobs = new ArrayList<Blob>();
 
     /**
      * Constructor for the Player class.
@@ -20,33 +18,59 @@ public class Player extends PhysicsObject {
         this.inputHandler = inputHandler;
     }
 
+    /**
+     * Calculates an average position of all blobs.
+     * 
+     * @return center of all blobs.
+     */
+    public Vector2D calcAverageCenter() {
+        Vector2D center = new Vector2D();
+
+        for (Blob blob: this.blobs) {
+            center.add(blob.position);
+        }
+
+        center.divide(this.blobs.size());
+
+        return center;
+    }
+
+    /**
+     * Calculates total size of all blobs.
+     * 
+     * @return total size.
+     */
+    public double calcTotalSize() {
+        double totalSize = 0;
+
+        for (Blob blob: this.blobs) {
+            totalSize += blob.getSize();
+        }
+
+        return totalSize;
+    }
+
     @Override
     public void init() {
-        super.init();
-
-        this.position.set(100, 100);
+        this.blobs.add(new Blob(this));
+        this.blobs.add(new Blob(this));
+        
+        for (Blob blob: this.blobs) {
+            blob.init();
+        }
     }
 
     @Override
     public void update() {
-        Vector2D force = this.inputHandler.getMousePosition();
-        force.subtract(this.position);
-        force.limit(maxForce);
-
-        this.acceleration.add(force);
-        this.velocity.limit(maxSpeed);
-
-        super.update();
+        for (Blob blob: this.blobs) {
+            blob.update();
+        }
     }
 
     @Override
     public void draw(Graphics2D g2d) {
-        g2d.setColor(Color.WHITE);
-        g2d.fillOval(
-            (int) (this.position.x - radius / 2),
-            (int) (this.position.y - radius / 2),
-            (int) radius,
-            (int) radius
-        );
+        for (Blob blob: this.blobs) {
+            blob.draw(g2d);
+        }
     }
 }
