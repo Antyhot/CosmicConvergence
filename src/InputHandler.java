@@ -1,6 +1,8 @@
 // Create a class InputHandler that gets position of the mouse.
 
 // Path: src/InputHandler.java
+import GameObjects.Vector2D;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;

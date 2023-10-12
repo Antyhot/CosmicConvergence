@@ -1,3 +1,6 @@
+import GameObjects.GameObject;
+import GameObjects.Vector2D;
+
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 

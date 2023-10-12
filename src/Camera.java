@@ -1,3 +1,5 @@
+import GameObjects.GameObject;
+
 import java.awt.Graphics2D;
 
 /**

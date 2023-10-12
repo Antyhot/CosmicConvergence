@@ -1,4 +1,6 @@
-import java.awt.Graphics2D;
+package GameObjects;
+
+import java.awt.*;
 
 /**
  * Arrow class for the game.

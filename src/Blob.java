@@ -1,3 +1,6 @@
+import GameObjects.Arrow;
+import GameObjects.Vector2D;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 
