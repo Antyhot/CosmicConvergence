@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 /**
@@ -5,7 +6,7 @@ import java.awt.Graphics2D;
  */
 public class Camera extends GameObject {
     Player player;
-    public double zoom = 1;
+    public double zoom = 0.75;
 
     public Camera(GameManager gameManager) {
         super(gameManager);
@@ -32,6 +33,22 @@ public class Camera extends GameObject {
     @Override
     public void draw(Graphics2D g2d) {
         g2d.scale(this.zoom, this.zoom);
+
+        g2d.setColor(Color.RED);
+        g2d.drawRect(
+            (int) (this.screenPosition.x - GameManager.SCREEN_WIDTH / 2),
+            (int) (this.screenPosition.y - GameManager.SCREEN_HEIGHT / 2),
+            (int) (GameManager.SCREEN_WIDTH),
+            (int) (GameManager.SCREEN_HEIGHT)
+        );
+
+        g2d.setColor(Color.GREEN);
+        g2d.fillOval(
+            (int) (this.screenPosition.x - 10),
+            (int) (this.screenPosition.y - 10),
+            (int) (10 * 2),
+            (int) (10 * 2)
+        );
     }
 }
 

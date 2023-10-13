@@ -14,7 +14,7 @@ public class Cell extends PhysicsObject<Cell> {
     public Cell(GameManager gameManager) {
         super(gameManager);
 
-        this.setRadius(5);
+        this.setRadius(100);
     }
 
     /**
@@ -33,9 +33,12 @@ public class Cell extends PhysicsObject<Cell> {
     public void init() {
         super.init(this);
         this.position.set(
-            Math.random() * GameManager.SCREEN_WIDTH,
-            Math.random() * GameManager.SCREEN_HEIGHT
+            // Math.random() * GameManager.SCREEN_WIDTH,
+            // Math.random() * GameManager.SCREEN_HEIGHT
+            0,
+            0
         );
+
         this.collider.radius = this.radius;
     }
 

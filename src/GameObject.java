@@ -35,11 +35,15 @@ public class GameObject {
     public void setScreenPosition() {
         this.screenPosition.set(this.position);
         this.screenPosition.subtract(this.gameManager.camera.position);
-        // make the camera the center of the screen
-        this.screenPosition.add(
-            GameManager.SCREEN_WIDTH / 2, 
+
+        Vector2D center = new Vector2D(
+            GameManager.SCREEN_WIDTH / 2,
             GameManager.SCREEN_HEIGHT / 2
         );
+
+        center.multiply(1 / this.gameManager.camera.zoom);
+
+        this.screenPosition.add(center);
     }
 
     public void init() {

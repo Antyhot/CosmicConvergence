@@ -20,7 +20,7 @@ public class GameManager extends JPanel implements Runnable {
     Camera camera = new Camera(this);
 
     Thread gameThread;
-    InputHandler inputHandler = new InputHandler();
+    InputHandler inputHandler = new InputHandler(this);
     PhysicsManager physicsManager = new PhysicsManager();
 
     /**
@@ -113,6 +113,15 @@ public class GameManager extends JPanel implements Runnable {
         for (GameObject object : this.gameObjects) {
             object.draw(g2d);
         }
+
+        // mouse position
+        g2d.setColor(Color.WHITE);
+        g2d.drawOval(
+            (int) (this.inputHandler.getMousePosition().x - 10),
+            (int) (this.inputHandler.getMousePosition().y - 10),
+            (int) (10 * 2),
+            (int) (10 * 2)
+        );
 
         g2d.dispose();
     }

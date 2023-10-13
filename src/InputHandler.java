@@ -10,9 +10,17 @@ import java.awt.event.MouseMotionListener;
  */
 public class InputHandler implements MouseListener, MouseMotionListener {
     private Vector2D mousePosition = new Vector2D(0, 0);
+    public GameManager gameManager;
+
+    /**
+     * Constructor for the InputHandler class.
+     */
+    public InputHandler(GameManager gameManager) {
+        this.gameManager = gameManager;
+    }
 
     public Vector2D getMousePosition() {
-        return this.mousePosition.copy();
+        return this.mousePosition.copy().multiply(1 / this.gameManager.camera.zoom);
     }
 
     @Override
