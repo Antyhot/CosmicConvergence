@@ -1,15 +1,16 @@
-// Create a class InputHandler that gets position of the mouse.
+package Managers;// Create a class InputHandler that gets position of the mouse.
 
 // Path: src/InputHandler.java
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+
+import GameObjects.Vector2D;
+
+import java.awt.event.*;
 
 /**
  * InputHandler class for the game.
  */
-public class InputHandler implements MouseListener, MouseMotionListener {
-    private Vector2D mousePosition = new Vector2D(0, 0);
+public class InputHandler implements MouseListener, MouseMotionListener, KeyListener {
+    private final Vector2D mousePosition = new Vector2D(0, 0);
     public GameManager gameManager;
 
     /**
@@ -25,14 +26,12 @@ public class InputHandler implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        this.mousePosition.x = e.getX();
-        this.mousePosition.y = e.getY();
+        this.mousePosition.set(e.getX(), e.getY());
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        this.mousePosition.x = e.getX();
-        this.mousePosition.y = e.getY();
+        this.mousePosition.set(e.getX(), e.getY());
     }
 
     @Override
@@ -59,4 +58,23 @@ public class InputHandler implements MouseListener, MouseMotionListener {
     public void mouseExited(MouseEvent e) {
         // Override this method
     }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        switch (e.getKeyChar()) {
+            case 'p' -> this.gameManager.togglePause();
+            case 'd' -> this.gameManager.toggleDebug();
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
+
 }

@@ -1,4 +1,4 @@
-
+package GameObjects;
 
 import java.awt.*;
 
@@ -29,10 +29,10 @@ public class Arrow {
     public void draw(Graphics2D g2d) {
         g2d.setColor(Color.BLUE);
         g2d.drawLine(
-            (int) this.from.x,
-            (int) this.from.y,
-            (int) this.to.x,
-            (int) this.to.y
+            (int) this.from.getX(),
+            (int) this.from.getY(),
+            (int) this.to.getX(),
+            (int) this.to.getY()
         );
     }
 }

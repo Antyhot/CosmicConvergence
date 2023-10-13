@@ -1,3 +1,5 @@
+import Managers.GameManager;
+
 import javax.swing.JFrame;
 
 /**

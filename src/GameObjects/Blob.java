@@ -1,11 +1,14 @@
-import java.awt.Color;
-import java.awt.Graphics2D;
+package GameObjects;
+
+import Managers.GameManager;
+
+import java.awt.*;
 
 /**
  * Blob class for the game.
  */
 public class Blob extends PhysicsObject<Blob> {
-    private Player player;
+    private final Player player;
     public double radius;
     public double maxForce = 1;
     public double maxSpeed = 1;
@@ -56,6 +59,7 @@ public class Blob extends PhysicsObject<Blob> {
 
         Vector2D force = this.player.inputHandler.getMousePosition();
         force.subtract(this.screenPosition);
+        force.multiply(.1);
         force.limit(maxForce);
 
         this.acceleration.add(force);
@@ -68,10 +72,23 @@ public class Blob extends PhysicsObject<Blob> {
 
         g2d.setColor(Color.WHITE);
         g2d.fillOval(
-            (int) (this.screenPosition.x - this.radius),
-            (int) (this.screenPosition.y - this.radius),
+            (int) (this.screenPosition.getX() - this.radius),
+            (int) (this.screenPosition.getY() - this.radius),
             (int) (this.radius * 2),
             (int) (this.radius * 2)
         );
+
+        if (gameManager.getDebug()) {
+            String format = String.format("x: %.2f, y: %.2f, force: %.2f, velocity: %.2f", this.position.getX(), this.position.getY(), this.acceleration.magnitude(), this.velocity.magnitude());
+            g2d.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+            g2d.drawString(
+                    format,
+                        //center the text above the blob by calculating the width of the text and subtracting half of it from the x position
+                    (int) (this.screenPosition.getX() - g2d.getFontMetrics().stringWidth(format) / 2),
+                    (int) (this.screenPosition.getY() - this.radius - 20));
+
+        }
     }
+
+
 }

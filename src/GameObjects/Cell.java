@@ -1,3 +1,7 @@
+package GameObjects;
+
+import Managers.GameManager;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 
@@ -51,8 +55,8 @@ public class Cell extends PhysicsObject<Cell> {
     public void draw(Graphics2D g2d) {
         g2d.setColor(Color.ORANGE);
         g2d.fillOval(
-            (int) (this.screenPosition.x - this.radius),
-            (int) (this.screenPosition.y - this.radius),
+            (int) (this.screenPosition.getX() - this.radius),
+            (int) (this.screenPosition.getY() - this.radius),
             (int) (this.radius * 2),
             (int) (this.radius * 2)
         );

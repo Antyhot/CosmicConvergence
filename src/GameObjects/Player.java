@@ -1,4 +1,9 @@
-import java.awt.Graphics2D;
+package GameObjects;
+
+import Managers.GameManager;
+import Managers.InputHandler;
+
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -6,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Player extends GameObject {
     InputHandler inputHandler;
-    public ArrayList<Blob> blobs = new ArrayList<Blob>();
+    public ArrayList<Blob> blobs = new ArrayList<>();
 
     /**
      * Constructor for the Player class.
@@ -55,14 +60,13 @@ public class Player extends GameObject {
      */
     @Override
     public void init() {
-        this.blobs.add(new Blob(this));
-        this.blobs.add(new Blob(this));
-        this.blobs.add(new Blob(this));
-        // this.blobs.add(new Blob(this));
-        // this.blobs.add(new Blob(this));
+        for (int i = 0; i < 5; i++) {
+            this.blobs.add(new Blob(this));
+        }
+
         
         for (Blob blob: this.blobs) {
-            blob.init(10);
+            blob.init(Math.random() * 10 + 10);
         }
     }
 

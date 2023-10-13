@@ -1,5 +1,8 @@
-import java.awt.Color;
-import java.awt.Graphics2D;
+package GameObjects;
+
+import Managers.GameManager;
+
+import java.awt.*;
 
 /**
  * Camera.
@@ -36,18 +39,18 @@ public class Camera extends GameObject {
 
         g2d.setColor(Color.RED);
         g2d.drawRect(
-            (int) (this.screenPosition.x - GameManager.SCREEN_WIDTH / 2),
-            (int) (this.screenPosition.y - GameManager.SCREEN_HEIGHT / 2),
-            (int) (GameManager.SCREEN_WIDTH),
-            (int) (GameManager.SCREEN_HEIGHT)
+            (int) (this.screenPosition.getX() - GameManager.SCREEN_WIDTH / 2),
+            (int) (this.screenPosition.getY() - GameManager.SCREEN_HEIGHT / 2),
+                GameManager.SCREEN_WIDTH,
+                GameManager.SCREEN_HEIGHT
         );
 
         g2d.setColor(Color.GREEN);
         g2d.fillOval(
-            (int) (this.screenPosition.x - 10),
-            (int) (this.screenPosition.y - 10),
-            (int) (10 * 2),
-            (int) (10 * 2)
+            (int) (this.screenPosition.getX() - 10),
+            (int) (this.screenPosition.getY() - 10),
+                10 * 2,
+                10 * 2
         );
     }
 }

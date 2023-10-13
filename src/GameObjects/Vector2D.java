@@ -1,11 +1,11 @@
-
+package GameObjects;
 
 /**
  * Vector2D class. Represents a 2D vector.
  */
 public class Vector2D {
-    public double x;
-    public double y;
+    private double x;
+    private double y;
 
     /**
      * Default constructor for Vector2D. Sets x and y to 0.
@@ -274,5 +274,21 @@ public class Vector2D {
      */
     public String toString() {
         return "Vector2D(" + this.x + ", " + this.y + ")";
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
     }
 }
