@@ -53,11 +53,7 @@ public class PhysicsObject<T extends GameObject> extends GameObject {
         this.collider.draw(g2d);
     }
 
-    public Vector2D getVelocity() {
-        return this.velocity;
-    }
-
-    public Vector2D getAcceleration() {
-        return this.acceleration;
+    public void onCollision(PhysicsObject<?> other) {
+        // Override this method
     }
 }

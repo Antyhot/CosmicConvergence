@@ -14,11 +14,17 @@ public class PhysicsManager {
             for (PhysicsObject<?> other : this.physicsObjects) {
                 if (object != other) {
                     if (object.collider.collidesWith(other.collider)) {
+                        object.onCollision(other);
+
                         Vector2D normal = object.collider.resolveCollision(other.collider);
                         object.position.add(normal);
+
                     }
                 }
             }
         }
+
+        // if object is inactive remve it from the list
+        this.physicsObjects.removeIf(object -> !object.isActive());
     }
 }

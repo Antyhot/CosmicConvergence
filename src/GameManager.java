@@ -48,12 +48,14 @@ public class GameManager extends JPanel implements Runnable {
      */
     public void init() {
         Player player = new Player(this, inputHandler);
-        Cell cell = new Cell(this);
 
         this.gameObjects.add(camera);
         this.gameObjects.add(player);
-        this.gameObjects.add(cell);
-        
+
+        for (int i = 0; i < 100; i++) {
+            this.gameObjects.add(new Cell(this));
+        }
+
         camera.init(player);
         for (GameObject object : this.gameObjects) {
             object.init();
@@ -98,9 +100,12 @@ public class GameManager extends JPanel implements Runnable {
      */
     public void update() {
         this.physicsManager.handleCollisions();
+
         for (GameObject object : this.gameObjects) {
             object.update();
         }
+
+        this.gameObjects.removeIf(object -> !object.isActive());
     }
 
     /**

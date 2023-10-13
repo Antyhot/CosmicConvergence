@@ -44,7 +44,7 @@ public class Player extends GameObject {
         double totalSize = 0;
 
         for (Blob blob: this.blobs) {
-            totalSize += blob.getSize();
+            totalSize += Math.sqrt(blob.getSize());
         }
 
         return totalSize;
@@ -58,11 +58,11 @@ public class Player extends GameObject {
         this.blobs.add(new Blob(this));
         this.blobs.add(new Blob(this));
         this.blobs.add(new Blob(this));
-        // this.blobs.add(new Blob(this));
-        // this.blobs.add(new Blob(this));
+        this.blobs.add(new Blob(this));
+        this.blobs.add(new Blob(this));
         
         for (Blob blob: this.blobs) {
-            blob.init(10);
+            blob.init();
         }
     }
 

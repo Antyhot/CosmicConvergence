@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
  */
 public class Camera extends GameObject {
     Player player;
-    public double zoom = 0.75;
+    public double zoom = 1;
 
     public Camera(GameManager gameManager) {
         super(gameManager);
@@ -26,8 +26,10 @@ public class Camera extends GameObject {
 
         this.position.set(this.player.calcAverageCenter());
 
-        // double totalSize = this.player.calcTotalSize();
-        // this.zoom = 1 / (Math.sqrt(totalSize) / Math.log(totalSize));
+        double totalSize = this.player.calcTotalSize();
+        double dzoom = 1 / (Math.sqrt(totalSize) / Math.log(totalSize)); 
+        
+        // this.zoom += (dzoom - this.zoom) * 0.1;
     }
 
     @Override

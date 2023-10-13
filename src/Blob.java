@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
  */
 public class Blob extends PhysicsObject<Blob> {
     private Player player;
-    public double radius;
+    public double size = 50;
     public double maxForce = 1;
     public double maxSpeed = 1;
     
@@ -19,35 +19,27 @@ public class Blob extends PhysicsObject<Blob> {
     }
 
     /**
-     * Sets the radius of the blob.
-     * 
-     * @param radius The radius of the blob.
-     */
-    public void setRadius(double radius) {
-        this.radius = radius;
-        this.collider.radius = radius;
-    }
-
-    /**
      * Calculates the size of the blob.
      * 
      * @return size of the blob.
      */
     public double getSize() {
-        return Math.sqrt(this.radius * 100);
+        return this.size;
+    }
+
+    public double getRadius() {
+        return Math.sqrt(this.size / Math.PI);
     }
 
     /**
      * Initializes the blob.
      */
-    public void init(double radius) {
+    public void init() {
         super.init(this);
         this.position.set(
             Math.random() * GameManager.SCREEN_WIDTH,
             Math.random() * GameManager.SCREEN_HEIGHT
         );
-    
-        this.setRadius(radius);
     }
 
     @Override
@@ -60,18 +52,30 @@ public class Blob extends PhysicsObject<Blob> {
 
         this.acceleration.add(force);
         this.velocity.limit(maxSpeed);
+
+        this.collider.radius = this.getRadius();
     }
 
     @Override
     public void draw(Graphics2D g2d) {
         super.draw(g2d);
 
+        double radius = this.getRadius();
         g2d.setColor(Color.WHITE);
         g2d.fillOval(
-            (int) (this.screenPosition.x - this.radius),
-            (int) (this.screenPosition.y - this.radius),
-            (int) (this.radius * 2),
-            (int) (this.radius * 2)
+            (int) (this.screenPosition.x - radius),
+            (int) (this.screenPosition.y - radius),
+            (int) (radius * 2),
+            (int) (radius * 2)
         );
+    }
+
+    @Override
+    public void onCollision(PhysicsObject<?> other) {
+        if (other instanceof Cell) {
+            Cell cell = (Cell) other;
+            this.size += cell.size;
+            cell.markObjectForRemoval();
+        }
     }
 }
