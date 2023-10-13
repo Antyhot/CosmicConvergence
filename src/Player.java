@@ -1,6 +1,3 @@
-import GameObjects.GameObject;
-import GameObjects.Vector2D;
-
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
@@ -16,8 +13,8 @@ public class Player extends GameObject {
      * 
      * @param inputHandler The input handler for the game.
      */
-    public Player(InputHandler inputHandler) {
-        super();
+    public Player(GameManager gameManager, InputHandler inputHandler) {
+        super(gameManager);
         this.inputHandler = inputHandler;
     }
 
@@ -53,13 +50,19 @@ public class Player extends GameObject {
         return totalSize;
     }
 
+    /**
+     * Init method for the Player class.
+     */
     @Override
     public void init() {
         this.blobs.add(new Blob(this));
         this.blobs.add(new Blob(this));
+        this.blobs.add(new Blob(this));
+        // this.blobs.add(new Blob(this));
+        // this.blobs.add(new Blob(this));
         
         for (Blob blob: this.blobs) {
-            blob.init();
+            blob.init(10);
         }
     }
 

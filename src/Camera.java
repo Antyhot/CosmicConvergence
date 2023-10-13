@@ -1,5 +1,3 @@
-import GameObjects.GameObject;
-
 import java.awt.Graphics2D;
 
 /**
@@ -9,21 +7,24 @@ public class Camera extends GameObject {
     Player player;
     public double zoom = 1;
 
-    /**
-     * Constructor for the Camera class.
-     * 
-     * @param player The player object.
-     */
-    public Camera(Player player) {
-        super();
-
-        this.player = player;
-    }   
+    public Camera(GameManager gameManager) {
+        super(gameManager);
+    }
     
+    /**
+     * Init method for the Camera class.
+     */
+    public void init(Player player) {
+        super.init();
+        this.player = player;
+    }
+
     @Override
     public void update() {
+        super.update();
+
         this.position.set(this.player.calcAverageCenter());
-        
+
         // double totalSize = this.player.calcTotalSize();
         // this.zoom = 1 / (Math.sqrt(totalSize) / Math.log(totalSize));
     }
@@ -31,10 +32,6 @@ public class Camera extends GameObject {
     @Override
     public void draw(Graphics2D g2d) {
         g2d.scale(this.zoom, this.zoom);
-        g2d.translate(
-            -this.position.x + GameManager.SCREEN_WIDTH / 2, 
-            -this.position.y + GameManager.SCREEN_HEIGHT / 2
-        );
     }
 }
 

@@ -1,4 +1,4 @@
-package GameObjects;
+
 
 /**
  * Vector2D class. Represents a 2D vector.
@@ -241,6 +241,21 @@ public class Vector2D {
         this.y = v.y;
 
         return this;
+    }
+
+    /**
+     * Returns a Vector2D representing the normal of this Vector2D and the given
+     * Vector2D.
+     * 
+     * @param v Vector2D to find normal with
+     * @return Vector2D representing the normal of this Vector2D and the given
+     *         Vector2D
+     */
+    public Vector2D getNormal(Vector2D v) {
+        return new Vector2D(
+            this.y - v.y,
+            v.x - this.x
+        );
     }
 
     /**

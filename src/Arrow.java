@@ -1,11 +1,11 @@
-package GameObjects;
+
 
 import java.awt.*;
 
 /**
  * Arrow class for the game.
  */
-public class Arrow extends GameObject {
+public class Arrow {
     public Vector2D from = new Vector2D();
     public Vector2D to = new Vector2D();
 
@@ -17,13 +17,17 @@ public class Arrow extends GameObject {
      * @param length The length of the arrow.
      */
     public Arrow(Vector2D position, Vector2D v, double length) {
-        super();
         this.from.set(position);
         this.to.set(position.add(v.setMagnitude(length)));
     }
 
-    @Override
+    /**
+     * Draws the arrow.
+     * 
+     * @param g2d The graphics object.
+     */
     public void draw(Graphics2D g2d) {
+        g2d.setColor(Color.BLUE);
         g2d.drawLine(
             (int) this.from.x,
             (int) this.from.y,

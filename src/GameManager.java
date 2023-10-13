@@ -1,5 +1,3 @@
-import GameObjects.GameObject;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -19,9 +17,11 @@ public class GameManager extends JPanel implements Runnable {
     static final int FPS = 60;
 
     public ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
+    Camera camera = new Camera(this);
 
     Thread gameThread;
     InputHandler inputHandler = new InputHandler();
+    PhysicsManager physicsManager = new PhysicsManager();
 
     /**
      * Constructor for the GameManager class.
@@ -47,12 +47,14 @@ public class GameManager extends JPanel implements Runnable {
      * Initializes the game.
      */
     public void init() {
-        Player player = new Player(inputHandler);
-        Camera camera = new Camera(player);
+        Player player = new Player(this, inputHandler);
+        Cell cell = new Cell(this);
 
-        // this.gameObjects.add(camera);
+        this.gameObjects.add(camera);
         this.gameObjects.add(player);
+        this.gameObjects.add(cell);
         
+        camera.init(player);
         for (GameObject object : this.gameObjects) {
             object.init();
         }
@@ -95,6 +97,7 @@ public class GameManager extends JPanel implements Runnable {
      * Updates the game.
      */
     public void update() {
+        this.physicsManager.handleCollisions();
         for (GameObject object : this.gameObjects) {
             object.update();
         }
