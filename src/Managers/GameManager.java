@@ -1,13 +1,10 @@
 package Managers;
 
-import GameObjects.Camera;
-import GameObjects.GameObject;
-import GameObjects.Player;
-import GameObjects.Cell;
-import GameObjects.DebugWindow;
+import GameObjects.*;
+
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import javax.swing.*;
 
 /**
  * GameManager class for the game.
@@ -27,6 +24,8 @@ public class GameManager extends JPanel implements Runnable {
     static final int FPS = 60;
 
     public ArrayList<GameObject> gameObjects = new ArrayList<>();
+    ArrayList<GameObject> pendingGameObjects = new ArrayList<>();
+
     Camera camera = new Camera(this);
     DebugWindow debugWindow = new DebugWindow(this);
 
@@ -64,13 +63,14 @@ public class GameManager extends JPanel implements Runnable {
      */
     public void init() {
         Player player = new Player(this, inputHandler);
-        DebugWindow debugWindow = new DebugWindow(this);
+        this.debugWindow = new DebugWindow(this);
 
         this.gameObjects.add(camera);
         this.gameObjects.add(player);
+        camera.init(player);
 
         for (int i = 0; i < 100; i++) {
-            this.gameObjects.add(new Cell(this));
+            this.gameObjects.add(new Cell(this, Math.random() * 50 + 10));
         }
 
         this.gameObjects.add(debugWindow);
@@ -101,8 +101,8 @@ public class GameManager extends JPanel implements Runnable {
             if (delta >= 1) {
 
                 if (!PAUSED) {
-                    this.update();
-                    this.repaint();
+                        this.update();
+                        this.repaint();
                 }
                 delta--;
                 drawCount++;
@@ -112,7 +112,12 @@ public class GameManager extends JPanel implements Runnable {
                 System.out.println("FPS: " + drawCount);
                 drawCount = 0;
                 timer = 0;
+
+                for (int i = 0; i < 5; i++) {
+                    this.pendingGameObjects.add(new Cell(this, Math.random() * 50 + 10));
+                }
             }
+
         }
     }
 
@@ -121,13 +126,17 @@ public class GameManager extends JPanel implements Runnable {
      */
     public void update() {
 
-        System.out.println("Updating");
         this.physicsManager.handleCollisions();
-        for (GameObject object : this.gameObjects) {
-            object.update();
+        for (GameObject gameObject : this.gameObjects) {
+            gameObject.update();
         }
+        this.gameObjects.addAll(this.pendingGameObjects);
+        this.pendingGameObjects.clear();
 
         this.gameObjects.removeIf(object -> !object.isActive());
+
+        long cellCount = this.gameObjects.stream().filter(object -> object instanceof Cell).count();
+        System.out.println("cellCount = " + cellCount);
     }
 
     /**
@@ -137,7 +146,8 @@ public class GameManager extends JPanel implements Runnable {
         super.paintComponent(g);
 
         Graphics2D g2d = (Graphics2D) g;
-        for (GameObject object : this.gameObjects) {
+        ArrayList<GameObject> gameObjectsCopy = new ArrayList<>(this.gameObjects);
+        for (GameObject object : gameObjectsCopy) {
             object.draw(g2d);
         }
 

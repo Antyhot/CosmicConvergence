@@ -19,6 +19,7 @@ public class PhysicsObject<T extends GameObject> extends GameObject {
         this.velocity = new Vector2D();
         this.acceleration = new Vector2D();
         this.collider = new CircleCollider<>(gameManager);
+
     }
 
     /**

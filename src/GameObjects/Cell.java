@@ -1,21 +1,24 @@
 package GameObjects;
 
 import Managers.GameManager;
-import java.awt.Color;
-import java.awt.Graphics2D;
+
+import java.awt.*;
 
 /**
  * Cell class.
  */
 public class Cell extends PhysicsObject<Cell> {
-    public double size = 5;
+    public double size;
 
     /**
      * Constructor for the Cell class.
      * 
      */
-    public Cell(GameManager gameManager) {
+    public Cell(GameManager gameManager, double size) {
         super(gameManager);
+        this.size = size;
+        this.init();
+
     }
 
     /**
@@ -23,11 +26,16 @@ public class Cell extends PhysicsObject<Cell> {
      */
     public void init() {
         super.init(this);
-        // this.position.set(0, 0);
+
+        //TODO: calculate the bounds where the cells cans spawn using the camera.visibleArea values
+
         this.position.set(
-            Math.random() * GameManager.SCREEN_WIDTH,
-            Math.random() * GameManager.SCREEN_HEIGHT
+                Math.random() * GameManager.SCREEN_WIDTH,
+                Math.random() * GameManager.SCREEN_HEIGHT
         );
+
+        this.collider.setRadius(this.getRadius() * 3);
+
     }
 
     public double getRadius() {
@@ -38,7 +46,6 @@ public class Cell extends PhysicsObject<Cell> {
     public void update() {
         super.update();
 
-        this.collider.radius = this.getRadius();
     }
 
     @Override

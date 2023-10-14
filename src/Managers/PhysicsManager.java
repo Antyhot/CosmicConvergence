@@ -19,10 +19,14 @@ public class PhysicsManager {
                 if (object != other) {
                     if (object.getCollider().collidesWith(other.getCollider())) {
                         object.onCollision(other);
-        
+
+                        if (object.isActive() && other.isActive()) {
+
+
                         Vector2D normal = object.getCollider()
                             .resolveCollision(other.getCollider());
                         object.position.add(normal);
+                        }
                     }
                 }
             }

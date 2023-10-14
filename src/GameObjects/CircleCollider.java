@@ -1,14 +1,14 @@
 package GameObjects;
 
 import Managers.GameManager;
-import java.awt.Color;
-import java.awt.Graphics2D;
+
+import java.awt.*;
 
 /**
  * CircleCollider class.
  */
 public class CircleCollider<T extends GameObject>
-    extends GameObject implements Collider<CircleCollider<?>> {
+        extends GameObject implements Collider<CircleCollider<?>> {
 
     public double radius;
     public T parent;
@@ -20,7 +20,7 @@ public class CircleCollider<T extends GameObject>
 
     /**
      * Init method for the CircleCollider class.
-     * 
+     *
      * @param parent The parent object.
      */
     public void init(T parent) {
@@ -39,17 +39,17 @@ public class CircleCollider<T extends GameObject>
 
         g2d.setColor(Color.RED);
         g2d.drawOval(
-            (int) (this.parent.screenPosition.getX() - this.radius),
-            (int) (this.parent.screenPosition.getY() - this.radius),
-            (int) (this.radius * 2),
-            (int) (this.radius * 2)
+                (int) (this.parent.screenPosition.getX() - this.radius),
+                (int) (this.parent.screenPosition.getY() - this.radius),
+                (int) (this.radius * 2),
+                (int) (this.radius * 2)
         );
     }
 
     @Override
     public boolean collidesWith(CircleCollider<?> other) {
         return this.parent.position.distance(
-            other.parent.position
+                other.parent.position
         ) < this.radius + other.radius;
     }
 
@@ -60,9 +60,25 @@ public class CircleCollider<T extends GameObject>
         double distance = this.parent.position.distance(other.parent.position);
 
         double overlap = this.radius + other.radius - distance;
-    
+
         push.setMagnitude(overlap);
 
         return push;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
+    public T getParent() {
+        return parent;
+    }
+
+    public void setParent(T parent) {
+        this.parent = parent;
     }
 }

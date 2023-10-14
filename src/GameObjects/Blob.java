@@ -9,7 +9,7 @@ import java.awt.Graphics2D;
  * Blob class for the game.
  */
 public class Blob extends PhysicsObject<Blob> {
-    private Player player;
+    private final Player player;
     public double size = 50;
     public double maxForce = 1;
     public double maxSpeed = 1;
@@ -20,6 +20,8 @@ public class Blob extends PhysicsObject<Blob> {
     public Blob(Player player) {
         super(player.gameManager);
         this.player = player;
+
+        this.init();
     }
 
     /**
@@ -75,11 +77,10 @@ public class Blob extends PhysicsObject<Blob> {
 
         if (gameManager.getDebug()) {
             String format = String.format(
-                "x: %.2f, y: %.2f, force: %.2f, velocity: %.2f",
-                this.position.getX(), this.position.getY(), 
-                this.acceleration.magnitude(), this.velocity.magnitude()
+                "x: %.2f, y: %.2f, size: %.2f",
+                this.position.getX(), this.position.getY(),this.size
             );
-            g2d.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+            g2d.setFont(new Font("Comic Sans MS", Font.PLAIN, 10));
             g2d.drawString(
                     format,
                     (int) (this.screenPosition.getX() - g2d.getFontMetrics().stringWidth(format) / 2),
@@ -90,8 +91,7 @@ public class Blob extends PhysicsObject<Blob> {
 
     @Override
     public void onCollision(PhysicsObject<?> other) {
-        if (other instanceof Cell) {
-            Cell cell = (Cell) other;
+        if (other instanceof Cell cell) {
             this.size += cell.size;
             cell.markObjectForRemoval();
         }

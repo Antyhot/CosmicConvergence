@@ -7,24 +7,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e423cf3c-fa20-45ec-9d64-558b2a569261" name="Changes" comment="Refactor project structure and implement new features&#10;&#10;Restructured the project to provide better organization when adding more files, improving the code readability. This involves changes in the main 'src' folder, and also another created subfolder named 'Managers'. Java files are relocated under these folders according to their roles. Updated several classes, notably 'GameManager' and 'InputHandler', with new methods and modifications that fit the new structure and improved existing functionalities. Also, incorporate handling for debug mode and pause functionality. Furthermore, created a new class 'DebugWindow' for managing debug actions and display information.">
-      <change afterPath="$PROJECT_DIR$/src/GameObjects/Asteroid.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GameObjects/DebugWindow.java" afterDir="false" />
+    <list default="true" id="e423cf3c-fa20-45ec-9d64-558b2a569261" name="Changes" comment="Cells spawn every second with variable sizes, WIP: spawn cells in and around the visible area">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Arrow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Arrow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Blob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Blob.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Camera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Cell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CircleCollider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/CircleCollider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Collider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Collider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/GameManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/GameObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/InputHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PhysicsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/PhysicsManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PhysicsObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/PhysicsObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vector2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Vector2D.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameObjects/Blob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Blob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameObjects/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameObjects/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Cell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameObjects/CircleCollider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/CircleCollider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameObjects/DebugWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/DebugWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameObjects/PhysicsObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/PhysicsObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameObjects/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Managers/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/GameManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Managers/PhysicsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/PhysicsManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +38,11 @@
     <option name="NEW_BASE" value="origin/main" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -79,7 +77,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
+    "extract.method.default.visibility": "private",
+    "git-widget-placeholder": "temp",
     "last_opened_file_path": "/Users/antoniguss/Documents/Programing/CosmicConvergance/CosmicConvergence",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -131,6 +130,7 @@
       <workItem from="1697102724866" duration="276000" />
       <workItem from="1697103061983" duration="4682000" />
       <workItem from="1697224051213" duration="6194000" />
+      <workItem from="1697288181673" duration="2787000" />
     </task>
     <task id="LOCAL-00001" summary="Initial push">
       <option name="closed" value="true" />
@@ -180,6 +180,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial push" />
     <MESSAGE value="Refactor project structure and implement new features&#10;&#10;Restructured the project to provide better organization when adding more files, improving the code readability. This involves changes in the main 'src' folder, and also another created subfolder named 'Managers'. Java files are relocated under these folders according to their roles. Updated several classes, notably 'GameManager' and 'InputHandler', with new methods and modifications that fit the new structure and improved existing functionalities. Also, incorporate handling for debug mode and pause functionality. Furthermore, created a new class 'DebugWindow' for managing debug actions and display information." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor project structure and implement new features&#10;&#10;Restructured the project to provide better organization when adding more files, improving the code readability. This involves changes in the main 'src' folder, and also another created subfolder named 'Managers'. Java files are relocated under these folders according to their roles. Updated several classes, notably 'GameManager' and 'InputHandler', with new methods and modifications that fit the new structure and improved existing functionalities. Also, incorporate handling for debug mode and pause functionality. Furthermore, created a new class 'DebugWindow' for managing debug actions and display information." />
+    <MESSAGE value="Refactor project structure, add features&#10;&#10;Restructure the project for better code navigation. Split classes into two folders: 'Managers' and 'GameObjects' to reflect their roles. Update classes with methods for new features like debug mode and pause function. Introduce 'DebugWindow' class for managing debug actions and display information. Some classes were updated to enhance encapsulation and some changes made in member fields to adjust scope. DebugWindow.java and Asteroid.java file were newly created, and several other classes like Player.java, Blob.java and InputHandler.java among others were modified." />
+    <MESSAGE value="Cells spawn every second with variable sizes, WIP: spawn cells in and around the visible area" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cells spawn every second with variable sizes, WIP: spawn cells in and around the visible area" />
   </component>
 </project>

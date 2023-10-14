@@ -22,7 +22,13 @@ public class DebugWindow extends GameObject {
             g2d.setColor(Color.WHITE);
             //draw text of size 15
             g2d.setFont(new Font("TimesRoman", Font.PLAIN, 30));
-            g2d.drawString("FPS: " + gameManager.drawCount, 10, 35);
+
+            String formatted = "FPS: %d, Zoom: %.2f, Left Corner: (%.2f, %.2f)"
+                    .formatted(
+                            gameManager.drawCount,
+                            gameManager.getCamera().zoom,
+                            gameManager.getCamera().visibleArea[0].getX(), gameManager.getCamera().visibleArea[0].getY());
+            g2d.drawString(formatted, 10, 35);
         }
 
 
