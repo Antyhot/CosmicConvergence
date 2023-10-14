@@ -1,3 +1,7 @@
+package GameObjects;
+
+import Managers.GameManager;
+
 import java.awt.Graphics2D;
 
 /**
@@ -34,14 +38,14 @@ public class GameObject {
      */
     public void setScreenPosition() {
         this.screenPosition.set(this.position);
-        this.screenPosition.subtract(this.gameManager.camera.position);
+        this.screenPosition.subtract(this.gameManager.getCamera().position);
 
         Vector2D center = new Vector2D(
-            GameManager.SCREEN_WIDTH / 2,
-            GameManager.SCREEN_HEIGHT / 2
+            (double) GameManager.SCREEN_WIDTH / 2,
+            (double) GameManager.SCREEN_HEIGHT / 2
         );
 
-        center.multiply(1 / this.gameManager.camera.zoom);
+        center.multiply(1 / this.gameManager.getCamera().zoom);
 
         this.screenPosition.add(center);
     }
@@ -61,4 +65,46 @@ public class GameObject {
     public void draw(Graphics2D g2d) {
         // Override this method
     }
+
+    public Vector2D getScreenPosition() {
+        return screenPosition;
+    }
+
+    public void setScreenPosition(Vector2D screenPosition) {
+        this.screenPosition = screenPosition;
+    }
+
+    public Vector2D getOldPosition() {
+        return oldPosition;
+    }
+
+    public void setOldPosition(Vector2D oldPosition) {
+        this.oldPosition = oldPosition;
+    }
+
+    public Vector2D getPosition() {
+        return position;
+    }
+
+    public void setPosition(Vector2D position) {
+        this.position = position;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public GameManager getGameManager() {
+        return gameManager;
+    }
+
+    public void setGameManager(GameManager gameManager) {
+        this.gameManager = gameManager;
+    }
+
+
 }

@@ -1,12 +1,16 @@
-import java.awt.Graphics2D;
+package GameObjects;
+
+import Managers.GameManager;
+
+import java.awt.*;
 
 /**
  * PhysicsObject class.
  */
 public class PhysicsObject<T extends GameObject> extends GameObject {
-    public Vector2D velocity;
-    public Vector2D acceleration;
-    public CircleCollider<T> collider;
+    protected Vector2D velocity;
+    protected Vector2D acceleration;
+    protected CircleCollider<T> collider;
 
     /**
      * Constructor for the PhysicsObject class.
@@ -15,7 +19,7 @@ public class PhysicsObject<T extends GameObject> extends GameObject {
         super(gameManager);
         this.velocity = new Vector2D();
         this.acceleration = new Vector2D();
-        this.collider = new CircleCollider<T>(gameManager);
+        this.collider = new CircleCollider<>(gameManager);
     }
 
     /**
@@ -26,7 +30,7 @@ public class PhysicsObject<T extends GameObject> extends GameObject {
     public void init(T parent) {
         super.init();
         this.collider.init(parent);
-        gameManager.physicsManager.physicsObjects.add(this);
+        gameManager.getPhysicsManager().physicsObjects.add(this);
     }
 
     @Override
@@ -55,5 +59,21 @@ public class PhysicsObject<T extends GameObject> extends GameObject {
 
     public void onCollision(PhysicsObject<?> other) {
         // Override this method
+    }
+
+    public void setVelocity(Vector2D velocity) {
+        this.velocity = velocity;
+    }
+
+    public void setAcceleration(Vector2D acceleration) {
+        this.acceleration = acceleration;
+    }
+
+    public CircleCollider<T> getCollider() {
+        return collider;
+    }
+
+    public void setCollider(CircleCollider<T> collider) {
+        this.collider = collider;
     }
 }

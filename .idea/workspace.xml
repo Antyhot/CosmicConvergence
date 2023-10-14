@@ -1,37 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="ANALYZE_INJECTED_CODE" value="false" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e423cf3c-fa20-45ec-9d64-558b2a569261" name="Changes" comment="Initial push">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="e423cf3c-fa20-45ec-9d64-558b2a569261" name="Changes" comment="Refactor project structure and implement new features&#10;&#10;Restructured the project to provide better organization when adding more files, improving the code readability. This involves changes in the main 'src' folder, and also another created subfolder named 'Managers'. Java files are relocated under these folders according to their roles. Updated several classes, notably 'GameManager' and 'InputHandler', with new methods and modifications that fit the new structure and improved existing functionalities. Also, incorporate handling for debug mode and pause functionality. Furthermore, created a new class 'DebugWindow' for managing debug actions and display information.">
+      <change afterPath="$PROJECT_DIR$/src/GameObjects/Asteroid.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GameObjects/DebugWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CosmicConvergence.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CosmicConvergence.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Arrow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Arrow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Blob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Blob.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Camera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameObject.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Blob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Blob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Cell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CircleCollider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/CircleCollider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Collider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Collider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/GameManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/GameObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/InputHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/InputHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PhysicsObject.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PhysicsObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhysicsObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Player.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vector2D.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/InputHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PhysicsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/PhysicsManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PhysicsObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/PhysicsObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Vector2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Vector2D.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -87,11 +88,14 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="" />
       <recent name="Coliders" />
     </key>
   </component>
@@ -126,6 +130,7 @@
       <workItem from="1697101640313" duration="1063000" />
       <workItem from="1697102724866" duration="276000" />
       <workItem from="1697103061983" duration="4682000" />
+      <workItem from="1697224051213" duration="6194000" />
     </task>
     <task id="LOCAL-00001" summary="Initial push">
       <option name="closed" value="true" />
@@ -174,6 +179,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial push" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial push" />
+    <MESSAGE value="Refactor project structure and implement new features&#10;&#10;Restructured the project to provide better organization when adding more files, improving the code readability. This involves changes in the main 'src' folder, and also another created subfolder named 'Managers'. Java files are relocated under these folders according to their roles. Updated several classes, notably 'GameManager' and 'InputHandler', with new methods and modifications that fit the new structure and improved existing functionalities. Also, incorporate handling for debug mode and pause functionality. Furthermore, created a new class 'DebugWindow' for managing debug actions and display information." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor project structure and implement new features&#10;&#10;Restructured the project to provide better organization when adding more files, improving the code readability. This involves changes in the main 'src' folder, and also another created subfolder named 'Managers'. Java files are relocated under these folders according to their roles. Updated several classes, notably 'GameManager' and 'InputHandler', with new methods and modifications that fit the new structure and improved existing functionalities. Also, incorporate handling for debug mode and pause functionality. Furthermore, created a new class 'DebugWindow' for managing debug actions and display information." />
   </component>
 </project>

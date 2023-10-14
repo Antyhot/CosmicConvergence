@@ -1,10 +1,14 @@
+package GameObjects;
+
+import Managers.GameManager;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 
 /**
  * CircleCollider class.
  */
-public class CircleCollider<T extends GameObject> 
+public class CircleCollider<T extends GameObject>
     extends GameObject implements Collider<CircleCollider<?>> {
 
     public double radius;
@@ -36,8 +40,8 @@ public class CircleCollider<T extends GameObject>
 
         g2d.setColor(Color.RED);
         g2d.drawOval(
-            (int) (this.parent.screenPosition.x - this.radius),
-            (int) (this.parent.screenPosition.y - this.radius),
+            (int) (this.parent.screenPosition.getX() - this.radius),
+            (int) (this.parent.screenPosition.getY() - this.radius),
             (int) (this.radius * 2),
             (int) (this.radius * 2)
         );
