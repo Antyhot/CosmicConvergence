@@ -56,11 +56,7 @@ public class Player extends GameObject {
     @Override
     public void init() {
         this.blobs.add(new Blob(this));
-        this.blobs.add(new Blob(this));
-        this.blobs.add(new Blob(this));
-        this.blobs.add(new Blob(this));
-        this.blobs.add(new Blob(this));
-        
+
         for (Blob blob: this.blobs) {
             blob.init();
         }
