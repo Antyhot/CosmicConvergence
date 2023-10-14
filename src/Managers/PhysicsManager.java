@@ -2,7 +2,6 @@ package Managers;
 
 import GameObjects.PhysicsObject;
 import GameObjects.Vector2D;
-
 import java.util.ArrayList;
 
 /**
@@ -19,11 +18,17 @@ public class PhysicsManager {
             for (PhysicsObject<?> other : this.physicsObjects) {
                 if (object != other) {
                     if (object.getCollider().collidesWith(other.getCollider())) {
-                        Vector2D normal = object.getCollider().resolveCollision(other.getCollider());
+                        object.onCollision(other);
+        
+                        Vector2D normal = object.getCollider()
+                            .resolveCollision(other.getCollider());
                         object.position.add(normal);
                     }
                 }
             }
         }
+
+        // if object is inactive remove it from the list
+        this.physicsObjects.removeIf(object -> !object.isActive());
     }
 }

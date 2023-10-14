@@ -1,7 +1,6 @@
 package GameObjects;
 
 import Managers.GameManager;
-
 import java.awt.Color;
 import java.awt.Graphics2D;
 

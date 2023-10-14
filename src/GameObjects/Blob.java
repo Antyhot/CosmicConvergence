@@ -2,13 +2,15 @@ package GameObjects;
 
 import Managers.GameManager;
 import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 
 /**
  * Blob class for the game.
  */
 public class Blob extends PhysicsObject<Blob> {
-    private final Player player;
-    public double radius;
+    private Player player;
+    public double size = 50;
     public double maxForce = 1;
     public double maxSpeed = 1;
     
@@ -21,35 +23,27 @@ public class Blob extends PhysicsObject<Blob> {
     }
 
     /**
-     * Sets the radius of the blob.
-     * 
-     * @param radius The radius of the blob.
-     */
-    public void setRadius(double radius) {
-        this.radius = radius;
-        this.collider.radius = radius;
-    }
-
-    /**
      * Calculates the size of the blob.
      * 
      * @return size of the blob.
      */
     public double getSize() {
-        return Math.sqrt(this.radius * 100);
+        return this.size;
+    }
+
+    public double getRadius() {
+        return Math.sqrt(this.size / Math.PI);
     }
 
     /**
      * Initializes the blob.
      */
-    public void init(double radius) {
+    public void init() {
         super.init(this);
         this.position.set(
             Math.random() * GameManager.SCREEN_WIDTH,
             Math.random() * GameManager.SCREEN_HEIGHT
         );
-    
-        this.setRadius(radius);
     }
 
     @Override
@@ -58,23 +52,25 @@ public class Blob extends PhysicsObject<Blob> {
 
         Vector2D force = this.player.inputHandler.getMousePosition();
         force.subtract(this.screenPosition);
-        force.multiply(.1);
         force.limit(maxForce);
 
         this.acceleration.add(force);
         this.velocity.limit(maxSpeed);
+
+        this.collider.radius = this.getRadius();
     }
 
     @Override
     public void draw(Graphics2D g2d) {
         super.draw(g2d);
 
+        double radius = this.getRadius();
         g2d.setColor(Color.WHITE);
         g2d.fillOval(
-            (int) (this.screenPosition.getX() - this.radius),
-            (int) (this.screenPosition.getY() - this.radius),
-            (int) (this.radius * 2),
-            (int) (this.radius * 2)
+            (int) (this.screenPosition.getX() - radius),
+            (int) (this.screenPosition.getY() - radius),
+            (int) (radius * 2),
+            (int) (radius * 2)
         );
 
         if (gameManager.getDebug()) {
@@ -87,10 +83,17 @@ public class Blob extends PhysicsObject<Blob> {
             g2d.drawString(
                     format,
                     (int) (this.screenPosition.getX() - g2d.getFontMetrics().stringWidth(format) / 2),
-                    (int) (this.screenPosition.getY() - this.radius - 20)
+                    (int) (this.screenPosition.getY() - radius - 20)
             );
         }
     }
 
-
+    @Override
+    public void onCollision(PhysicsObject<?> other) {
+        if (other instanceof Cell) {
+            Cell cell = (Cell) other;
+            this.size += cell.size;
+            cell.markObjectForRemoval();
+        }
+    }
 }

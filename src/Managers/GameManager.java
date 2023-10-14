@@ -1,10 +1,13 @@
 package Managers;
 
-import GameObjects.*;
-
-import javax.swing.*;
+import GameObjects.Camera;
+import GameObjects.GameObject;
+import GameObjects.Player;
+import GameObjects.Cell;
+import GameObjects.DebugWindow;
 import java.awt.*;
 import java.util.ArrayList;
+import javax.swing.*;
 
 /**
  * GameManager class for the game.
@@ -61,12 +64,15 @@ public class GameManager extends JPanel implements Runnable {
      */
     public void init() {
         Player player = new Player(this, inputHandler);
-        Cell cell = new Cell(this);
         DebugWindow debugWindow = new DebugWindow(this);
 
         this.gameObjects.add(camera);
         this.gameObjects.add(player);
-        this.gameObjects.add(cell);
+
+        for (int i = 0; i < 100; i++) {
+            this.gameObjects.add(new Cell(this));
+        }
+
         this.gameObjects.add(debugWindow);
 
         this.camera.init(player);
@@ -85,31 +91,27 @@ public class GameManager extends JPanel implements Runnable {
         long currentTime;
         long timer = 0;
 
+        while (this.gameThread != null) {
+            currentTime = System.nanoTime();
 
-            while (this.gameThread != null) {
+            delta += (currentTime - lastTime) / drawInterval;
+            timer += (currentTime - lastTime);
+            lastTime = currentTime;
 
+            if (delta >= 1) {
 
-                currentTime = System.nanoTime();
-
-                delta += (currentTime - lastTime) / drawInterval;
-                timer += (currentTime - lastTime);
-                lastTime = currentTime;
-
-                if (delta >= 1) {
-
-                    if (!PAUSED) {
-                        this.update();
-                        this.repaint();
-                    }
-                    delta--;
-                    drawCount++;
+                if (!PAUSED) {
+                    this.update();
+                    this.repaint();
                 }
+                delta--;
+                drawCount++;
+            }
 
-                if (timer >= 1e9) {
-                    System.out.println("FPS: " + drawCount);
-                    drawCount = 0;
-                    timer = 0;
-
+            if (timer >= 1e9) {
+                System.out.println("FPS: " + drawCount);
+                drawCount = 0;
+                timer = 0;
             }
         }
     }
@@ -124,6 +126,8 @@ public class GameManager extends JPanel implements Runnable {
         for (GameObject object : this.gameObjects) {
             object.update();
         }
+
+        this.gameObjects.removeIf(object -> !object.isActive());
     }
 
     /**
@@ -193,15 +197,21 @@ public class GameManager extends JPanel implements Runnable {
         return DEBUG;
     }
 
+    /**
+     * Toggles pause.
+     */
     public void togglePause() {
         PAUSED = !PAUSED;
 
-//        System.out.println("PAUSED: " + PAUSED);
+        // System.out.println("PAUSED: " + PAUSED);
     }
 
+    /**
+     * Toggles debug mode.
+     */
     public void toggleDebug() {
         DEBUG = !DEBUG;
 
-//        System.out.println("DEBUG: " + DEBUG);
+        // System.out.println("DEBUG: " + DEBUG);
     }
 }
