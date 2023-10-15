@@ -1,7 +1,6 @@
 package GameObjects;
 
 import Managers.GameManager;
-
 import java.awt.*;
 
 /**
@@ -9,6 +8,7 @@ import java.awt.*;
  */
 public class Cell extends PhysicsObject<Cell> {
     public double size;
+    private double dsize;
 
     /**
      * Constructor for the Cell class.
@@ -17,6 +17,7 @@ public class Cell extends PhysicsObject<Cell> {
     public Cell(GameManager gameManager, double size) {
         super(gameManager);
         this.size = size;
+        this.dsize = size;
         this.init();
 
     }
@@ -34,18 +35,19 @@ public class Cell extends PhysicsObject<Cell> {
                 Math.random() * GameManager.SCREEN_HEIGHT
         );
 
-        this.collider.setRadius(this.getRadius() * 3);
+        this.collider.setRadius(this.getRadius());
 
+        this.isStatic = true;
     }
 
     public double getRadius() {
-        return Math.sqrt(this.size / Math.PI);
+        return Math.sqrt(this.dsize / Math.PI);
     }
 
     @Override
     public void update() {
         super.update();
-
+        this.dsize += (this.size - this.dsize) * 0.3;
     }
 
     @Override

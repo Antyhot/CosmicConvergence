@@ -7,6 +7,8 @@ import java.awt.*;
  * PhysicsObject class.
  */
 public class PhysicsObject<T extends GameObject> extends GameObject {
+    protected Boolean isStatic = false;
+
     protected Vector2D velocity;
     protected Vector2D acceleration;
     protected CircleCollider<T> collider;
@@ -37,11 +39,13 @@ public class PhysicsObject<T extends GameObject> extends GameObject {
     public void update() {
         super.update();
 
-        this.oldPosition.set(this.position);
-        this.velocity.add(this.acceleration);
-        this.position.add(this.velocity);
-
-        this.acceleration.set(0, 0);
+        if (!this.isStatic) {
+            this.oldPosition.set(this.position);
+            this.velocity.add(this.acceleration);
+            this.position.add(this.velocity);
+    
+            this.acceleration.set(0, 0);
+        }
     }
 
     @Override

@@ -2,17 +2,15 @@ package GameObjects;
 
 import Managers.GameManager;
 import java.awt.*;
-import java.awt.Color;
-import java.awt.Graphics2D;
 
 /**
  * Blob class for the game.
  */
 public class Blob extends PhysicsObject<Blob> {
     private final Player player;
-    public double size = 50;
+    public double size = 100;
+    private double dsize = 100;
     public double maxForce = 1;
-    public double maxSpeed = 1;
     
     /**
      * Constructor for the Blob class.
@@ -22,6 +20,10 @@ public class Blob extends PhysicsObject<Blob> {
         this.player = player;
 
         this.init();
+    }
+
+    public double getSpeed() {
+        return 2 / Math.sqrt(this.getRadius());
     }
 
     /**
@@ -34,7 +36,7 @@ public class Blob extends PhysicsObject<Blob> {
     }
 
     public double getRadius() {
-        return Math.sqrt(this.size / Math.PI);
+        return Math.sqrt(this.dsize / Math.PI);
     }
 
     /**
@@ -57,9 +59,13 @@ public class Blob extends PhysicsObject<Blob> {
         force.limit(maxForce);
 
         this.acceleration.add(force);
-        this.velocity.limit(maxSpeed);
+
+        // depending on the size of the blob, the max speed will be different
+        this.velocity.limit(this.getSpeed());
 
         this.collider.radius = this.getRadius();
+
+        this.dsize += (this.size - this.dsize) * 0.3;
     }
 
     @Override
@@ -77,8 +83,8 @@ public class Blob extends PhysicsObject<Blob> {
 
         if (gameManager.getDebug()) {
             String format = String.format(
-                "x: %.2f, y: %.2f, size: %.2f",
-                this.position.getX(), this.position.getY(),this.size
+                "x: %.2f, y: %.2f, size: %.2f, vel: %.2f",
+                this.position.getX(), this.position.getY(), this.dsize, this.velocity.magnitude()
             );
             g2d.setFont(new Font("Comic Sans MS", Font.PLAIN, 10));
             g2d.drawString(

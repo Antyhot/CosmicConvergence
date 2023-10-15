@@ -1,10 +1,9 @@
 package Managers;
 
 import GameObjects.*;
-
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import javax.swing.*;
 
 /**
  * GameManager class for the game.
@@ -14,8 +13,6 @@ public class GameManager extends JPanel implements Runnable {
     public static boolean DEBUG = false;
     public static boolean PAUSED = false;
     public int drawCount = 0;
-
-
 
     // SCREEN SETTINGS
     public static final int SCREEN_WIDTH = 800;
@@ -32,7 +29,6 @@ public class GameManager extends JPanel implements Runnable {
     Thread gameThread;
     InputHandler inputHandler = new InputHandler(this);
     PhysicsManager physicsManager = new PhysicsManager();
-
 
     /**
      * Constructor for the GameManager class.
@@ -70,7 +66,7 @@ public class GameManager extends JPanel implements Runnable {
         camera.init(player);
 
         for (int i = 0; i < 100; i++) {
-            this.gameObjects.add(new Cell(this, Math.random() * 50 + 10));
+            this.gameObjects.add(new Cell(this, Math.random() * 10 + 10));
         }
 
         this.gameObjects.add(debugWindow);
@@ -101,8 +97,8 @@ public class GameManager extends JPanel implements Runnable {
             if (delta >= 1) {
 
                 if (!PAUSED) {
-                        this.update();
-                        this.repaint();
+                    this.update();
+                    this.repaint();
                 }
                 delta--;
                 drawCount++;
