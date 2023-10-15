@@ -2,7 +2,6 @@ package GameObjects;
 
 import Managers.GameManager;
 import Managers.InputHandler;
-
 import java.awt.*;
 import java.util.ArrayList;
 

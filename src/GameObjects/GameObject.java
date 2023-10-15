@@ -49,6 +49,10 @@ public class GameObject {
         this.screenPosition.add(center);
     }
 
+    public void setScreenPosition(Vector2D screenPosition) {
+        this.screenPosition = screenPosition;
+    }
+
     public void init() {
         // Override this method
     }
@@ -67,10 +71,6 @@ public class GameObject {
 
     public Vector2D getScreenPosition() {
         return screenPosition;
-    }
-
-    public void setScreenPosition(Vector2D screenPosition) {
-        this.screenPosition = screenPosition;
     }
 
     public Vector2D getOldPosition() {
