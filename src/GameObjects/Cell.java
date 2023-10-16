@@ -28,11 +28,14 @@ public class Cell extends PhysicsObject<Cell> {
     public void init() {
         super.init(this);
 
-        //TODO: calculate the bounds where the cells cans spawn using the camera.visibleArea values
+        Vector2D[] visibleArea = this.gameManager.getCamera().calculateVisibleArea();
+
+        double x = visibleArea[0].getX() + 2 * Math.random()* (visibleArea[1].getX() - visibleArea[0].getX());
+        double y = visibleArea[0].getY() + 2 * Math.random()* (visibleArea[3].getY() - visibleArea[0].getY());
 
         this.position.set(
-                Math.random() * GameManager.SCREEN_WIDTH,
-                Math.random() * GameManager.SCREEN_HEIGHT
+                x,
+                y
         );
 
         this.collider.setRadius(this.getRadius());

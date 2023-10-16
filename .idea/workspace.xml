@@ -7,15 +7,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e423cf3c-fa20-45ec-9d64-558b2a569261" name="Changes" comment="Cells spawn every second with variable sizes, WIP: spawn cells in and around the visible area">
+    <list default="true" id="e423cf3c-fa20-45ec-9d64-558b2a569261" name="Changes" comment="Cells spawn every second with variable sizes, added function for the camera to calculate visible area bounds. WIP: spawn cells in and around the visible area">
+      <change afterPath="$PROJECT_DIR$/src/GameObjects/UI/ScoreCounter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameObjects/Asteroid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Asteroid.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameObjects/Blob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Blob.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameObjects/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Camera.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameObjects/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Cell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameObjects/CircleCollider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/CircleCollider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameObjects/DebugWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/DebugWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameObjects/PhysicsObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/PhysicsObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameObjects/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameObjects/DebugWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/UI/DebugWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Managers/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/GameManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Managers/PhysicsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/PhysicsManager.java" afterDir="false" />
     </list>
@@ -71,27 +71,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "extract.method.default.visibility": "private",
-    "git-widget-placeholder": "temp",
-    "last_opened_file_path": "/Users/antoniguss/Documents/Programing/CosmicConvergance/CosmicConvergence",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;temp&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/antoniguss/Documents/Programing/CosmicConvergance/CosmicConvergence&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="" />
@@ -130,7 +130,8 @@
       <workItem from="1697102724866" duration="276000" />
       <workItem from="1697103061983" duration="4682000" />
       <workItem from="1697224051213" duration="6194000" />
-      <workItem from="1697288181673" duration="2787000" />
+      <workItem from="1697288181673" duration="2860000" />
+      <workItem from="1697454430251" duration="4257000" />
     </task>
     <task id="LOCAL-00001" summary="Initial push">
       <option name="closed" value="true" />
@@ -148,7 +149,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696946802322</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Cells spawn every second with variable sizes, added function for the camera to calculate visible area bounds. WIP: spawn cells in and around the visible area">
+      <option name="closed" value="true" />
+      <created>1697291045660</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1697291045660</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -182,6 +191,7 @@
     <MESSAGE value="Refactor project structure and implement new features&#10;&#10;Restructured the project to provide better organization when adding more files, improving the code readability. This involves changes in the main 'src' folder, and also another created subfolder named 'Managers'. Java files are relocated under these folders according to their roles. Updated several classes, notably 'GameManager' and 'InputHandler', with new methods and modifications that fit the new structure and improved existing functionalities. Also, incorporate handling for debug mode and pause functionality. Furthermore, created a new class 'DebugWindow' for managing debug actions and display information." />
     <MESSAGE value="Refactor project structure, add features&#10;&#10;Restructure the project for better code navigation. Split classes into two folders: 'Managers' and 'GameObjects' to reflect their roles. Update classes with methods for new features like debug mode and pause function. Introduce 'DebugWindow' class for managing debug actions and display information. Some classes were updated to enhance encapsulation and some changes made in member fields to adjust scope. DebugWindow.java and Asteroid.java file were newly created, and several other classes like Player.java, Blob.java and InputHandler.java among others were modified." />
     <MESSAGE value="Cells spawn every second with variable sizes, WIP: spawn cells in and around the visible area" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cells spawn every second with variable sizes, WIP: spawn cells in and around the visible area" />
+    <MESSAGE value="Cells spawn every second with variable sizes, added function for the camera to calculate visible area bounds. WIP: spawn cells in and around the visible area" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cells spawn every second with variable sizes, added function for the camera to calculate visible area bounds. WIP: spawn cells in and around the visible area" />
   </component>
 </project>

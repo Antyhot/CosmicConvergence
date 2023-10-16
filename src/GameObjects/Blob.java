@@ -45,8 +45,8 @@ public class Blob extends PhysicsObject<Blob> {
     public void init() {
         super.init(this);
         this.position.set(
-            Math.random() * GameManager.SCREEN_WIDTH,
-            Math.random() * GameManager.SCREEN_HEIGHT
+            Math.random() * GameManager.SCREEN_WIDTH/2,
+            Math.random() * GameManager.SCREEN_HEIGHT/2
         );
     }
 

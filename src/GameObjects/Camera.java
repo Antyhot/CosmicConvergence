@@ -26,7 +26,7 @@ public class Camera extends GameObject {
     public void init(Player player) {
         super.init();
         this.player = player;
-        this.calculateVisibleArea();
+//        this.calculateVisibleArea();
     }
 
     private double calcZoom() {
@@ -39,8 +39,7 @@ public class Camera extends GameObject {
         return zoom;
     }
 
-    private void calculateVisibleArea() {
-        System.out.println("Calculated visible area");
+    public Vector2D[] calculateVisibleArea() {
         this.visibleArea[0] = new Vector2D(
                 this.position.getX() - (double) GameManager.SCREEN_WIDTH / 2 / this.zoom,
                 this.position.getY() - (double) GameManager.SCREEN_HEIGHT / 2 / this.zoom
@@ -60,6 +59,8 @@ public class Camera extends GameObject {
                 this.position.getX() - (double) GameManager.SCREEN_WIDTH / 2 / this.zoom,
                 this.position.getY() + (double) GameManager.SCREEN_HEIGHT / 2 / this.zoom
         );
+
+        return this.visibleArea;
     }
 
     @Override
@@ -70,7 +71,6 @@ public class Camera extends GameObject {
 
         this.zoom = this.calcZoom();
 
-        calculateVisibleArea();
     }
 
     @Override

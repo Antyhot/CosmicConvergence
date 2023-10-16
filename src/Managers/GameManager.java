@@ -1,9 +1,12 @@
 package Managers;
 
 import GameObjects.*;
+import GameObjects.UI.DebugWindow;
+import GameObjects.UI.ScoreCounter;
+
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import javax.swing.*;
 
 /**
  * GameManager class for the game.
@@ -23,8 +26,10 @@ public class GameManager extends JPanel implements Runnable {
     public ArrayList<GameObject> gameObjects = new ArrayList<>();
     ArrayList<GameObject> pendingGameObjects = new ArrayList<>();
 
+    Player player;
     Camera camera = new Camera(this);
     DebugWindow debugWindow = new DebugWindow(this);
+
 
     Thread gameThread;
     InputHandler inputHandler = new InputHandler(this);
@@ -58,18 +63,19 @@ public class GameManager extends JPanel implements Runnable {
      * Initializes the game.
      */
     public void init() {
-        Player player = new Player(this, inputHandler);
+        this.player = new Player(this, inputHandler);
         this.debugWindow = new DebugWindow(this);
+        ScoreCounter scoreCounter = new ScoreCounter(this);
 
         this.gameObjects.add(camera);
         this.gameObjects.add(player);
+        this.gameObjects.add(debugWindow);
+        this.gameObjects.add(scoreCounter);
         camera.init(player);
 
         for (int i = 0; i < 100; i++) {
             this.gameObjects.add(new Cell(this, Math.random() * 10 + 10));
         }
-
-        this.gameObjects.add(debugWindow);
 
         this.camera.init(player);
         for (GameObject object : this.gameObjects) {
@@ -104,7 +110,7 @@ public class GameManager extends JPanel implements Runnable {
                 drawCount++;
             }
 
-            if (timer >= 1e9) {
+            if (timer >= 1e9 && !PAUSED) {
                 System.out.println("FPS: " + drawCount);
                 drawCount = 0;
                 timer = 0;
@@ -130,9 +136,6 @@ public class GameManager extends JPanel implements Runnable {
         this.pendingGameObjects.clear();
 
         this.gameObjects.removeIf(object -> !object.isActive());
-
-        long cellCount = this.gameObjects.stream().filter(object -> object instanceof Cell).count();
-        System.out.println("cellCount = " + cellCount);
     }
 
     /**
@@ -220,4 +223,9 @@ public class GameManager extends JPanel implements Runnable {
 
         // System.out.println("DEBUG: " + DEBUG);
     }
+
+    public double getScore() {
+        return this.player.calcTotalSize();
+    }
+
 }
