@@ -268,6 +268,19 @@ public class Vector2D {
     }
 
     /**
+     * Returns a Vector2D representing the lerp of this Vector2D and the given.
+     * @param v Vector2D to lerp with
+     * @param amount amount to lerp
+     * @return Vector2D representing the lerp of this Vector2D and the given
+     */
+    public Vector2D lerp(Vector2D v, double amount) {
+        this.x += (v.x - this.x) * amount;
+        this.y += (v.y - this.y) * amount;
+
+        return this;
+    }
+
+    /**
      * Returns a String representation of this Vector2D.
      * 
      * @return String representation of this Vector2D

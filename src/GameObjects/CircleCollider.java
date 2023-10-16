@@ -36,13 +36,13 @@ public class CircleCollider<T extends GameObject>
     public void draw(Graphics2D g2d) {
         super.draw(g2d);
 
-        g2d.setColor(Color.RED);
-        g2d.drawOval(
-                (int) (this.parent.screenPosition.getX() - this.radius),
-                (int) (this.parent.screenPosition.getY() - this.radius),
-                (int) (this.radius * 2),
-                (int) (this.radius * 2)
-        );
+        // g2d.setColor(Color.RED);
+        // g2d.drawOval(
+        //         (int) (this.parent.screenPosition.getX() - this.radius),
+        //         (int) (this.parent.screenPosition.getY() - this.radius),
+        //         (int) (this.radius * 2),
+        //         (int) (this.radius * 2)
+        // );
     }
 
     @Override

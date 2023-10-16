@@ -44,7 +44,7 @@ public class GameObject {
             (double) GameManager.SCREEN_HEIGHT / 2
         );
 
-        center.multiply(1 / this.gameManager.getCamera().zoom);
+        center.multiply(1 / this.gameManager.getCamera().dzoom);
 
         this.screenPosition.add(center);
     }

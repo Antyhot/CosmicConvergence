@@ -110,7 +110,7 @@ public class GameManager extends JPanel implements Runnable {
                 timer = 0;
 
                 for (int i = 0; i < 5; i++) {
-                    this.pendingGameObjects.add(new Cell(this, Math.random() * 50 + 10));
+                    this.pendingGameObjects.add(new Cell(this, Math.random() * 10));
                 }
             }
 
