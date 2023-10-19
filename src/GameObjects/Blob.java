@@ -58,7 +58,7 @@ public class Blob extends PhysicsObject<Blob> {
         force.subtract(this.screenPosition);
         force.limit(maxForce);
 
-        this.acceleration.add(force);
+        this.acceleration.lerp(force, 0.3);
 
         // depending on the size of the blob, the max speed will be different
         this.velocity.limit(this.getSpeed());

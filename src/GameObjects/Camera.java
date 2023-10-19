@@ -12,9 +12,9 @@ public class Camera extends GameObject {
     private static double MAX_ZOOM = 5;
 
     Player player;
-    public double zoom = 1;
+    public double zoom;
+    public double dzoom;
     public Vector2D[] visibleArea = new Vector2D[4];
-
 
     public Camera(GameManager gameManager) {
         super(gameManager);
@@ -26,7 +26,12 @@ public class Camera extends GameObject {
     public void init(Player player) {
         super.init();
         this.player = player;
-//        this.calculateVisibleArea();
+
+        this.position.set(this.player.calcAverageCenter());
+        this.zoom = this.calcZoom();
+        this.dzoom = this.zoom;
+        
+        this.calculateVisibleArea();
     }
 
     private double calcZoom() {
@@ -39,28 +44,27 @@ public class Camera extends GameObject {
         return zoom;
     }
 
-    public Vector2D[] calculateVisibleArea() {
+    private void calculateVisibleArea() {
+        System.out.println("Calculated visible area");
         this.visibleArea[0] = new Vector2D(
-                this.position.getX() - (double) GameManager.SCREEN_WIDTH / 2 / this.zoom,
-                this.position.getY() - (double) GameManager.SCREEN_HEIGHT / 2 / this.zoom
+                this.position.getX() - (double) GameManager.SCREEN_WIDTH / 2 / this.dzoom,
+                this.position.getY() - (double) GameManager.SCREEN_HEIGHT / 2 / this.dzoom
         );
 
         this.visibleArea[1] = new Vector2D(
-                this.position.getX() + (double) GameManager.SCREEN_WIDTH / 2 / this.zoom,
-                this.position.getY() - (double) GameManager.SCREEN_HEIGHT / 2 / this.zoom
+                this.position.getX() + (double) GameManager.SCREEN_WIDTH / 2 / this.dzoom,
+                this.position.getY() - (double) GameManager.SCREEN_HEIGHT / 2 / this.dzoom
         );
 
         this.visibleArea[2] = new Vector2D(
-                this.position.getX() + (double) GameManager.SCREEN_WIDTH / 2 / this.zoom,
-                this.position.getY() + (double) GameManager.SCREEN_HEIGHT / 2 / this.zoom
+                this.position.getX() + (double) GameManager.SCREEN_WIDTH / 2 / this.dzoom,
+                this.position.getY() + (double) GameManager.SCREEN_HEIGHT / 2 / this.dzoom
         );
 
         this.visibleArea[3] = new Vector2D(
-                this.position.getX() - (double) GameManager.SCREEN_WIDTH / 2 / this.zoom,
-                this.position.getY() + (double) GameManager.SCREEN_HEIGHT / 2 / this.zoom
+                this.position.getX() - (double) GameManager.SCREEN_WIDTH / 2 / this.dzoom,
+                this.position.getY() + (double) GameManager.SCREEN_HEIGHT / 2 / this.dzoom
         );
-
-        return this.visibleArea;
     }
 
     @Override
@@ -70,28 +74,30 @@ public class Camera extends GameObject {
         this.position.set(this.player.calcAverageCenter());
 
         this.zoom = this.calcZoom();
+        this.dzoom += (this.zoom - this.dzoom) * 0.05;
 
+        calculateVisibleArea();
     }
 
     @Override
     public void draw(Graphics2D g2d) {
-        g2d.scale(this.zoom, this.zoom);
+        g2d.scale(this.dzoom, this.dzoom);
 
-        g2d.setColor(Color.RED);
-        g2d.drawRect(
-            (int) (this.screenPosition.getX() - GameManager.SCREEN_WIDTH / 2),
-            (int) (this.screenPosition.getY() - GameManager.SCREEN_HEIGHT / 2),
-            GameManager.SCREEN_WIDTH,
-            GameManager.SCREEN_HEIGHT
-        );
+        // g2d.setColor(Color.RED);
+        // g2d.drawRect(
+        //     (int) (this.screenPosition.getX() - GameManager.SCREEN_WIDTH / 2),
+        //     (int) (this.screenPosition.getY() - GameManager.SCREEN_HEIGHT / 2),
+        //     GameManager.SCREEN_WIDTH,
+        //     GameManager.SCREEN_HEIGHT
+        // );
 
-        g2d.setColor(Color.GREEN);
-        g2d.fillOval(
-            (int) (this.screenPosition.getX() - 5),
-            (int) (this.screenPosition.getY() - 5),
-            5 * 2,
-            5 * 2
-        );
+        // g2d.setColor(Color.GREEN);
+        // g2d.fillOval(
+        //     (int) (this.screenPosition.getX() - 5),
+        //     (int) (this.screenPosition.getY() - 5),
+        //     5 * 2,
+        //     5 * 2
+        // );
     }
 }
 
