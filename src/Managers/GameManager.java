@@ -3,10 +3,9 @@ package Managers;
 import GameObjects.*;
 import GameObjects.UI.DebugWindow;
 import GameObjects.UI.ScoreCounter;
-
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import javax.swing.*;
 
 /**
  * GameManager class for the game.
@@ -47,8 +46,6 @@ public class GameManager extends JPanel implements Runnable {
         this.addMouseListener(this.inputHandler);
         this.addMouseMotionListener(this.inputHandler);
         this.addKeyListener(this.inputHandler);
-
-
     }
 
     /**

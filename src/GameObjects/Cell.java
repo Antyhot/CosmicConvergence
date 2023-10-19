@@ -30,8 +30,8 @@ public class Cell extends PhysicsObject<Cell> {
 
         Vector2D[] visibleArea = this.gameManager.getCamera().visibleArea;
 
-        double x = visibleArea[0].getX() + 2 * Math.random()* (visibleArea[1].getX() - visibleArea[0].getX());
-        double y = visibleArea[0].getY() + 2 * Math.random()* (visibleArea[3].getY() - visibleArea[0].getY());
+        double x = visibleArea[0].getX() + 2 * Math.random() * (visibleArea[1].getX() - visibleArea[0].getX());
+        double y = visibleArea[0].getY() + 2 * Math.random() * (visibleArea[3].getY() - visibleArea[0].getY());
 
         this.position.set(
                 x,

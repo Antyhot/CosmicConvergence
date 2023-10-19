@@ -1,21 +1,20 @@
 package GameObjects;
 
 import Managers.GameManager;
-
 import java.awt.*;
 
+/**
+ * Asteroid class.
+ */
 public class Asteroid extends PhysicsObject<Asteroid> {
-
-
 
     /**
      * Constructor for the PhysicsObject class.
      *
-     * @param gameManager
+     * @param gameManager The game manager.
      */
     public Asteroid(GameManager gameManager) {
         super(gameManager);
-
     }
 
     @Override
@@ -33,11 +32,9 @@ public class Asteroid extends PhysicsObject<Asteroid> {
         super.onCollision(other);
 
         if (other instanceof Blob blob) {
-
-
+            blob.markObjectForRemoval();
         }
     }
-
 
     @Override
     public void draw(Graphics2D g2d) {

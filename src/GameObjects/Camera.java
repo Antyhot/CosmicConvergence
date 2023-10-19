@@ -83,21 +83,21 @@ public class Camera extends GameObject {
     public void draw(Graphics2D g2d) {
         g2d.scale(this.dzoom, this.dzoom);
 
-        // g2d.setColor(Color.RED);
-        // g2d.drawRect(
-        //     (int) (this.screenPosition.getX() - GameManager.SCREEN_WIDTH / 2),
-        //     (int) (this.screenPosition.getY() - GameManager.SCREEN_HEIGHT / 2),
-        //     GameManager.SCREEN_WIDTH,
-        //     GameManager.SCREEN_HEIGHT
-        // );
+        g2d.setColor(Color.RED);
+        g2d.drawRect(
+            (int) (this.screenPosition.getX() - GameManager.SCREEN_WIDTH / 2),
+            (int) (this.screenPosition.getY() - GameManager.SCREEN_HEIGHT / 2),
+            GameManager.SCREEN_WIDTH,
+            GameManager.SCREEN_HEIGHT
+        );
 
-        // g2d.setColor(Color.GREEN);
-        // g2d.fillOval(
-        //     (int) (this.screenPosition.getX() - 5),
-        //     (int) (this.screenPosition.getY() - 5),
-        //     5 * 2,
-        //     5 * 2
-        // );
+        g2d.setColor(Color.GREEN);
+        g2d.fillOval(
+            (int) (this.screenPosition.getX() - 5),
+            (int) (this.screenPosition.getY() - 5),
+            5 * 2,
+            5 * 2
+        );
     }
 }
 

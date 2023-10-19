@@ -1,9 +1,6 @@
-package Managers;// Create a class InputHandler that gets position of the mouse.
-
-// Path: src/InputHandler.java
+package Managers;
 
 import GameObjects.Vector2D;
-
 import java.awt.event.*;
 
 /**
@@ -65,6 +62,9 @@ public class InputHandler implements MouseListener, MouseMotionListener, KeyList
         switch (e.getKeyChar()) {
             case 'p' -> this.gameManager.togglePause();
             case 'd' -> this.gameManager.toggleDebug();
+            default -> {
+
+            }
         }
     }
 
