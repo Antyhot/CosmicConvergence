@@ -10,6 +10,7 @@ import java.awt.event.*;
  * InputHandler class for the game.
  */
 public class InputHandler implements MouseListener, MouseMotionListener, KeyListener {
+
     private final Vector2D mousePosition = new Vector2D(0, 0);
     public GameManager gameManager;
 

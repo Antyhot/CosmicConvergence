@@ -117,6 +117,8 @@ public class GameManager extends JPanel implements Runnable {
 
                 for (int i = 0; i < 5; i++) {
                     this.pendingGameObjects.add(new Cell(this, Math.random() * 10));
+                    this.pendingGameObjects.add(new Asteroid(this));
+
                 }
             }
 

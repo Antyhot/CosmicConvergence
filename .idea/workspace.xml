@@ -8,16 +8,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e423cf3c-fa20-45ec-9d64-558b2a569261" name="Changes" comment="Cells spawn every second with variable sizes, added function for the camera to calculate visible area bounds. WIP: spawn cells in and around the visible area">
-      <change afterPath="$PROJECT_DIR$/src/GameObjects/UI/ScoreCounter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameObjects/Asteroid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Asteroid.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameObjects/Blob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Blob.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameObjects/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Camera.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameObjects/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Cell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameObjects/DebugWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/UI/DebugWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameObjects/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Managers/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/GameManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Managers/PhysicsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/PhysicsManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Managers/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/InputHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,5 +188,9 @@
     <MESSAGE value="Cells spawn every second with variable sizes, WIP: spawn cells in and around the visible area" />
     <MESSAGE value="Cells spawn every second with variable sizes, added function for the camera to calculate visible area bounds. WIP: spawn cells in and around the visible area" />
     <option name="LAST_COMMIT_MESSAGE" value="Cells spawn every second with variable sizes, added function for the camera to calculate visible area bounds. WIP: spawn cells in and around the visible area" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

@@ -28,7 +28,7 @@ public class Cell extends PhysicsObject<Cell> {
     public void init() {
         super.init(this);
 
-        Vector2D[] visibleArea = this.gameManager.getCamera().calculateVisibleArea();
+        Vector2D[] visibleArea = this.gameManager.getCamera().visibleArea;
 
         double x = visibleArea[0].getX() + 2 * Math.random()* (visibleArea[1].getX() - visibleArea[0].getX());
         double y = visibleArea[0].getY() + 2 * Math.random()* (visibleArea[3].getY() - visibleArea[0].getY());
