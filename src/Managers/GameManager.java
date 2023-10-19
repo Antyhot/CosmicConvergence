@@ -66,15 +66,14 @@ public class GameManager extends JPanel implements Runnable {
 
         this.gameObjects.add(camera);
         this.gameObjects.add(player);
-        this.gameObjects.add(debugWindow);
         this.gameObjects.add(scoreCounter);
-        camera.init(player);
+        
+        this.camera.init(player);
 
         for (int i = 0; i < 100; i++) {
-            this.gameObjects.add(new Cell(this, Math.random() * 10 + 10));
+            this.gameObjects.add(new Cell(this, Math.random() * 10 + 50));
         }
 
-        this.camera.init(player);
         for (GameObject object : this.gameObjects) {
             object.init();
         }
@@ -108,17 +107,15 @@ public class GameManager extends JPanel implements Runnable {
             }
 
             if (timer >= 1e9 && !PAUSED) {
-                System.out.println("FPS: " + drawCount);
+                // System.out.println("FPS: " + drawCount);
                 drawCount = 0;
                 timer = 0;
 
                 for (int i = 0; i < 5; i++) {
                     this.pendingGameObjects.add(new Cell(this, Math.random() * 10));
                     this.pendingGameObjects.add(new Asteroid(this));
-
                 }
             }
-
         }
     }
 
@@ -144,6 +141,11 @@ public class GameManager extends JPanel implements Runnable {
         super.paintComponent(g);
 
         Graphics2D g2d = (Graphics2D) g;
+
+        if (DEBUG) {
+            this.debugWindow.draw(g2d);
+        }
+
         ArrayList<GameObject> gameObjectsCopy = new ArrayList<>(this.gameObjects);
         for (GameObject object : gameObjectsCopy) {
             object.draw(g2d);
@@ -210,8 +212,6 @@ public class GameManager extends JPanel implements Runnable {
      */
     public void togglePause() {
         PAUSED = !PAUSED;
-
-        // System.out.println("PAUSED: " + PAUSED);
     }
 
     /**
@@ -219,12 +219,13 @@ public class GameManager extends JPanel implements Runnable {
      */
     public void toggleDebug() {
         DEBUG = !DEBUG;
-
-        // System.out.println("DEBUG: " + DEBUG);
     }
 
     public double getScore() {
         return this.player.calcTotalSize();
     }
 
+    public int getDrawCount() {
+        return drawCount;
+    }
 }

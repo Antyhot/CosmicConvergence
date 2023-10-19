@@ -2,9 +2,12 @@ package GameObjects.UI;
 
 import GameObjects.GameObject;
 import Managers.GameManager;
-
+import Managers.Utils;
 import java.awt.*;
 
+/**
+ * DebugWindow class.
+ */
 public class DebugWindow extends GameObject {
 
     /**
@@ -18,24 +21,29 @@ public class DebugWindow extends GameObject {
 
     @Override
     public void draw(Graphics2D g2d) {
-
-        if (gameManager.getDebug()) {
-            g2d.setColor(Color.WHITE);
-            //draw text of size 15
-            g2d.setFont(new Font("TimesRoman", Font.PLAIN, 30));
-
-            String formatted = "FPS: %d, Zoom: %.2f, Left Corner: (%.2f, %.2f)"
-                    .formatted(
-                            gameManager.drawCount,
-                            gameManager.getCamera().zoom,
-                            gameManager.getCamera().visibleArea[0].getX(), gameManager.getCamera().visibleArea[0].getY());
-            g2d.drawString(formatted, 10, 35);
-        }
-
-
         super.draw(g2d);
 
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(new Font("TimesRoman", Font.PLAIN, 16));
 
+        String debugInfo = this.debugInfo() + "\n";
+        for (GameObject gameObject : gameManager.getGameObjects()) {
+            debugInfo += gameObject.debugInfo() + "\n";
+        }
+
+        Utils.drawText(g2d, debugInfo, 5, 16);
     }
 
+    @Override
+    public String debugInfo() {
+        return String.format(
+            "FPS: %d\n"
+            + "GameObjects count: %d\n"
+            + "MousePosition XY: %.2f / %.2f\n",
+            gameManager.getDrawCount(),
+            gameManager.getGameObjects().size(),
+            gameManager.getInputHandler().getMousePosition().getX(),
+            gameManager.getInputHandler().getMousePosition().getY()
+        );
+    }
 }

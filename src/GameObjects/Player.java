@@ -59,7 +59,7 @@ public class Player extends GameObject {
      */
     @Override
     public void init() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 1; i++) {
             this.blobs.add(new Blob(this));
         }
 
@@ -81,5 +81,15 @@ public class Player extends GameObject {
         for (Blob blob: this.blobs) {
             blob.draw(g2d);
         }
+    }
+
+    @Override
+    public String debugInfo() {
+        return String.format(
+            "Blob count: %d\n"
+            + "Total size: %.2f\n",
+            this.blobs.size(),
+            this.calcTotalSize()
+        );
     }
 }

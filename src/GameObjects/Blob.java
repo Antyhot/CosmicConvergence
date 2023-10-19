@@ -1,6 +1,8 @@
 package GameObjects;
 
 import Managers.GameManager;
+import Managers.Utils;
+
 import java.awt.*;
 
 /**
@@ -81,18 +83,15 @@ public class Blob extends PhysicsObject<Blob> {
             (int) (radius * 2)
         );
 
-        if (gameManager.getDebug()) {
-            String format = String.format(
-                "x: %.2f, y: %.2f, size: %.2f, vel: %.2f",
-                this.position.getX(), this.position.getY(), this.dsize, this.velocity.magnitude()
-            );
-            g2d.setFont(new Font("Comic Sans MS", Font.PLAIN, 10));
-            g2d.drawString(
-                    format,
-                    (int) (this.screenPosition.getX() - g2d.getFontMetrics().stringWidth(format) / 2),
-                    (int) (this.screenPosition.getY() - radius - 20)
-            );
-        }
+        // if (gameManager.getDebug()) {
+        //     String format = this.debugInfo();
+        //     Utils.drawText(
+        //         g2d,
+        //         format,
+        //         (int) (this.screenPosition.getX() - g2d.getFontMetrics().stringWidth(format) / 2),
+        //         (int) (this.screenPosition.getY() - radius - 20)
+        //     );
+        // }
     }
 
     @Override
@@ -101,5 +100,17 @@ public class Blob extends PhysicsObject<Blob> {
             this.size += cell.size;
             cell.markObjectForRemoval();
         }
+    }
+
+    @Override
+    public String debugInfo() {
+        return String.format(
+            "XY: %.2f / %.2f\n"
+            + "size: %.2f\n"
+            + "vel: %.2f\n",
+            this.position.getX(), this.position.getY(), 
+            this.dsize, 
+            this.velocity.magnitude()
+        );
     }
 }

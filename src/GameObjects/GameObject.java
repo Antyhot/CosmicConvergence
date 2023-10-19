@@ -69,6 +69,15 @@ public class GameObject {
         // Override this method
     }
 
+    /**
+     * Returns the debug info for the GameObject.
+     * @return The debug info for the GameObject.
+     */
+    public String debugInfo() {
+        // Override this method
+        return "";
+    }
+
     public Vector2D getScreenPosition() {
         return screenPosition;
     }
@@ -104,6 +113,4 @@ public class GameObject {
     public void setGameManager(GameManager gameManager) {
         this.gameManager = gameManager;
     }
-
-
 }
