@@ -1,8 +1,7 @@
 package GameObjects;
 
 import Managers.GameManager;
-import Managers.Utils;
-
+// import Managers.Utils;
 import java.awt.*;
 
 /**
@@ -13,6 +12,7 @@ public class Blob extends PhysicsObject<Blob> {
     public double size = 100;
     private double dsize = 100;
     public double maxForce = 1;
+    public boolean canCombine = true;
     
     /**
      * Constructor for the Blob class.
@@ -99,6 +99,20 @@ public class Blob extends PhysicsObject<Blob> {
         if (other instanceof Cell cell) {
             this.size += cell.size;
             cell.markObjectForRemoval();
+        }
+
+        if (other instanceof Blob blob) {
+            double distance = this.position.distance(blob.position);
+            double totalRadius = this.getRadius() + blob.getRadius();
+            if (distance < totalRadius && blob.canCombine && this.canCombine) {    
+                if (this.size > blob.size) {
+                    this.size += blob.size;
+                    blob.markObjectForRemoval();
+                } else {
+                    blob.size += this.size;
+                    this.markObjectForRemoval();
+                }
+            }
         }
     }
 

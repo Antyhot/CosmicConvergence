@@ -48,7 +48,7 @@ public class Player extends GameObject {
         double totalSize = 0;
 
         for (Blob blob: this.blobs) {
-            totalSize += Math.sqrt(blob.getSize() / 10);
+            totalSize += blob.getSize();
         }
 
         return totalSize;
@@ -59,11 +59,10 @@ public class Player extends GameObject {
      */
     @Override
     public void init() {
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 3; i++) {
             this.blobs.add(new Blob(this));
         }
 
-        
         for (Blob blob: this.blobs) {
             blob.init();
         }
@@ -74,6 +73,9 @@ public class Player extends GameObject {
         for (Blob blob: this.blobs) {
             blob.update();
         }
+
+        this.blobs.removeIf(blob -> blob.getSize() <= 0);
+        this.blobs.removeIf(blob -> !blob.isActive());
     }
 
     @Override

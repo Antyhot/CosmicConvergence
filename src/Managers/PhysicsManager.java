@@ -17,6 +17,10 @@ public class PhysicsManager {
         for (PhysicsObject<?> object : this.physicsObjects) {
             for (PhysicsObject<?> other : this.physicsObjects) {
                 if (object != other) {
+                    if (!object.isActive() || !other.isActive()) {
+                        continue;
+                    }
+
                     if (object.getCollider().collidesWith(other.getCollider())) {
                         object.onCollision(other);
 
