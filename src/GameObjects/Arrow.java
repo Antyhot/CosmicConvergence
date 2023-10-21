@@ -26,8 +26,8 @@ public class Arrow {
      * 
      * @param g2d The graphics object.
      */
-    public void draw(Graphics2D g2d) {
-        g2d.setColor(Color.BLUE);
+    public void draw(Graphics2D g2d, Color color) {
+        g2d.setColor(color);
         g2d.drawLine(
             (int) this.from.getX(),
             (int) this.from.getY(),

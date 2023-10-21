@@ -1,7 +1,6 @@
 package Managers;
 
 import GameObjects.PhysicsObject;
-import GameObjects.Vector2D;
 import java.util.ArrayList;
 
 /**
@@ -14,8 +13,9 @@ public class PhysicsManager {
      * Handle collisions between physics objects.
      */
     public void handleCollisions() {
-        for (PhysicsObject<?> object : this.physicsObjects) {
-            for (PhysicsObject<?> other : this.physicsObjects) {
+        ArrayList<PhysicsObject<?>> physicsObjectsCopy = new ArrayList<>(this.physicsObjects);
+        for (PhysicsObject<?> object : physicsObjectsCopy) {
+            for (PhysicsObject<?> other : physicsObjectsCopy) {
                 if (object != other) {
                     if (!object.isActive() || !other.isActive()) {
                         continue;
@@ -25,11 +25,7 @@ public class PhysicsManager {
                         object.onCollision(other);
 
                         if (object.isActive() && other.isActive()) {
-
-                            Vector2D normal = object.getCollider()
-                                .resolveCollision(other.getCollider());
-
-                            object.position.add(normal);
+                            object.getCollider().resolveCollision(other.getCollider());
                         }
                     }
                 }

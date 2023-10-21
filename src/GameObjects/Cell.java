@@ -30,10 +30,7 @@ public class Cell extends PhysicsObject<Cell> {
         double x = visibleArea[0].getX() + 2 * Math.random() * (visibleArea[1].getX() - visibleArea[0].getX());
         double y = visibleArea[0].getY() + 2 * Math.random() * (visibleArea[3].getY() - visibleArea[0].getY());
 
-        this.position.set(
-                x,
-                y
-        );
+        this.position.set(x, y);
 
         this.collider.setRadius(this.getRadius());
 
@@ -45,8 +42,8 @@ public class Cell extends PhysicsObject<Cell> {
     }
 
     @Override
-    public void update() {
-        super.update();
+    public void update(double delta) {
+        super.update(delta);
     }
 
     @Override

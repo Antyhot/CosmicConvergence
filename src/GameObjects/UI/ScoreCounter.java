@@ -31,7 +31,11 @@ public class ScoreCounter extends GameObject {
 
     @Override
     public void draw(Graphics2D g2d) {
-        //TODO: print the score on the screen keeping constant scaling and position
         super.draw(g2d);
+        
+        //TODO: print the score on the screen keeping constant scaling and position
+        // g2d.setColor(Color.WHITE);
+        // g2d.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        // g2d.drawString("Score: " + this.player.calcTotalSize(), 10, 20);
     }
 }

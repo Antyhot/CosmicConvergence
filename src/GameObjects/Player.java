@@ -9,6 +9,8 @@ import java.util.ArrayList;
  * Player class for the game.
  */
 public class Player extends GameObject {
+    public static final int MAX_SIZE = 10000;
+
     InputHandler inputHandler;
     public ArrayList<Blob> blobs = new ArrayList<>();
 
@@ -59,7 +61,7 @@ public class Player extends GameObject {
      */
     @Override
     public void init() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 1; i++) {
             this.blobs.add(new Blob(this));
         }
 
@@ -69,9 +71,10 @@ public class Player extends GameObject {
     }
 
     @Override
-    public void update() {
-        for (Blob blob: this.blobs) {
-            blob.update();
+    public void update(double delta) {
+        ArrayList<Blob> blobsCopy = new ArrayList<>(this.blobs);
+        for (Blob blob: blobsCopy) {
+            blob.update(delta);
         }
 
         this.blobs.removeIf(blob -> blob.getSize() <= 0);

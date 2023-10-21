@@ -166,6 +166,10 @@ public class Vector2D {
         return this.x * v.x + this.y * v.y;
     }
 
+    public static double dot(Vector2D v1, Vector2D v2) {
+        return v1.x * v2.x + v1.y * v2.y;
+    }
+
     /**
      * Set the magnitude of this Vector2D to the given magnitude.
      * 
@@ -255,6 +259,18 @@ public class Vector2D {
         return new Vector2D(
             this.y - v.y,
             v.x - this.x
+        );
+    }
+
+    /**
+     * Returns a Vector2D representing the normal of this Vector2D.
+     * 
+     * @return Vector2D representing the normal of this Vector2D
+     */
+    public Vector2D getNormal() {
+        return new Vector2D(
+            this.y,
+            -this.x
         );
     }
 

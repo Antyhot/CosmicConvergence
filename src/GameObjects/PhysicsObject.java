@@ -6,7 +6,7 @@ import java.awt.*;
 /**
  * PhysicsObject class.
  */
-public class PhysicsObject<T extends GameObject> extends GameObject {
+public class PhysicsObject<T extends PhysicsObject<?>> extends GameObject {
     protected Boolean isStatic = false;
 
     protected Vector2D velocity;
@@ -36,13 +36,16 @@ public class PhysicsObject<T extends GameObject> extends GameObject {
     }
 
     @Override
-    public void update() {
-        super.update();
+    public void update(double delta) {
+        super.update(delta);
 
         if (!this.isStatic) {
             this.oldPosition.set(this.position);
-            this.velocity.add(this.acceleration);
-            this.position.add(this.velocity);
+            // this.velocity.add(this.acceleration);
+            // this.position.add(this.velocity);
+
+            this.velocity.add(this.acceleration.copy().multiply(delta));
+            this.position.add(this.velocity.copy().multiply(delta));
     
             this.acceleration.set(0, 0);
         }
@@ -52,13 +55,21 @@ public class PhysicsObject<T extends GameObject> extends GameObject {
     public void draw(Graphics2D g2d) {
         super.draw(g2d);
 
-        new Arrow(
-            this.screenPosition.copy(),
-            this.velocity.copy(),
-            100
-        ).draw(g2d);
+        if (gameManager.getDebug()) {
+            new Arrow(
+                this.screenPosition.copy(),
+                this.velocity.copy(),
+                this.velocity.magnitude() * 100
+            ).draw(g2d, Color.BLUE);
 
-        this.collider.draw(g2d);
+            new Arrow(
+                this.screenPosition.copy(),
+                this.acceleration.copy(),
+                this.acceleration.magnitude() * 100
+            ).draw(g2d, Color.RED);
+
+            this.collider.draw(g2d);
+        }
     }
 
     public void onCollision(PhysicsObject<?> other) {

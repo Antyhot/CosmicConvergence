@@ -6,7 +6,7 @@ import java.awt.*;
 /**
  * CircleCollider class.
  */
-public class CircleCollider<T extends GameObject>
+public class CircleCollider<T extends PhysicsObject<?>> 
         extends GameObject implements Collider<CircleCollider<?>> {
 
     public double radius;
@@ -28,21 +28,21 @@ public class CircleCollider<T extends GameObject>
     }
 
     @Override
-    public void update() {
-        super.update();
+    public void update(double delta) {
+        super.update(delta);
     }
 
     @Override
     public void draw(Graphics2D g2d) {
         super.draw(g2d);
 
-        // g2d.setColor(Color.RED);
-        // g2d.drawOval(
-        //         (int) (this.parent.screenPosition.getX() - this.radius),
-        //         (int) (this.parent.screenPosition.getY() - this.radius),
-        //         (int) (this.radius * 2),
-        //         (int) (this.radius * 2)
-        // );
+        g2d.setColor(Color.RED);
+        g2d.drawOval(
+                (int) (this.parent.screenPosition.getX() - this.radius),
+                (int) (this.parent.screenPosition.getY() - this.radius),
+                (int) (this.radius * 2),
+                (int) (this.radius * 2)
+        );
     }
 
     @Override
@@ -53,16 +53,24 @@ public class CircleCollider<T extends GameObject>
     }
 
     @Override
-    public Vector2D resolveCollision(CircleCollider<?> other) {
-        Vector2D push = this.parent.position.copy().subtract(other.parent.position);
+    public void resolveCollision(CircleCollider<?> other) {
+        // generic circle collision resolution
+        Vector2D normal = this.parent.position.copy();
 
-        double distance = this.parent.position.distance(other.parent.position);
+        normal.subtract(other.parent.position);
 
-        double overlap = this.radius + other.radius - distance;
+        double distance = normal.magnitude();
 
-        push.setMagnitude(overlap);
+        normal.normalize();
 
-        return push;
+        double totalRadius = this.radius + other.radius;
+
+        Vector2D mtv = normal.copy(); // minimum translation vector
+
+        mtv.multiply((totalRadius - distance) * 0.05);
+
+        this.parent.position.add(mtv);
+        other.parent.position.subtract(mtv);
     }
 
     public double getRadius() {

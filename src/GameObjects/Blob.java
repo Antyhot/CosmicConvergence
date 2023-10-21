@@ -1,6 +1,6 @@
 package GameObjects;
 
-import Managers.GameManager;
+// import Managers.GameManager;
 // import Managers.Utils;
 import java.awt.*;
 
@@ -8,11 +8,13 @@ import java.awt.*;
  * Blob class for the game.
  */
 public class Blob extends PhysicsObject<Blob> {
+    public static final double MIN_SIZE = 50;
+
     private final Player player;
-    public double size = 100;
-    private double dsize = 100;
+    public double size = 1000;
+    private double dsize = 0;
     public double maxForce = 1;
-    public boolean canCombine = true;
+    public boolean canCombine = false;
     
     /**
      * Constructor for the Blob class.
@@ -25,7 +27,7 @@ public class Blob extends PhysicsObject<Blob> {
     }
 
     public double getSpeed() {
-        return 2 / Math.sqrt(this.getRadius());
+        return 1 / Math.sqrt(this.getRadius());
     }
 
     /**
@@ -38,7 +40,7 @@ public class Blob extends PhysicsObject<Blob> {
     }
 
     public double getRadius() {
-        return Math.sqrt(this.dsize / Math.PI);
+        return Math.sqrt(this.size / Math.PI);
     }
 
     /**
@@ -46,15 +48,15 @@ public class Blob extends PhysicsObject<Blob> {
      */
     public void init() {
         super.init(this);
-        this.position.set(
-            Math.random() * GameManager.SCREEN_WIDTH / 2, 
-            Math.random() * GameManager.SCREEN_HEIGHT / 2
-        );
+        // this.position.set(
+        //     Math.random() * GameManager.SCREEN_WIDTH / 2, 
+        //     Math.random() * GameManager.SCREEN_HEIGHT / 2
+        // );
     }
 
     @Override
-    public void update() {
-        super.update();
+    public void update(double delta) {
+        super.update(delta);
 
         Vector2D force = this.player.inputHandler.getMousePosition();
         force.subtract(this.screenPosition);
@@ -67,7 +69,7 @@ public class Blob extends PhysicsObject<Blob> {
 
         this.collider.radius = this.getRadius();
 
-        this.dsize += (this.size - this.dsize) * 0.3;
+        this.dsize += (this.size - this.dsize) * 0.1;
     }
 
     @Override
@@ -96,11 +98,13 @@ public class Blob extends PhysicsObject<Blob> {
 
     @Override
     public void onCollision(PhysicsObject<?> other) {
+        // Cell eat behaviour
         if (other instanceof Cell cell) {
             this.size += cell.size;
             cell.markObjectForRemoval();
         }
 
+        // Merge behaviour
         if (other instanceof Blob blob) {
             double distance = this.position.distance(blob.position);
             double totalRadius = this.getRadius() + blob.getRadius();
@@ -126,5 +130,20 @@ public class Blob extends PhysicsObject<Blob> {
             this.dsize, 
             this.velocity.magnitude()
         );
+    }
+
+    /**
+     * Splits the blob into two blobs.
+     */
+    public void split() {
+        this.size /= 2;
+
+        Blob blob = new Blob(this.player);
+        blob.size = this.size;
+
+        blob.position.set(this.position);
+
+        blob.init();
+        this.player.blobs.add(blob);
     }
 }

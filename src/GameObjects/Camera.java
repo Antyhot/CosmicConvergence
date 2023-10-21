@@ -9,7 +9,7 @@ import java.awt.Graphics2D;
  */
 public class Camera extends GameObject {
     private static double MIN_ZOOM = 1;
-    private static double MAX_ZOOM = 5;
+    private static double MAX_ZOOM = 3;
 
     Player player;
     public double zoom;
@@ -37,9 +37,9 @@ public class Camera extends GameObject {
     private double calcZoom() {
         double totalSize = this.player.calcTotalSize();
 
-        double normSize = 1 / (1 + Math.exp(totalSize / MAX_ZOOM));
+        double normSize = totalSize / Player.MAX_SIZE;
 
-        zoom = MIN_ZOOM + normSize * (MAX_ZOOM - MIN_ZOOM);
+        zoom = MAX_ZOOM - normSize * (MAX_ZOOM - MIN_ZOOM);
 
         return zoom;
     }
@@ -68,8 +68,8 @@ public class Camera extends GameObject {
     }
 
     @Override
-    public void update() {
-        super.update();
+    public void update(double delta) {
+        super.update(delta);
 
         this.position.set(this.player.calcAverageCenter());
 

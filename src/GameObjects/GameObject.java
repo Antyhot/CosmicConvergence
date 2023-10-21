@@ -60,7 +60,7 @@ public class GameObject {
     /**
      * Updates the GameObject.
      */
-    public void update() {
+    public void update(double delta) {
         // Override this method
         this.setScreenPosition();
     }

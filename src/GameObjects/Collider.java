@@ -18,5 +18,5 @@ interface Collider<T> {
      * @param other collider to resolve collision with.
      * @return Vector2D representing the new velocity to push out of collision.
      */
-    Vector2D resolveCollision(T other);
+    void resolveCollision(T other);
 }

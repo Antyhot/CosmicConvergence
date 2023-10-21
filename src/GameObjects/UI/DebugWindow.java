@@ -27,6 +27,7 @@ public class DebugWindow extends GameObject {
         g2d.setFont(new Font("TimesRoman", Font.PLAIN, 16));
 
         String debugInfo = this.debugInfo() + "\n";
+        debugInfo += gameManager.getCamera().debugInfo() + "\n";
         for (GameObject gameObject : gameManager.getGameObjects()) {
             debugInfo += gameObject.debugInfo() + "\n";
         }
