@@ -24,9 +24,11 @@ public class PhysicsManager {
                     if (object.getCollider().collidesWith(other.getCollider())) {
                         object.onCollision(other);
 
-                        if (object.isActive() && other.isActive()) {
-                            object.getCollider().resolveCollision(other.getCollider());
-                        }
+                        if (!object.getCollider().isActive() || !other.getCollider().isActive()) {
+                            continue;
+                        }                            
+
+                        object.getCollider().resolveCollision(other.getCollider());
                     }
                 }
             }

@@ -9,9 +9,10 @@ import java.awt.*;
 public class CircleCollider<T extends PhysicsObject<?>> 
         extends GameObject implements Collider<CircleCollider<?>> {
 
+    // FIXME: Find a way to generalize isActive variable
+    protected boolean isActive = true;
     public double radius;
     public T parent;
-
 
     public CircleCollider(GameManager gameManager) {
         super(gameManager);
@@ -53,6 +54,13 @@ public class CircleCollider<T extends PhysicsObject<?>>
     }
 
     @Override
+    public boolean contains(CircleCollider<?> other) {
+        return this.parent.position.distance(
+                other.parent.position
+        ) < this.radius - other.radius;
+    }
+
+    @Override
     public void resolveCollision(CircleCollider<?> other) {
         // generic circle collision resolution
         Vector2D normal = this.parent.position.copy();
@@ -87,5 +95,13 @@ public class CircleCollider<T extends PhysicsObject<?>>
 
     public void setParent(T parent) {
         this.parent = parent;
+    }
+
+    public Boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

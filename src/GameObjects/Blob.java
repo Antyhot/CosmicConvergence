@@ -15,6 +15,11 @@ public class Blob extends PhysicsObject<Blob> {
     private double dsize = 0;
     public double maxForce = 1;
     public boolean canCombine = false;
+
+    // make a variable for time needed to merge back
+    // make a variable for time needed to split
+    public long mergeDelayMillis = 1000;
+    public long lastSplitTime = 0;
     
     /**
      * Constructor for the Blob class.
@@ -40,7 +45,7 @@ public class Blob extends PhysicsObject<Blob> {
     }
 
     public double getRadius() {
-        return Math.sqrt(this.size / Math.PI);
+        return Math.sqrt(this.dsize / Math.PI);
     }
 
     /**
@@ -69,7 +74,16 @@ public class Blob extends PhysicsObject<Blob> {
 
         this.collider.radius = this.getRadius();
 
-        this.dsize += (this.size - this.dsize) * 0.1;
+        this.dsize += (this.size - this.dsize) * 0.4;
+
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - this.lastSplitTime > this.mergeDelayMillis) {
+            this.canCombine = true;
+        } else {
+            this.canCombine = false;
+        }
+
+        this.collider.setActive(!this.canCombine);
     }
 
     @Override
@@ -98,17 +112,25 @@ public class Blob extends PhysicsObject<Blob> {
 
     @Override
     public void onCollision(PhysicsObject<?> other) {
+        boolean contains = this.getCollider().contains(other.getCollider());
+
         // Cell eat behaviour
         if (other instanceof Cell cell) {
-            this.size += cell.size;
-            cell.markObjectForRemoval();
+            if (contains) {
+                this.size += cell.size;
+                cell.markObjectForRemoval();
+            }
         }
 
         // Merge behaviour
         if (other instanceof Blob blob) {
             double distance = this.position.distance(blob.position);
             double totalRadius = this.getRadius() + blob.getRadius();
-            if (distance < totalRadius && blob.canCombine && this.canCombine) {    
+            double overlap = totalRadius - distance;
+
+            if ((overlap > Math.min(this.getRadius(), blob.getRadius()) || contains)
+                 && blob.canCombine && this.canCombine) {
+
                 if (this.size > blob.size) {
                     this.size += blob.size;
                     blob.markObjectForRemoval();
@@ -145,5 +167,8 @@ public class Blob extends PhysicsObject<Blob> {
 
         blob.init();
         this.player.blobs.add(blob);
+
+        this.lastSplitTime = System.currentTimeMillis();
+        blob.lastSplitTime = System.currentTimeMillis();
     }
 }

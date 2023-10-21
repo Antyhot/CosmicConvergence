@@ -33,6 +33,7 @@ public class Cell extends PhysicsObject<Cell> {
         this.position.set(x, y);
 
         this.collider.setRadius(this.getRadius());
+        this.collider.setActive(false);
 
         this.isStatic = true;
     }
