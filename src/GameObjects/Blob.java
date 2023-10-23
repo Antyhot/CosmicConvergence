@@ -98,16 +98,6 @@ public class Blob extends PhysicsObject<Blob> {
             (int) (radius * 2),
             (int) (radius * 2)
         );
-
-        // if (gameManager.getDebug()) {
-        //     String format = this.debugInfo();
-        //     Utils.drawText(
-        //         g2d,
-        //         format,
-        //         (int) (this.screenPosition.getX() - g2d.getFontMetrics().stringWidth(format) / 2),
-        //         (int) (this.screenPosition.getY() - radius - 20)
-        //     );
-        // }
     }
 
     @Override
@@ -138,6 +128,11 @@ public class Blob extends PhysicsObject<Blob> {
                     blob.size += this.size;
                     this.markObjectForRemoval();
                 }
+            }
+
+            // resolve collision with another blob
+            if (this.getCollider().isActive() && blob.getCollider().isActive()) {
+                this.getCollider().resolveCollision(blob.getCollider());
             }
         }
     }

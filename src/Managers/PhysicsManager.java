@@ -23,12 +23,6 @@ public class PhysicsManager {
 
                     if (object.getCollider().collidesWith(other.getCollider())) {
                         object.onCollision(other);
-
-                        if (!object.getCollider().isActive() || !other.getCollider().isActive()) {
-                            continue;
-                        }                            
-
-                        object.getCollider().resolveCollision(other.getCollider());
                     }
                 }
             }

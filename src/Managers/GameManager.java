@@ -29,7 +29,6 @@ public class GameManager extends JPanel implements Runnable {
     Camera camera = new Camera(this);
     DebugWindow debugWindow = new DebugWindow(this);
 
-
     Thread gameThread;
     InputHandler inputHandler = new InputHandler(this);
     PhysicsManager physicsManager = new PhysicsManager();
