@@ -2,6 +2,7 @@ package GameObjects;
 
 // import Managers.GameManager;
 // import Managers.Utils;
+
 import java.awt.*;
 
 /**
@@ -53,10 +54,6 @@ public class Blob extends PhysicsObject<Blob> {
      */
     public void init() {
         super.init(this);
-        // this.position.set(
-        //     Math.random() * GameManager.SCREEN_WIDTH / 2, 
-        //     Math.random() * GameManager.SCREEN_HEIGHT / 2
-        // );
     }
 
     @Override
@@ -77,11 +74,7 @@ public class Blob extends PhysicsObject<Blob> {
         this.dsize += (this.size - this.dsize) * 0.4;
 
         long currentTime = System.currentTimeMillis();
-        if (currentTime - this.lastSplitTime > this.mergeDelayMillis) {
-            this.canCombine = true;
-        } else {
-            this.canCombine = false;
-        }
+        this.canCombine = currentTime - this.lastSplitTime > this.mergeDelayMillis;
 
         this.collider.setActive(!this.canCombine);
     }
@@ -99,15 +92,15 @@ public class Blob extends PhysicsObject<Blob> {
             (int) (radius * 2)
         );
 
-        // if (gameManager.getDebug()) {
-        //     String format = this.debugInfo();
-        //     Utils.drawText(
-        //         g2d,
-        //         format,
-        //         (int) (this.screenPosition.getX() - g2d.getFontMetrics().stringWidth(format) / 2),
-        //         (int) (this.screenPosition.getY() - radius - 20)
-        //     );
-        // }
+//         if (gameManager.getDebug()) {
+//             String format = this.debugInfo();
+//             Utils.drawText(
+//                 g2d,
+//                 format,
+//                 (int) (this.screenPosition.getX() - g2d.getFontMetrics().stringWidth(format) / 2),
+//                 (int) (this.screenPosition.getY() - radius - 20)
+//             );
+//         }
     }
 
     @Override

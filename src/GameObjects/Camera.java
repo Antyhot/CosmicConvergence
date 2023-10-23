@@ -9,7 +9,7 @@ import java.awt.Graphics2D;
  */
 public class Camera extends GameObject {
     private static double MIN_ZOOM = 1;
-    private static double MAX_ZOOM = 3;
+    private static double MAX_ZOOM = 1;
 
     Player player;
     public double zoom;
@@ -45,7 +45,6 @@ public class Camera extends GameObject {
     }
 
     private void calculateVisibleArea() {
-        // System.out.println("Calculated visible area");
         this.visibleArea[0] = new Vector2D(
                 this.position.getX() - (double) GameManager.SCREEN_WIDTH / 2 / this.dzoom,
                 this.position.getY() - (double) GameManager.SCREEN_HEIGHT / 2 / this.dzoom
@@ -76,7 +75,7 @@ public class Camera extends GameObject {
         this.zoom = this.calcZoom();
         this.dzoom += (this.zoom - this.dzoom) * 0.05;
 
-        calculateVisibleArea();
+        this.calculateVisibleArea();
     }
 
     @Override

@@ -62,9 +62,8 @@ public class InputHandler implements MouseListener, MouseMotionListener, KeyList
         switch (e.getKeyChar()) {
             case 'p' -> this.gameManager.togglePause();
             case 'd' -> this.gameManager.toggleDebug();
-            default -> {
-
-            }
+            //on space split
+            default -> {}
         }
     }
 

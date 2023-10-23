@@ -6,8 +6,7 @@ import java.awt.*;
 /**
  * CircleCollider class.
  */
-public class CircleCollider<T extends PhysicsObject<?>> 
-        extends GameObject implements Collider<CircleCollider<?>> {
+public class CircleCollider<T extends PhysicsObject<?>> extends GameObject implements Collider<CircleCollider<?>> {
 
     // FIXME: Find a way to generalize isActive variable
     protected boolean isActive = true;
@@ -48,9 +47,7 @@ public class CircleCollider<T extends PhysicsObject<?>>
 
     @Override
     public boolean collidesWith(CircleCollider<?> other) {
-        return this.parent.position.distance(
-                other.parent.position
-        ) < this.radius + other.radius;
+        return this.parent.position.distance(other.parent.position) < this.radius + other.radius;
     }
 
     @Override

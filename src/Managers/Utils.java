@@ -22,4 +22,9 @@ public class Utils {
             g2d.drawString(lines[i], x, y + lineHeight * i);
         }
     }
+
+    public static double randomBetween(double a, double b) {
+
+        return a + Math.random() * (b - a);
+    }
 }
