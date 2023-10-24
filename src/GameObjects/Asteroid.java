@@ -67,23 +67,20 @@ public class Asteroid extends PhysicsObject<Asteroid> {
         double y = Utils.randomBetween(visibleArea[0].getY() - GameManager.SCREEN_HEIGHT, visibleArea[2].getY() + GameManager.SCREEN_HEIGHT);
 
         if (x >= visibleArea[0].getX() + (double) GameManager.SCREEN_WIDTH / 2) {
-            System.out.println("right");
+            // System.out.println("right");
             x += (double) GameManager.SCREEN_WIDTH / 2 + this.getRadius() * 2;
         } else {
-            System.out.println("left");
+            // System.out.println("left");
             x -= (double) GameManager.SCREEN_WIDTH / 2 + this.getRadius() * 2;
         }
 
         if (y >= visibleArea[0].getY() + (double) GameManager.SCREEN_WIDTH / 2) {
-            System.out.println("right");
+            // System.out.println("right");
             y += (double) GameManager.SCREEN_HEIGHT / 2 + this.getRadius() * 2;
         } else {
-            System.out.println("left");
+            // System.out.println("left");
             y -= (double) GameManager.SCREEN_HEIGHT / 2 + this.getRadius() * 2;
         }
-
-        // System.out.println("x = " + x);
-        // System.out.println("y = " + y);
 
         this.setPosition(new Vector2D(x, y));
 
@@ -135,7 +132,7 @@ public class Asteroid extends PhysicsObject<Asteroid> {
         super.draw(g2d);
 
         g2d.setColor(Color.WHITE);
-        g2d.drawPolygon(
+        g2d.fillPolygon(
             new Polygon(
                 this.polygonPoints.stream()
                     .mapToInt(point -> (int) (point.getX() + this.screenPosition.getX()))
@@ -146,6 +143,5 @@ public class Asteroid extends PhysicsObject<Asteroid> {
                 this.sides
             )
         );
-
     }
 }

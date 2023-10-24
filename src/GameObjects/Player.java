@@ -64,6 +64,15 @@ public class Player extends GameObject {
     }
 
     /**
+     * A method that auto fills blobs with cells. Used for testing.
+     */
+    public void fill() {
+        for (Blob blob: this.blobs) {
+            blob.size += 5;
+        }
+    }
+
+    /**
      * Init method for the Player class.
      */
     @Override

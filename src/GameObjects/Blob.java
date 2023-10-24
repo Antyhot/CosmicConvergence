@@ -9,10 +9,12 @@ import java.awt.*;
  * Blob class for the game.
  */
 public class Blob extends PhysicsObject<Blob> {
+    public static final int MIN_SIZE = 50;
+
     private final Player player;
     public double size = 10000;
     private double dsize = 0;
-    public double maxForce = 1;
+    public double maxForce = 2;
     public boolean canCombine = false;
 
     // make a variable for time needed to merge back
@@ -84,31 +86,52 @@ public class Blob extends PhysicsObject<Blob> {
         );
 
         // Draw outline of the blob
-        // g2d.setColor(new Color(0, 0, 0, 100));
-        // g2d.setStroke(new BasicStroke(1));
-        // g2d.drawOval(
-        //     (int) (this.screenPosition.getX() - radius),
-        //     (int) (this.screenPosition.getY() - radius),
-        //     (int) (radius * 2),
-        //     (int) (radius * 2)
-        // );
-        // g2d.setStroke(new BasicStroke(1));
+        g2d.setColor(new Color(0, 0, 0, 100));
+        g2d.setStroke(new BasicStroke(1));
+        g2d.drawOval(
+            (int) (this.screenPosition.getX() - radius),
+            (int) (this.screenPosition.getY() - radius),
+            (int) (radius * 2),
+            (int) (radius * 2)
+        );
+        g2d.setStroke(new BasicStroke(1));
 
-        // FIXME: Figure out how to write text in middle of the blob
-        // g2d.setFont(new Font(
-        //     "TimesRoman", 
-        //     Font.PLAIN, 
-        //     (int) (24 / this.gameManager.getCamera().dzoom)
-        // ));
-        // int lineWidth = g2d.getFontMetrics().stringWidth(this.player.name);
-        // int lineHeight = g2d.getFontMetrics().getHeight();
 
-        // g2d.setColor(Color.BLUE);
-        // g2d.drawString(
-        //     this.player.name,
-        //     (int) (this.screenPosition.getX() - lineWidth / 2),
-        //     (int) (this.screenPosition.getY() + lineHeight / 3)
-        // );
+        // TODO: Code below is for writing text on the blob (name and size). If possible make it look better.
+        String text = this.player.name;
+        double maxTextLength = 2 * radius * this.gameManager.getCamera().dzoom / 10;
+        double fontSize = maxTextLength / g2d.getFontMetrics().stringWidth(text) * g2d.getFont().getSize2D();
+
+        g2d.setFont(new Font(
+            "Monospace", 
+            Font.BOLD,
+            (int) (fontSize)
+        ));
+    
+        int lineWidth = g2d.getFontMetrics().stringWidth(text);
+        int lineHeight = g2d.getFontMetrics().getHeight();
+
+        g2d.setColor(Color.BLACK);
+        g2d.drawString(
+            text,
+            (int) (this.screenPosition.getX() - lineWidth / 2),
+            (int) (this.screenPosition.getY() + lineHeight / 3)
+        );
+
+        g2d.setFont(new Font(
+            "Monospace", 
+            Font.BOLD,
+            (int) (fontSize / 2)
+        ));
+
+        text = Integer.toString((int) (this.size));
+        lineWidth = g2d.getFontMetrics().stringWidth(text);
+    
+        g2d.drawString(
+            text,
+            (int) (this.screenPosition.getX() - lineWidth / 2),
+            (int) (this.screenPosition.getY() + lineHeight)
+        );
     }
 
     @Override
@@ -117,10 +140,10 @@ public class Blob extends PhysicsObject<Blob> {
 
         // Cell eat behaviour
         if (other instanceof Cell cell) {
-            if (contains) {
-                this.size += cell.size;
-                cell.markObjectForRemoval();
-            }
+            // if (contains) {
+            this.size += cell.size;
+            cell.markObjectForRemoval();
+            // }
         }
 
         // Merge behaviour
