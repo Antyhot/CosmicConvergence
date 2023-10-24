@@ -1,9 +1,11 @@
 package GameObjects;
 
 import Managers.GameManager;
+import Managers.Utils;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Asteroid class.
@@ -26,7 +28,9 @@ public class Asteroid extends PhysicsObject<Asteroid> {
      * @param gameManager The game manager.
      */
     public Asteroid(GameManager gameManager) {
+
         super(gameManager);
+        this.init();
     }
 
     public double getRadius() {
@@ -54,14 +58,44 @@ public class Asteroid extends PhysicsObject<Asteroid> {
     @Override
     public void init() {
         super.init(this);
+        this.size = Utils.randomBetween(MIN_SIZE, MAX_SIZE);
+        this.collider.setRadius(this.getRadius());
 
-        this.size = Math.random() * (MAX_SIZE - MIN_SIZE) + MIN_SIZE;
-        this.collider.radius = this.getRadius();
+        Vector2D[] visibleArea = this.gameManager.getCamera().visibleArea;
 
-        this.velocity.set(
-            Math.random(),
-            Math.random()
+        double x = Utils.randomBetween(visibleArea[0].getX() - GameManager.SCREEN_WIDTH, visibleArea[1].getX() + GameManager.SCREEN_WIDTH);
+        double y = Utils.randomBetween(visibleArea[0].getY() - GameManager.SCREEN_HEIGHT, visibleArea[2].getY() + GameManager.SCREEN_HEIGHT);
+
+        if (x >= visibleArea[0].getX() + (double) GameManager.SCREEN_WIDTH / 2) {
+            System.out.println("right");
+            x += (double) GameManager.SCREEN_WIDTH / 2 + this.getRadius() * 2;
+        } else {
+            System.out.println("left");
+            x -= (double) GameManager.SCREEN_WIDTH / 2 + this.getRadius() * 2;
+        }
+
+        if (y >= visibleArea[0].getY() + (double) GameManager.SCREEN_WIDTH / 2) {
+            System.out.println("right");
+            y += (double) GameManager.SCREEN_HEIGHT / 2 + this.getRadius() * 2;
+        } else {
+            System.out.println("left");
+            y -= (double) GameManager.SCREEN_HEIGHT / 2 + this.getRadius() * 2;
+        }
+
+        // System.out.println("x = " + x);
+        // System.out.println("y = " + y);
+
+        this.setPosition(new Vector2D(x, y));
+
+        Vector2D pointAtPlayer = new Vector2D(
+                this.gameManager.getCamera().position.getX() - this.position.getX(),
+                this.gameManager.getCamera().position.getY() - this.position.getY()
         );
+
+        this.velocity.set(pointAtPlayer);
+        this.velocity.normalize();
+        // this.velocity.set(Math.random(), Math.random());
+        this.velocity.multiply(5 / Math.sqrt(this.getRadius()));
 
         this.sides = this.generateRandomPolygonSides();
         this.polygonPoints = this.generatePolygonPoints(this.sides, this.getRadius());
@@ -112,5 +146,6 @@ public class Asteroid extends PhysicsObject<Asteroid> {
                 this.sides
             )
         );
+
     }
 }

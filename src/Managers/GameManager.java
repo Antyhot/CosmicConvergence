@@ -2,6 +2,8 @@ package Managers;
 
 import GameObjects.*;
 import GameObjects.UI.*;
+import GameObjects.UI.DebugWindow;
+import GameObjects.UI.ScoreCounter;
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -106,8 +108,10 @@ public class GameManager extends JPanel implements Runnable {
                 timer = 0;
 
                 for (int i = 0; i < 5; i++) {
-                    this.pendingGameObjects.add(new Cell(this, Math.random() * 10));
-                    this.pendingGameObjects.add(new Asteroid(this));
+                    this.pendingGameObjects.add(new Cell(this, Math.random() * 10 + 10));
+                    Asteroid e = new Asteroid(this);
+                    e.init();
+                    this.pendingGameObjects.add(e);
                 }
             }
         }
@@ -146,8 +150,10 @@ public class GameManager extends JPanel implements Runnable {
             this.debugWindow.draw(g2d);
         }
 
+
         this.camera.draw(g2d);
-        for (GameObject object : this.gameObjects) {
+        ArrayList<GameObject> copy = new ArrayList<>(this.gameObjects);
+        for (GameObject object : copy) {
             object.draw(g2d);
         }
 

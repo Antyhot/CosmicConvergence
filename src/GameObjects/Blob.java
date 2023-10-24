@@ -2,6 +2,7 @@ package GameObjects;
 
 // import Managers.GameManager;
 // import Managers.Utils;
+
 import java.awt.*;
 
 /**
@@ -62,11 +63,7 @@ public class Blob extends PhysicsObject<Blob> {
         this.dsize += (this.size - this.dsize) * 0.4;
 
         long currentTime = System.currentTimeMillis();
-        if (currentTime - this.lastSplitTime > this.mergeDelayMillis) {
-            this.canCombine = true;
-        } else {
-            this.canCombine = false;
-        }
+        this.canCombine = currentTime - this.lastSplitTime > this.mergeDelayMillis;
 
         this.collider.setActive(!this.canCombine);
     }

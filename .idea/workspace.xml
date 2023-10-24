@@ -7,12 +7,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e423cf3c-fa20-45ec-9d64-558b2a569261" name="Changes" comment="Cells spawn every second with variable sizes, added function for the camera to calculate visible area bounds. WIP: spawn cells in and around the visible area">
+    <list default="true" id="e423cf3c-fa20-45ec-9d64-558b2a569261" name="Changes" comment="Optimize game object spawning and visibility, modify game balancing&#10;&#10;Streamlined the way game objects such as cells and asteroids spawn within the visible area, by focusing the code to spawn objects on the GameManager and cleaning up irrelevant object creation in other classes. This includes the refactoring of calculating visible area bounds to improve game performance, by reducing unnecessary function calls. The code also modifies game balancing, by adjusting the number of blobs a player starts with from 1 to 3. This change was implemented to enhance the early game experience for new players. Implemented changes are still a work in progress: further optimizations for spawning cells in and around the visible area are planned.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameObjects/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Cell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameObjects/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameObjects/Asteroid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Asteroid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameObjects/Blob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Blob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameObjects/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameObjects/CircleCollider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/CircleCollider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Managers/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/GameManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Managers/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/InputHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Managers/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/Utils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +59,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -127,6 +133,8 @@
       <workItem from="1697224051213" duration="6194000" />
       <workItem from="1697288181673" duration="2860000" />
       <workItem from="1697454430251" duration="4257000" />
+      <workItem from="1697839328570" duration="685000" />
+      <workItem from="1697892467154" duration="8892000" />
     </task>
     <task id="LOCAL-00001" summary="Initial push">
       <option name="closed" value="true" />
@@ -159,23 +167,36 @@
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/temp" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/main" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="main" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="main" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
