@@ -39,8 +39,8 @@ public class Grid extends GameObject {
         g2d.setColor(new Color(255, 255, 255, 100));
 
         double gridSize = this.getGridSize();
-        int worldWidth = (int) (GameManager.SCREEN_WIDTH / gridSize);
-        int worldHeight = (int) (GameManager.SCREEN_HEIGHT / gridSize);
+        int worldWidth = (int) (this.gameManager.SCREEN_WIDTH / gridSize);
+        int worldHeight = (int) (this.gameManager.SCREEN_HEIGHT / gridSize);
         
         // get the camera's position
         double cameraX = this.gameManager.getCamera().getPosition().getX();

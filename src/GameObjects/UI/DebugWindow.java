@@ -40,11 +40,13 @@ public class DebugWindow extends GameObject {
         return String.format(
             "FPS: %d\n"
             + "GameObjects count: %d\n"
-            + "MousePosition XY: %.2f / %.2f\n",
+            + "MousePosition XY: %.2f / %.2f\n"
+            + "Screen width / height: %.2f / %.2f\n",
             gameManager.getDrawCount(),
             gameManager.getGameObjects().size(),
             gameManager.getInputHandler().getMousePosition().getX(),
-            gameManager.getInputHandler().getMousePosition().getY()
+            gameManager.getInputHandler().getMousePosition().getY(),
+            (double) gameManager.SCREEN_WIDTH, (double) gameManager.SCREEN_HEIGHT 
         );
     }
 }

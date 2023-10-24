@@ -46,23 +46,23 @@ public class Camera extends GameObject {
 
     private void calculateVisibleArea() {
         this.visibleArea[0] = new Vector2D(
-                this.position.getX() - (double) GameManager.SCREEN_WIDTH / 2 / this.dzoom,
-                this.position.getY() - (double) GameManager.SCREEN_HEIGHT / 2 / this.dzoom
+                this.position.getX() - (double) this.gameManager.SCREEN_WIDTH / 2 / this.dzoom,
+                this.position.getY() - (double) this.gameManager.SCREEN_HEIGHT / 2 / this.dzoom
         );
 
         this.visibleArea[1] = new Vector2D(
-                this.position.getX() + (double) GameManager.SCREEN_WIDTH / 2 / this.dzoom,
-                this.position.getY() - (double) GameManager.SCREEN_HEIGHT / 2 / this.dzoom
+                this.position.getX() + (double) this.gameManager.SCREEN_WIDTH / 2 / this.dzoom,
+                this.position.getY() - (double) this.gameManager.SCREEN_HEIGHT / 2 / this.dzoom
         );
 
         this.visibleArea[2] = new Vector2D(
-                this.position.getX() + (double) GameManager.SCREEN_WIDTH / 2 / this.dzoom,
-                this.position.getY() + (double) GameManager.SCREEN_HEIGHT / 2 / this.dzoom
+                this.position.getX() + (double) this.gameManager.SCREEN_WIDTH / 2 / this.dzoom,
+                this.position.getY() + (double) this.gameManager.SCREEN_HEIGHT / 2 / this.dzoom
         );
 
         this.visibleArea[3] = new Vector2D(
-                this.position.getX() - (double) GameManager.SCREEN_WIDTH / 2 / this.dzoom,
-                this.position.getY() + (double) GameManager.SCREEN_HEIGHT / 2 / this.dzoom
+                this.position.getX() - (double) this.gameManager.SCREEN_WIDTH / 2 / this.dzoom,
+                this.position.getY() + (double) this.gameManager.SCREEN_HEIGHT / 2 / this.dzoom
         );
     }
 
@@ -86,10 +86,10 @@ public class Camera extends GameObject {
         if (gameManager.getDebug()) {
             g2d.setColor(Color.RED);
             g2d.drawRect(
-                (int) (this.screenPosition.getX() - GameManager.SCREEN_WIDTH / 2),
-                (int) (this.screenPosition.getY() - GameManager.SCREEN_HEIGHT / 2),
-                GameManager.SCREEN_WIDTH,
-                GameManager.SCREEN_HEIGHT
+                (int) (this.screenPosition.getX() - this.gameManager.SCREEN_WIDTH / 2),
+                (int) (this.screenPosition.getY() - this.gameManager.SCREEN_HEIGHT / 2),
+                this.gameManager.SCREEN_WIDTH,
+                this.gameManager.SCREEN_HEIGHT
             );
     
             g2d.setColor(Color.GREEN);

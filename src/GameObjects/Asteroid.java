@@ -63,23 +63,23 @@ public class Asteroid extends PhysicsObject<Asteroid> {
 
         Vector2D[] visibleArea = this.gameManager.getCamera().visibleArea;
 
-        double x = Utils.randomBetween(visibleArea[0].getX() - GameManager.SCREEN_WIDTH, visibleArea[1].getX() + GameManager.SCREEN_WIDTH);
-        double y = Utils.randomBetween(visibleArea[0].getY() - GameManager.SCREEN_HEIGHT, visibleArea[2].getY() + GameManager.SCREEN_HEIGHT);
+        double x = Utils.randomBetween(visibleArea[0].getX() - this.gameManager.SCREEN_WIDTH, visibleArea[1].getX() + this.gameManager.SCREEN_WIDTH);
+        double y = Utils.randomBetween(visibleArea[0].getY() - this.gameManager.SCREEN_HEIGHT, visibleArea[2].getY() + this.gameManager.SCREEN_HEIGHT);
 
-        if (x >= visibleArea[0].getX() + (double) GameManager.SCREEN_WIDTH / 2) {
+        if (x >= visibleArea[0].getX() + (double) this.gameManager.SCREEN_WIDTH / 2) {
             // System.out.println("right");
-            x += (double) GameManager.SCREEN_WIDTH / 2 + this.getRadius() * 2;
+            x += (double) this.gameManager.SCREEN_WIDTH / 2 + this.getRadius() * 2;
         } else {
             // System.out.println("left");
-            x -= (double) GameManager.SCREEN_WIDTH / 2 + this.getRadius() * 2;
+            x -= (double) this.gameManager.SCREEN_WIDTH / 2 + this.getRadius() * 2;
         }
 
-        if (y >= visibleArea[0].getY() + (double) GameManager.SCREEN_WIDTH / 2) {
+        if (y >= visibleArea[0].getY() + (double) this.gameManager.SCREEN_WIDTH / 2) {
             // System.out.println("right");
-            y += (double) GameManager.SCREEN_HEIGHT / 2 + this.getRadius() * 2;
+            y += (double) this.gameManager.SCREEN_HEIGHT / 2 + this.getRadius() * 2;
         } else {
             // System.out.println("left");
-            y -= (double) GameManager.SCREEN_HEIGHT / 2 + this.getRadius() * 2;
+            y -= (double) this.gameManager.SCREEN_HEIGHT / 2 + this.getRadius() * 2;
         }
 
         this.setPosition(new Vector2D(x, y));

@@ -2,24 +2,25 @@ package Managers;
 
 import GameObjects.*;
 import GameObjects.UI.*;
-import GameObjects.UI.DebugWindow;
-import GameObjects.UI.ScoreCounter;
+
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 import javax.swing.*;
 
 /**
  * GameManager class for the game.
  */
-public class GameManager extends JPanel implements Runnable {
+public class GameManager extends JPanel implements Runnable, ComponentListener {
     //DEBUG SETTINGS
     public static boolean DEBUG = true;
     public static boolean PAUSED = false;
     public int drawCount = 0;
 
     // SCREEN SETTINGS
-    public static final int SCREEN_WIDTH = 1200;
-    public static final int SCREEN_HEIGHT = 800;
+    public int SCREEN_WIDTH = 1200;
+    public int SCREEN_HEIGHT = 800;
 
     static final int FPS = 60;
 
@@ -38,14 +39,16 @@ public class GameManager extends JPanel implements Runnable {
      * Constructor for the GameManager class.
      */
     public GameManager() {
-        this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+        this.setPreferredSize(new Dimension(this.SCREEN_WIDTH, this.SCREEN_HEIGHT));
         this.setBackground(Color.BLACK);
-        this.setDoubleBuffered(true);
+        // TODO: check if this is really needed. It seems that the game works better without it.
+        // this.setDoubleBuffered(true);
         this.setFocusable(true);
 
         this.addMouseListener(this.inputHandler);
         this.addMouseMotionListener(this.inputHandler);
         this.addKeyListener(this.inputHandler);
+        this.addComponentListener(this);
     }
 
     /**
@@ -62,12 +65,9 @@ public class GameManager extends JPanel implements Runnable {
     public void init() {
         this.player = new Player(this, inputHandler);
         this.debugWindow = new DebugWindow(this);
-        ScoreCounter scoreCounter = new ScoreCounter(this);
 
-        // this.gameObjects.add(camera);
         this.gameObjects.add(new Grid(this));
         this.gameObjects.add(player);
-        this.gameObjects.add(scoreCounter);
 
         this.camera.init(player);
 
@@ -149,7 +149,6 @@ public class GameManager extends JPanel implements Runnable {
         if (DEBUG) {
             this.debugWindow.draw(g2d);
         }
-
 
         this.camera.draw(g2d);
         ArrayList<GameObject> copy = new ArrayList<>(this.gameObjects);
@@ -239,5 +238,28 @@ public class GameManager extends JPanel implements Runnable {
 
     public ArrayList<GameObject> getPendingGameObjects() {
         return pendingGameObjects;
+    }
+
+    // ComponentListener methods
+    @Override
+    public void componentResized(ComponentEvent e) {
+        // Update the SCREEN_WIDTH and SCREEN_HEIGHT variables
+        this.SCREEN_WIDTH = this.getWidth();
+        this.SCREEN_HEIGHT = this.getHeight();
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+        // Do nothing
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+        // Do nothing
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+        // Do nothing
     }
 }
