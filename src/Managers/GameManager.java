@@ -115,7 +115,7 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
                 timer = 0;
 
                 for (int i = 0; i < 5; i++) {
-                    this.pendingGameObjects.add(new Cell(this, Math.random() * 10 + 10));
+                    this.pendingGameObjects.add(new Cell(this, Math.random() * 50 + 50));
                     Asteroid e = new Asteroid(this);
                     e.init();
                     this.pendingGameObjects.add(e);

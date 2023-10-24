@@ -12,7 +12,7 @@ public class Blob extends PhysicsObject<Blob> {
     public static final int MIN_SIZE = 50;
 
     private final Player player;
-    public double size = 10000;
+    public double size = 1300;
     private double dsize = 0;
     public double maxForce = 2;
     public boolean canCombine = false;

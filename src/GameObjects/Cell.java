@@ -2,12 +2,14 @@ package GameObjects;
 
 import Managers.GameManager;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Cell class.
  */
 public class Cell extends PhysicsObject<Cell> {
     public double size;
+    private Color hue;
 
     /**
      * Constructor for the Cell class.
@@ -36,6 +38,13 @@ public class Cell extends PhysicsObject<Cell> {
         this.collider.setActive(false);
 
         this.isStatic = true;
+
+        // Create a random color for the cell. Must be bright enough to be visible on the background.
+        this.hue = Color.getHSBColor(
+            (float) Math.random(), 
+            (float) (0.5 + Math.random() * 0.5), 
+            (float) (0.5 + Math.random() * 0.5)
+        );
     }
 
     public double getRadius() {
@@ -52,13 +61,26 @@ public class Cell extends PhysicsObject<Cell> {
     @Override
     public void draw(Graphics2D g2d) {
         double radius = this.getRadius();
-        g2d.setColor(Color.ORANGE);
+
+        // Draw the cell
+        g2d.setColor(this.hue);
         g2d.fillOval(
             (int) (this.screenPosition.getX() - radius),
             (int) (this.screenPosition.getY() - radius),
             (int) (radius * 2),
             (int) (radius * 2)
         );
+
+        // Draw outline of the cell
+        g2d.setColor(new Color(0, 0, 0, 100));
+        g2d.setStroke(new BasicStroke(1));
+        g2d.drawOval(
+            (int) (this.screenPosition.getX() - radius),
+            (int) (this.screenPosition.getY() - radius),
+            (int) (radius * 2),
+            (int) (radius * 2)
+        );
+        g2d.setStroke(new BasicStroke(1));
     }
 
     private void checkForRemoval() {
