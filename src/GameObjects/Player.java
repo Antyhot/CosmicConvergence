@@ -9,7 +9,8 @@ import java.util.ArrayList;
  * Player class for the game.
  */
 public class Player extends GameObject {
-    public static final int MAX_SIZE = 10000;
+    public static final int MAX_SIZE = 5000;
+    public String name = "ABC";
 
     InputHandler inputHandler;
     public ArrayList<Blob> blobs = new ArrayList<>();
@@ -32,6 +33,10 @@ public class Player extends GameObject {
     public Vector2D calcAverageCenter() {
         Vector2D center = new Vector2D();
 
+        if (this.blobs.size() == 0) {
+            return this.gameManager.getCamera().position;
+        }
+
         for (Blob blob: this.blobs) {
             center.add(blob.position);
         }
@@ -49,8 +54,10 @@ public class Player extends GameObject {
     public double calcTotalSize() {
         double totalSize = 0;
 
+        // Sqrt allows natural zoom out effect on large amount of blobs.
+        // since sqrt(a + b) <= sqrt(a) + sqrt(b)
         for (Blob blob: this.blobs) {
-            totalSize += blob.getSize();
+            totalSize += Math.sqrt(blob.size);
         }
 
         return totalSize;
@@ -77,7 +84,7 @@ public class Player extends GameObject {
             blob.update(delta);
         }
 
-        this.blobs.removeIf(blob -> blob.getSize() <= 0);
+        this.blobs.removeIf(blob -> blob.size <= 0);
         this.blobs.removeIf(blob -> !blob.isActive());
     }
 

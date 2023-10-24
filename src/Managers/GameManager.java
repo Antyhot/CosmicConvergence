@@ -1,8 +1,7 @@
 package Managers;
 
 import GameObjects.*;
-import GameObjects.UI.DebugWindow;
-import GameObjects.UI.ScoreCounter;
+import GameObjects.UI.*;
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -17,8 +16,8 @@ public class GameManager extends JPanel implements Runnable {
     public int drawCount = 0;
 
     // SCREEN SETTINGS
-    public static final int SCREEN_WIDTH = 800;
-    public static final int SCREEN_HEIGHT = 600;
+    public static final int SCREEN_WIDTH = 1200;
+    public static final int SCREEN_HEIGHT = 800;
 
     static final int FPS = 60;
 
@@ -64,6 +63,7 @@ public class GameManager extends JPanel implements Runnable {
         ScoreCounter scoreCounter = new ScoreCounter(this);
 
         // this.gameObjects.add(camera);
+        this.gameObjects.add(new Grid(this));
         this.gameObjects.add(player);
         this.gameObjects.add(scoreCounter);
 

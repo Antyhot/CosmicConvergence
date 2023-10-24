@@ -8,17 +8,15 @@ import java.awt.*;
  * Blob class for the game.
  */
 public class Blob extends PhysicsObject<Blob> {
-    public static final double MIN_SIZE = 50;
-
     private final Player player;
-    public double size = 1000;
+    public double size = 10000;
     private double dsize = 0;
     public double maxForce = 1;
     public boolean canCombine = false;
 
     // make a variable for time needed to merge back
     // make a variable for time needed to split
-    public long mergeDelayMillis = 1000;
+    public long mergeDelayMillis = 15000;
     public long lastSplitTime = 0;
     
     /**
@@ -35,15 +33,6 @@ public class Blob extends PhysicsObject<Blob> {
         return 1 / Math.sqrt(this.getRadius());
     }
 
-    /**
-     * Calculates the size of the blob.
-     * 
-     * @return size of the blob.
-     */
-    public double getSize() {
-        return this.size;
-    }
-
     public double getRadius() {
         return Math.sqrt(this.dsize / Math.PI);
     }
@@ -53,10 +42,6 @@ public class Blob extends PhysicsObject<Blob> {
      */
     public void init() {
         super.init(this);
-        // this.position.set(
-        //     Math.random() * GameManager.SCREEN_WIDTH / 2, 
-        //     Math.random() * GameManager.SCREEN_HEIGHT / 2
-        // );
     }
 
     @Override
@@ -91,6 +76,8 @@ public class Blob extends PhysicsObject<Blob> {
         super.draw(g2d);
 
         double radius = this.getRadius();
+
+        // Draw the blob
         g2d.setColor(Color.WHITE);
         g2d.fillOval(
             (int) (this.screenPosition.getX() - radius),
@@ -98,6 +85,33 @@ public class Blob extends PhysicsObject<Blob> {
             (int) (radius * 2),
             (int) (radius * 2)
         );
+
+        // Draw outline of the blob
+        // g2d.setColor(new Color(0, 0, 0, 100));
+        // g2d.setStroke(new BasicStroke(1));
+        // g2d.drawOval(
+        //     (int) (this.screenPosition.getX() - radius),
+        //     (int) (this.screenPosition.getY() - radius),
+        //     (int) (radius * 2),
+        //     (int) (radius * 2)
+        // );
+        // g2d.setStroke(new BasicStroke(1));
+
+        // FIXME: Figure out how to write text in middle of the blob
+        // g2d.setFont(new Font(
+        //     "TimesRoman", 
+        //     Font.PLAIN, 
+        //     (int) (24 / this.gameManager.getCamera().dzoom)
+        // ));
+        // int lineWidth = g2d.getFontMetrics().stringWidth(this.player.name);
+        // int lineHeight = g2d.getFontMetrics().getHeight();
+
+        // g2d.setColor(Color.BLUE);
+        // g2d.drawString(
+        //     this.player.name,
+        //     (int) (this.screenPosition.getX() - lineWidth / 2),
+        //     (int) (this.screenPosition.getY() + lineHeight / 3)
+        // );
     }
 
     @Override
@@ -131,7 +145,7 @@ public class Blob extends PhysicsObject<Blob> {
             }
 
             // resolve collision with another blob
-            if (this.getCollider().isActive() && blob.getCollider().isActive()) {
+            if (this.getCollider().isActive() || blob.getCollider().isActive()) {
                 this.getCollider().resolveCollision(blob.getCollider());
             }
         }
