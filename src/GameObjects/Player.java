@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Player class for the game.
  */
 public class Player extends GameObject {
-    public static final int MAX_SIZE = 5000;
+    public static final int MAX_SIZE = 1500;
     public String name = "ABC";
 
     InputHandler inputHandler;
@@ -68,7 +68,7 @@ public class Player extends GameObject {
      */
     public void fill() {
         for (Blob blob: this.blobs) {
-            blob.size += 5;
+            blob.size += 500;
         }
     }
 

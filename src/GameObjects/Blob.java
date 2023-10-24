@@ -98,6 +98,7 @@ public class Blob extends PhysicsObject<Blob> {
 
 
         // TODO: Code below is for writing text on the blob (name and size). If possible make it look better.
+        // FIXME: Sometimes the text is not visible, I don't know why.
         String text = this.player.name;
         double maxTextLength = 2 * radius * this.gameManager.getCamera().dzoom / 10;
         double fontSize = maxTextLength / g2d.getFontMetrics().stringWidth(text) * g2d.getFont().getSize2D();
@@ -200,4 +201,6 @@ public class Blob extends PhysicsObject<Blob> {
         this.lastSplitTime = System.currentTimeMillis();
         blob.lastSplitTime = System.currentTimeMillis();
     }
+
+    
 }

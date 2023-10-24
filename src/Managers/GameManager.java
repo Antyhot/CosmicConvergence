@@ -1,9 +1,16 @@
 package Managers;
 
-import GameObjects.*;
-import GameObjects.UI.*;
-
-import java.awt.*;
+import GameObjects.Asteroid;
+import GameObjects.Camera;
+import GameObjects.Cell;
+import GameObjects.GameObject;
+import GameObjects.Player;
+import GameObjects.UI.DebugWindow;
+import GameObjects.UI.Grid;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.ArrayList;
@@ -14,13 +21,13 @@ import javax.swing.*;
  */
 public class GameManager extends JPanel implements Runnable, ComponentListener {
     //DEBUG SETTINGS
-    public static boolean DEBUG = true;
+    public static boolean DEBUG = false;
     public static boolean PAUSED = false;
     public int drawCount = 0;
 
     // SCREEN SETTINGS
-    public int SCREEN_WIDTH = 1200;
-    public int SCREEN_HEIGHT = 800;
+    public int screenWidth = 1200;
+    public int screenHeight = 800;
 
     static final int FPS = 60;
 
@@ -39,7 +46,7 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
      * Constructor for the GameManager class.
      */
     public GameManager() {
-        this.setPreferredSize(new Dimension(this.SCREEN_WIDTH, this.SCREEN_HEIGHT));
+        this.setPreferredSize(new Dimension(this.screenWidth, this.screenHeight));
         this.setBackground(Color.BLACK);
         // TODO: check if this is really needed. It seems that the game works better without it.
         // this.setDoubleBuffered(true);
@@ -243,9 +250,9 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
     // ComponentListener methods
     @Override
     public void componentResized(ComponentEvent e) {
-        // Update the SCREEN_WIDTH and SCREEN_HEIGHT variables
-        this.SCREEN_WIDTH = this.getWidth();
-        this.SCREEN_HEIGHT = this.getHeight();
+        // Update the screenWidth and screenHeight variables
+        this.screenWidth = this.getWidth();
+        this.screenHeight = this.getHeight();
     }
 
     @Override

@@ -40,8 +40,8 @@ public class GameObject {
         this.screenPosition.subtract(this.gameManager.getCamera().position);
 
         Vector2D center = new Vector2D(
-            (double) this.gameManager.SCREEN_WIDTH / 2,
-            (double) this.gameManager.SCREEN_HEIGHT / 2
+            (double) this.gameManager.screenWidth / 2,
+            (double) this.gameManager.screenHeight / 2
         );
 
         center.multiply(1 / this.gameManager.getCamera().dzoom);

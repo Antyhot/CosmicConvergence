@@ -45,6 +45,8 @@ public class Cell extends PhysicsObject<Cell> {
     @Override
     public void update(double delta) {
         super.update(delta);
+
+        this.checkForRemoval();
     }
 
     @Override
@@ -57,5 +59,14 @@ public class Cell extends PhysicsObject<Cell> {
             (int) (radius * 2),
             (int) (radius * 2)
         );
+    }
+
+    private void checkForRemoval() {
+        if (this.position.getX() < this.gameManager.getCamera().visibleArea[0].getX() - this.gameManager.screenWidth ||
+            this.position.getX() > this.gameManager.getCamera().visibleArea[1].getX() + this.gameManager.screenWidth ||
+            this.position.getY() < this.gameManager.getCamera().visibleArea[0].getY() - this.gameManager.screenHeight ||
+            this.position.getY() > this.gameManager.getCamera().visibleArea[2].getY() + this.gameManager.screenHeight) {
+            this.markObjectForRemoval();
+        }
     }
 }

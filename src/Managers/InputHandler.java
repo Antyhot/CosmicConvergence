@@ -60,10 +60,9 @@ public class InputHandler implements MouseListener, MouseMotionListener, KeyList
     @Override
     public void keyTyped(KeyEvent e) {
         switch (e.getKeyChar()) {
-            case 'p' -> this.gameManager.togglePause();
+            case KeyEvent.VK_ESCAPE -> this.gameManager.togglePause();
             case 'd' -> this.gameManager.toggleDebug();
             case 'f' -> this.gameManager.player.fill();
-            //on space split
             default -> {}
         }
     }

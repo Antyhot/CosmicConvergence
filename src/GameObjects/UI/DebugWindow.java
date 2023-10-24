@@ -46,7 +46,7 @@ public class DebugWindow extends GameObject {
             gameManager.getGameObjects().size(),
             gameManager.getInputHandler().getMousePosition().getX(),
             gameManager.getInputHandler().getMousePosition().getY(),
-            (double) gameManager.SCREEN_WIDTH, (double) gameManager.SCREEN_HEIGHT 
+            (double) gameManager.screenWidth, (double) gameManager.screenHeight 
         );
     }
 }

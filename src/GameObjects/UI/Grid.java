@@ -20,7 +20,6 @@ public class Grid extends GameObject {
      * @return double
      */
     double getGridSize() {
-        // return 25 / this.gameManager.getCamera().dzoom;
         return 25;
     }
 
@@ -39,8 +38,8 @@ public class Grid extends GameObject {
         g2d.setColor(new Color(255, 255, 255, 100));
 
         double gridSize = this.getGridSize();
-        int worldWidth = (int) (this.gameManager.SCREEN_WIDTH / gridSize);
-        int worldHeight = (int) (this.gameManager.SCREEN_HEIGHT / gridSize);
+        int worldWidth = (int) (this.gameManager.screenWidth / this.gameManager.getCamera().dzoom / gridSize) + 3;
+        int worldHeight = (int) (this.gameManager.screenHeight / this.gameManager.getCamera().dzoom / gridSize) + 3;
         
         // get the camera's position
         double cameraX = this.gameManager.getCamera().getPosition().getX();
