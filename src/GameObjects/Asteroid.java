@@ -4,6 +4,7 @@ import Managers.GameManager;
 import Managers.Utils;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Asteroid class.
@@ -14,6 +15,9 @@ public class Asteroid extends PhysicsObject<Asteroid> {
 
     private static final int MIN_SIZE = 100;
     private static final int MAX_SIZE = 500;
+
+    //Maximum offset when pointing at the player in radians (15 degrees by default)
+    private static final double MAX_RAD_OFFSET = Math.toRadians(15);
 
     public double size;
 
@@ -53,45 +57,48 @@ public class Asteroid extends PhysicsObject<Asteroid> {
     }
 
 
+
     @Override
     public void init() {
         super.init(this);
+
+        Random random = new Random();
         this.size = Utils.randomBetween(MIN_SIZE, MAX_SIZE);
         this.collider.setRadius(this.getRadius());
 
-        Vector2D[] visibleArea = this.gameManager.getCamera().visibleArea;
 
-        double x = Utils.randomBetween(visibleArea[0].getX() - this.gameManager.screenWidth, visibleArea[1].getX() + this.gameManager.screenWidth);
-        double y = Utils.randomBetween(visibleArea[0].getY() - this.gameManager.screenHeight, visibleArea[2].getY() + this.gameManager.screenHeight);
+        //Spawn asteroid just outside of visible area
+        Camera camera = this.gameManager.getCamera();
+        Vector2D[] visibleArea = camera.visibleArea;
 
-        if (x >= visibleArea[0].getX() + (double) this.gameManager.screenWidth / 2) {
-            // System.out.println("right");
-            x += (double) this.gameManager.screenWidth / 2 + this.getRadius() * 2;
+        double x;
+        double y;
+        if (random.nextBoolean()) {
+            x = Utils.randomBetween(visibleArea[0].getX(), camera.visibleArea[1].getX());
+            y = random.nextBoolean() ? (visibleArea[0].getY() - (this.getRadius() * 2)) : (visibleArea[2].getY() + (this.getRadius() * 2));
         } else {
-            // System.out.println("left");
-            x -= (double) this.gameManager.screenWidth / 2 + this.getRadius() * 2;
-        }
-
-        if (y >= visibleArea[0].getY() + (double) this.gameManager.screenWidth / 2) {
-            // System.out.println("right");
-            y += (double) this.gameManager.screenHeight / 2 + this.getRadius() * 2;
-        } else {
-            // System.out.println("left");
-            y -= (double) this.gameManager.screenHeight / 2 + this.getRadius() * 2;
+            x = random.nextBoolean() ? visibleArea[0].getX() - this.getRadius() * 2 : visibleArea[1].getX() + this.getRadius() * 2;
+            y = Utils.randomBetween(visibleArea[0].getY() , camera.visibleArea[2].getY());
         }
 
         this.setPosition(new Vector2D(x, y));
 
-        Vector2D pointAtPlayer = new Vector2D(
-                this.gameManager.getCamera().position.getX() - this.position.getX(),
-                this.gameManager.getCamera().position.getY() - this.position.getY()
-        );
 
+        //Calculate the velocity of the asteroid to point in the area of the player
+        Vector2D pointAtPlayer = new Vector2D(
+                camera.position.getX() - this.position.getX(),
+                camera.position.getY() - this.position.getY()
+        );
+        pointAtPlayer.normalize();
+
+        //Add offset to the angle of the velocity vector
+        double magnitude = pointAtPlayer.magnitude();
+        pointAtPlayer.setX(Math.cos(pointAtPlayer.angle() + Utils.randomBetween(-1 * MAX_RAD_OFFSET, MAX_RAD_OFFSET)) * magnitude);
         this.velocity.set(pointAtPlayer);
-        this.velocity.normalize();
-        // this.velocity.set(Math.random(), Math.random());
+
         this.velocity.multiply(5 / Math.sqrt(this.getRadius()));
 
+        //Generate random polygon to represent the asteroid
         this.sides = this.generateRandomPolygonSides();
         this.polygonPoints = this.generatePolygonPoints(this.sides, this.getRadius());
 

@@ -297,6 +297,15 @@ public class Vector2D {
     }
 
     /**
+     * Returns the angle in radians between the positive x-axis and the vector represented by this Vector2D.
+     *
+     * @return the angle in radians
+     */
+    public double angle() {
+        return Math.atan2(this.y, this.x);
+    }
+
+    /**
      * Returns a String representation of this Vector2D.
      * 
      * @return String representation of this Vector2D

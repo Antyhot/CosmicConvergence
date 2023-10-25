@@ -1,20 +1,14 @@
 package Managers;
 
-import GameObjects.Asteroid;
-import GameObjects.Camera;
-import GameObjects.Cell;
-import GameObjects.GameObject;
-import GameObjects.Player;
+import GameObjects.*;
 import GameObjects.UI.DebugWindow;
 import GameObjects.UI.Grid;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.ArrayList;
-import javax.swing.*;
 
 /**
  * GameManager class for the game.
@@ -116,13 +110,14 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
 
                 for (int i = 0; i < 5; i++) {
                     this.pendingGameObjects.add(new Cell(this, Math.random() * 50 + 50));
-                    Asteroid e = new Asteroid(this);
-                    e.init();
-                    this.pendingGameObjects.add(e);
                 }
+
+                this.pendingGameObjects.add(new Asteroid(this));
+
             }
         }
     }
+
 
     /**
      * Updates the game.
