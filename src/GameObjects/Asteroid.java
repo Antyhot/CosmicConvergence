@@ -16,8 +16,8 @@ public class Asteroid extends PhysicsObject<Asteroid> {
     private static final int MIN_SIZE = 100;
     private static final int MAX_SIZE = 500;
 
-    //Maximum offset when pointing at the player in radians (15 degrees by default)
-    private static final double MAX_RAD_OFFSET = Math.toRadians(15);
+    //Maximum offset when pointing at the player in radians (30 degrees by default)
+    private static final double MAX_RAD_OFFSET = Math.toRadians(30);
 
     public double size;
 

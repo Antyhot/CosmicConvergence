@@ -33,7 +33,7 @@ public class Player extends GameObject {
     public Vector2D calcAverageCenter() {
         Vector2D center = new Vector2D();
 
-        if (this.blobs.size() == 0) {
+        if (this.blobs.isEmpty()) {
             return this.gameManager.getCamera().position;
         }
 
@@ -61,6 +61,18 @@ public class Player extends GameObject {
         }
 
         return totalSize;
+    }
+
+    public double calcTotalScore() {
+
+        //TODO: Figure out why the total score changes after splitting
+        double totalScore = 0;
+
+        for (Blob blob: this.blobs) {
+            totalScore += blob.size;
+        }
+
+        return totalScore;
     }
 
     /**

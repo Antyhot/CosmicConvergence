@@ -85,15 +85,7 @@ public class Blob extends PhysicsObject<Blob> {
             (int) (radius * 2)
         );
 
-        // Draw outline of the blob
-        g2d.setColor(new Color(0, 0, 0, 100));
-        g2d.setStroke(new BasicStroke(1));
-        g2d.drawOval(
-            (int) (this.screenPosition.getX() - radius),
-            (int) (this.screenPosition.getY() - radius),
-            (int) (radius * 2),
-            (int) (radius * 2)
-        );
+
         g2d.setStroke(new BasicStroke(1));
 
 
@@ -139,7 +131,7 @@ public class Blob extends PhysicsObject<Blob> {
     public void onCollision(PhysicsObject<?> other) {
         boolean contains = this.getCollider().contains(other.getCollider());
 
-        // Cell eat behaviour
+        // Cell eat behavior
         if (other instanceof Cell cell) {
             // if (contains) {
             this.size += cell.size;

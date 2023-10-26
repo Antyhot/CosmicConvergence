@@ -3,6 +3,7 @@ package Managers;
 import GameObjects.*;
 import GameObjects.UI.DebugWindow;
 import GameObjects.UI.Grid;
+import GameObjects.UI.ScoreCounter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,7 +31,8 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
 
     Player player;
     Camera camera = new Camera(this);
-    DebugWindow debugWindow = new DebugWindow(this);
+    DebugWindow debugWindow;
+    ScoreCounter scoreCounter;
 
     Thread gameThread;
     InputHandler inputHandler = new InputHandler(this);
@@ -66,6 +68,7 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
     public void init() {
         this.player = new Player(this, inputHandler);
         this.debugWindow = new DebugWindow(this);
+        this.scoreCounter = new ScoreCounter(this);
 
         this.gameObjects.add(new Grid(this));
         this.gameObjects.add(player);
@@ -152,7 +155,9 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
             this.debugWindow.draw(g2d);
         }
 
+        Graphics2D g2dCopy = (Graphics2D) g.create();
         this.camera.draw(g2d);
+
         ArrayList<GameObject> copy = new ArrayList<>(this.gameObjects);
         for (GameObject object : copy) {
             object.draw(g2d);
@@ -168,6 +173,8 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
                 10 * 2
             );
         }
+
+        this.scoreCounter.draw(g2dCopy);
 
         g2d.dispose();
     }
@@ -231,7 +238,7 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
     }
 
     public double getScore() {
-        return this.player.calcTotalSize();
+        return this.player.calcTotalScore();
     }
 
     public int getDrawCount() {

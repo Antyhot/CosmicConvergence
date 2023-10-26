@@ -1,15 +1,15 @@
 package GameObjects;
 
 import Managers.GameManager;
-import java.awt.Color;
-import java.awt.Graphics2D;
+
+import java.awt.*;
 
 /**
  * Camera.
  */
 public class Camera extends GameObject {
-    private static double MIN_ZOOM = 1;
-    private static double MAX_ZOOM = 2.5;
+    private static final double MIN_ZOOM = 1;
+    private static final double MAX_ZOOM = 2.5;
 
     Player player;
     public double zoom;
@@ -83,6 +83,8 @@ public class Camera extends GameObject {
     public void draw(Graphics2D g2d) {
         g2d.scale(this.dzoom, this.dzoom);
 
+
+        //Displaying debug information
         if (gameManager.getDebug()) {
             g2d.setColor(Color.RED);
             g2d.drawRect(
@@ -91,7 +93,7 @@ public class Camera extends GameObject {
                 this.gameManager.screenWidth,
                 this.gameManager.screenHeight
             );
-    
+
             g2d.setColor(Color.GREEN);
             g2d.fillOval(
                 (int) (this.screenPosition.getX() - 5),
@@ -100,6 +102,7 @@ public class Camera extends GameObject {
                 5 * 2
             );
         }
+
     }
 
     @Override
