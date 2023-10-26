@@ -2,7 +2,6 @@ package GameObjects;
 
 import Managers.GameManager;
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * Cell class.
@@ -18,7 +17,6 @@ public class Cell extends PhysicsObject<Cell> {
     public Cell(GameManager gameManager, double size) {
         super(gameManager);
         this.size = size;
-        this.init();
     }
 
     /**
@@ -29,8 +27,10 @@ public class Cell extends PhysicsObject<Cell> {
 
         Vector2D[] visibleArea = this.gameManager.getCamera().visibleArea;
 
-        double x = visibleArea[0].getX() + 2 * Math.random() * (visibleArea[1].getX() - visibleArea[0].getX());
-        double y = visibleArea[0].getY() + 2 * Math.random() * (visibleArea[3].getY() - visibleArea[0].getY());
+        double x = 2 * Math.random() * this.gameManager.getCamera().calcVisibleAreaWidth() 
+                   + visibleArea[0].getX();
+        double y = 2 * Math.random() * this.gameManager.getCamera().calcVisibleAreaHeight() 
+                   + visibleArea[0].getY();
 
         this.position.set(x, y);
 
@@ -39,7 +39,6 @@ public class Cell extends PhysicsObject<Cell> {
 
         this.isStatic = true;
 
-        // Create a random color for the cell. Must be bright enough to be visible on the background.
         this.hue = Color.getHSBColor(
             (float) Math.random(), 
             (float) (0.5 + Math.random() * 0.5), 
@@ -84,10 +83,15 @@ public class Cell extends PhysicsObject<Cell> {
     }
 
     private void checkForRemoval() {
-        if (this.position.getX() < this.gameManager.getCamera().visibleArea[0].getX() - this.gameManager.screenWidth ||
-            this.position.getX() > this.gameManager.getCamera().visibleArea[1].getX() + this.gameManager.screenWidth ||
-            this.position.getY() < this.gameManager.getCamera().visibleArea[0].getY() - this.gameManager.screenHeight ||
-            this.position.getY() > this.gameManager.getCamera().visibleArea[2].getY() + this.gameManager.screenHeight) {
+        Vector2D[] visibleArea = this.gameManager.getCamera().visibleArea;
+        double visibleAreaWidth = this.gameManager.getCamera().calcVisibleAreaWidth();
+        double visibleAreaHeight = this.gameManager.getCamera().calcVisibleAreaHeight();
+
+        if (this.position.getX() < visibleArea[0].getX() - visibleAreaWidth 
+            || this.position.getX() > visibleArea[1].getX() + visibleAreaWidth 
+            || this.position.getY() < visibleArea[0].getY() - visibleAreaHeight 
+            || this.position.getY() > visibleArea[2].getY() + visibleAreaHeight) {
+
             this.markObjectForRemoval();
         }
     }

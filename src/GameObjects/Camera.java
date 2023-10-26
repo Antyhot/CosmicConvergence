@@ -44,6 +44,14 @@ public class Camera extends GameObject {
         return zoom;
     }
 
+    public double calcVisibleAreaWidth() {
+        return this.visibleArea[1].getX() - this.visibleArea[0].getX();
+    }
+
+    public double calcVisibleAreaHeight() {
+        return this.visibleArea[3].getY() - this.visibleArea[0].getY();
+    }
+
     private void calculateVisibleArea() {
         this.visibleArea[0] = new Vector2D(
                 this.position.getX() - (double) this.gameManager.screenWidth / 2 / this.dzoom,

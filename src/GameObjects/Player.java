@@ -113,4 +113,9 @@ public class Player extends GameObject {
             this.calcTotalSize()
         );
     }
+
+
+    public boolean isDead() {
+        return this.blobs.size() == 0;
+    }
 }

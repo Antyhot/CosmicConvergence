@@ -4,6 +4,7 @@ import Managers.GameManager;
 import Managers.Utils;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Asteroid class.
@@ -26,9 +27,7 @@ public class Asteroid extends PhysicsObject<Asteroid> {
      * @param gameManager The game manager.
      */
     public Asteroid(GameManager gameManager) {
-
         super(gameManager);
-        this.init();
     }
 
     public double getRadius() {
@@ -52,7 +51,6 @@ public class Asteroid extends PhysicsObject<Asteroid> {
         return (int) (Math.random() * (MAX_SIDES - MIN_SIDES) + MIN_SIDES);
     }
 
-
     @Override
     public void init() {
         super.init(this);
@@ -60,27 +58,33 @@ public class Asteroid extends PhysicsObject<Asteroid> {
         this.collider.setRadius(this.getRadius());
 
         Vector2D[] visibleArea = this.gameManager.getCamera().visibleArea;
+        double visibleAreaWidth = this.gameManager.getCamera().calcVisibleAreaWidth();
+        double visibleAreaHeight = this.gameManager.getCamera().calcVisibleAreaHeight();
 
-        double x = Utils.randomBetween(visibleArea[0].getX() - this.gameManager.screenWidth, visibleArea[1].getX() + this.gameManager.screenWidth);
-        double y = Utils.randomBetween(visibleArea[0].getY() - this.gameManager.screenHeight, visibleArea[2].getY() + this.gameManager.screenHeight);
+        double x = Utils.randomBetween(
+            visibleArea[0].getX() - visibleAreaWidth, 
+            visibleArea[1].getX() + visibleAreaWidth);
+        double y = Utils.randomBetween(
+            visibleArea[0].getY() - visibleAreaHeight, 
+            visibleArea[2].getY() + visibleAreaHeight);
 
-        if (x >= visibleArea[0].getX() + (double) this.gameManager.screenWidth / 2) {
+        if (x >= visibleArea[0].getX() + (double) visibleAreaWidth / 2) {
             // System.out.println("right");
-            x += (double) this.gameManager.screenWidth / 2 + this.getRadius() * 2;
+            x += (double) visibleAreaWidth / 2 + this.getRadius() * 2;
         } else {
             // System.out.println("left");
-            x -= (double) this.gameManager.screenWidth / 2 + this.getRadius() * 2;
+            x -= (double) visibleAreaWidth / 2 + this.getRadius() * 2;
         }
 
-        if (y >= visibleArea[0].getY() + (double) this.gameManager.screenWidth / 2) {
+        if (y >= visibleArea[0].getY() + (double) visibleAreaWidth / 2) {
             // System.out.println("right");
-            y += (double) this.gameManager.screenHeight / 2 + this.getRadius() * 2;
+            y += (double) visibleAreaHeight / 2 + this.getRadius() * 2;
         } else {
             // System.out.println("left");
-            y -= (double) this.gameManager.screenHeight / 2 + this.getRadius() * 2;
+            y -= (double) visibleAreaHeight / 2 + this.getRadius() * 2;
         }
 
-        this.setPosition(new Vector2D(x, y));
+        this.position.set(x, y);
 
         Vector2D pointAtPlayer = new Vector2D(
                 this.gameManager.getCamera().position.getX() - this.position.getX(),
@@ -146,10 +150,15 @@ public class Asteroid extends PhysicsObject<Asteroid> {
     }
 
     private void checkForRemoval() {
-        if (this.position.getX() < this.gameManager.getCamera().visibleArea[0].getX() - this.gameManager.screenWidth ||
-            this.position.getX() > this.gameManager.getCamera().visibleArea[1].getX() + this.gameManager.screenWidth ||
-            this.position.getY() < this.gameManager.getCamera().visibleArea[0].getY() - this.gameManager.screenHeight ||
-            this.position.getY() > this.gameManager.getCamera().visibleArea[2].getY() + this.gameManager.screenHeight) {
+        Vector2D[] visibleArea = this.gameManager.getCamera().visibleArea;
+        double visibleAreaWidth = this.gameManager.getCamera().calcVisibleAreaWidth();
+        double visibleAreaHeight = this.gameManager.getCamera().calcVisibleAreaHeight();
+
+        if (this.position.getX() < visibleArea[0].getX() - visibleAreaWidth 
+            || this.position.getX() > visibleArea[1].getX() + visibleAreaWidth 
+            || this.position.getY() < visibleArea[0].getY() - visibleAreaHeight 
+            || this.position.getY() > visibleArea[2].getY() + visibleAreaHeight) {
+
             this.markObjectForRemoval();
         }
     }

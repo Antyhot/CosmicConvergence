@@ -11,6 +11,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.ArrayList;
@@ -20,6 +22,8 @@ import javax.swing.*;
  * GameManager class for the game.
  */
 public class GameManager extends JPanel implements Runnable, ComponentListener {
+    public static boolean GAME_RUNNING = false;
+
     //DEBUG SETTINGS
     public static boolean DEBUG = false;
     public static boolean PAUSED = false;
@@ -30,6 +34,8 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
     public int screenHeight = 800;
 
     static final int FPS = 60;
+
+    TitleScreen titleScreen = new TitleScreen(this);
 
     public ArrayList<GameObject> gameObjects = new ArrayList<>();
     ArrayList<GameObject> pendingGameObjects = new ArrayList<>();
@@ -50,18 +56,29 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
         this.setBackground(Color.BLACK);
         // TODO: check if this is really needed. It seems that the game works better without it.
         // this.setDoubleBuffered(true);
-        this.setFocusable(true);
 
         this.addMouseListener(this.inputHandler);
         this.addMouseMotionListener(this.inputHandler);
         this.addKeyListener(this.inputHandler);
         this.addComponentListener(this);
+
+        // Set the layout to GridBagLayout
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.BOTH; // Fill the available space
+        c.weightx = 1.0; // Take up all horizontal space
+        c.weighty = 1.0; // Take up all vertical space
+        this.add(titleScreen, c); // Add the titleScreen with the constraints
     }
 
     /**
      * Starts the game thread.
      */
     public void startGameThread() {
+        GAME_RUNNING = true;
+        this.setFocusable(true);
+        this.requestFocusInWindow();
+    
         this.gameThread = new Thread(this);
         this.gameThread.start();
     }
@@ -73,6 +90,7 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
         this.player = new Player(this, inputHandler);
         this.debugWindow = new DebugWindow(this);
 
+        this.gameObjects.clear();
         this.gameObjects.add(new Grid(this));
         this.gameObjects.add(player);
 
@@ -93,7 +111,7 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
         long currentTime;
         long timer = 0;
 
-        while (this.gameThread != null) {
+        while (this.gameThread != null && GAME_RUNNING) {
             currentTime = System.nanoTime();
 
             delta += (currentTime - lastTime) / drawInterval;
@@ -116,10 +134,9 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
 
                 for (int i = 0; i < 5; i++) {
                     this.pendingGameObjects.add(new Cell(this, Math.random() * 50 + 50));
-                    Asteroid e = new Asteroid(this);
-                    e.init();
-                    this.pendingGameObjects.add(e);
+                    this.pendingGameObjects.add(new Asteroid(this));
                 }
+
             }
         }
     }
@@ -128,6 +145,15 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
      * Updates the game.
      */
     public void update(double delta) {
+        if (this.player.isDead()) {
+            GAME_RUNNING = false;
+            this.gameThread = null;
+            this.titleScreen.setVisible(true);
+            this.repaint();
+
+            return;
+        }
+
         this.camera.update(delta);
 
         this.physicsManager.handleCollisions();
