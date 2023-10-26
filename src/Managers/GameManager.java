@@ -1,10 +1,13 @@
 package Managers;
 
-import GameObjects.*;
+import GameObjects.Asteroid;
+import GameObjects.Camera;
+import GameObjects.Cell;
+import GameObjects.GameObject;
+import GameObjects.Player;
 import GameObjects.UI.DebugWindow;
 import GameObjects.UI.Grid;
 import GameObjects.UI.ScoreCounter;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;

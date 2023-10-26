@@ -85,22 +85,19 @@ public class Blob extends PhysicsObject<Blob> {
             (int) (radius * 2)
         );
 
-
-        g2d.setStroke(new BasicStroke(1));
-
-
-        // TODO: Code below is for writing text on the blob (name and size). If possible make it look better.
         // FIXME: Sometimes the text is not visible, I don't know why.
         String text = this.player.name;
-        double maxTextLength = 2 * radius * this.gameManager.getCamera().dzoom / 10;
-        double fontSize = maxTextLength / g2d.getFontMetrics().stringWidth(text) * g2d.getFont().getSize2D();
+        double maxTextLength = 2 * radius 
+            * this.gameManager.getCamera().dzoom / 10;
+        double fontSize = maxTextLength 
+            / g2d.getFontMetrics().stringWidth(text) * g2d.getFont().getSize2D();
 
         g2d.setFont(new Font(
             "Monospace", 
             Font.BOLD,
             (int) (fontSize)
         ));
-    
+
         int lineWidth = g2d.getFontMetrics().stringWidth(text);
         int lineHeight = g2d.getFontMetrics().getHeight();
 

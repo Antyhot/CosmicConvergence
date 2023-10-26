@@ -38,7 +38,7 @@ public class ScoreCounter extends GameObject {
         g2d.fillRect(0, 0, 300, 50);
 
         //Displaying debug information
-        String score = String.format("%.0f",this.gameManager.getScore());
+        String score = String.format("%.0f", this.gameManager.getScore());
         //Print the score on white background (rectangle) using comic sans font
         g2d.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
         g2d.setColor(Color.BLACK);

@@ -5,7 +5,6 @@ import Managers.Utils;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Vector;
 
 /**
  * Asteroid class.

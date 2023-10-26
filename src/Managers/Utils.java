@@ -23,6 +23,13 @@ public class Utils {
         }
     }
 
+    /**
+     * Returns a random number between a and b.
+     * 
+     * @param a minimum value
+     * @param b maximum value
+     * @return random number between a and b
+     */
     public static double randomBetween(double a, double b) {
 
         return a + Math.random() * (b - a);

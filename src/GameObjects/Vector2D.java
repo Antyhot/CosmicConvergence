@@ -297,7 +297,8 @@ public class Vector2D {
     }
 
     /**
-     * Returns the angle in radians between the positive x-axis and the vector represented by this Vector2D.
+     * Returns the angle in radians between the positive x-axis and 
+     * the vector represented by this Vector2D.
      *
      * @return the angle in radians
      */

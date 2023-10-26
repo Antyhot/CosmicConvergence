@@ -63,9 +63,15 @@ public class Player extends GameObject {
         return totalSize;
     }
 
+    /**
+     * Calculates total score of all blobs.
+     * 
+     * @return total score.
+     */
     public double calcTotalScore() {
 
-        //TODO: Figure out why the total score changes after splitting
+        // Figure out why the total score changes after splitting
+        // It changes since asteroid decreases the blob size, and then the blob splits.
         double totalScore = 0;
 
         for (Blob blob: this.blobs) {

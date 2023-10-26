@@ -63,7 +63,7 @@ public class InputHandler implements MouseListener, MouseMotionListener, KeyList
             case KeyEvent.VK_ESCAPE -> this.gameManager.togglePause();
             case 'd' -> this.gameManager.toggleDebug();
             case 'f' -> this.gameManager.player.fill();
-            default -> {}
+            default -> { }
         }
     }
 
