@@ -3,6 +3,7 @@ package GameObjects.UI;
 import GameObjects.GameObject;
 import Managers.GameManager;
 import Managers.Utils;
+
 import java.awt.*;
 
 /**
@@ -26,13 +27,14 @@ public class DebugWindow extends GameObject {
         g2d.setColor(Color.WHITE);
         g2d.setFont(new Font("TimesRoman", Font.PLAIN, 16));
 
-        String debugInfo = this.debugInfo() + "\n";
-        debugInfo += gameManager.getCamera().debugInfo() + "\n";
+        StringBuilder debugInfo = new StringBuilder(this.debugInfo() + "\n");
+
+        debugInfo.append(gameManager.getCamera().debugInfo()).append("\n");
         for (GameObject gameObject : gameManager.getGameObjects()) {
-            debugInfo += gameObject.debugInfo() + "\n";
+            debugInfo.append(gameObject.debugInfo()).append("\n");
         }
 
-        Utils.drawText(g2d, debugInfo, 5, 16);
+        Utils.drawText(g2d, debugInfo.toString(), 5, 16);
     }
 
     @Override

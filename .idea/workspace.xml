@@ -7,15 +7,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e423cf3c-fa20-45ec-9d64-558b2a569261" name="Changes" comment="Optimize game object spawning and visibility, modify game balancing&#10;&#10;Streamlined the way game objects such as cells and asteroids spawn within the visible area, by focusing the code to spawn objects on the GameManager and cleaning up irrelevant object creation in other classes. This includes the refactoring of calculating visible area bounds to improve game performance, by reducing unnecessary function calls. The code also modifies game balancing, by adjusting the number of blobs a player starts with from 1 to 3. This change was implemented to enhance the early game experience for new players. Implemented changes are still a work in progress: further optimizations for spawning cells in and around the visible area are planned.">
+    <list default="true" id="e423cf3c-fa20-45ec-9d64-558b2a569261" name="Changes" comment="- Improved asteroid spawning behavior (spawns just outside visible area, pointing in the player's direction with added offset).&#10;&#10;- Added a function to calculate the angle of a vector relative to the x-axis.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameObjects/Asteroid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Asteroid.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameObjects/Blob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Blob.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameObjects/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Camera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameObjects/CircleCollider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/CircleCollider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameObjects/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameObjects/UI/DebugWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/UI/DebugWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameObjects/UI/ScoreCounter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameObjects/UI/ScoreCounter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Managers/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/GameManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Managers/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/InputHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Managers/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/Utils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,11 +57,14 @@
       </UrlAndAccount>
     </option>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/Library/Java/JavaVirtualMachines/corretto-17.0.8.1/Contents/Home/lib/src.zip!/java.base/java/lang/Math.java" root0="SKIP_INSPECTION" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -72,27 +75,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;temp&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/antoniguss/Documents/Programing/CosmicConvergance/CosmicConvergence&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "extract.method.default.visibility": "private",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/antoniguss/Documents/Programing/CosmicConvergance/CosmicConvergence",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="" />
@@ -109,6 +112,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -134,7 +138,9 @@
       <workItem from="1697288181673" duration="2860000" />
       <workItem from="1697454430251" duration="4257000" />
       <workItem from="1697839328570" duration="685000" />
-      <workItem from="1697892467154" duration="8892000" />
+      <workItem from="1697892467154" duration="9827000" />
+      <workItem from="1698138593267" duration="6643000" />
+      <workItem from="1698268950008" duration="5845000" />
     </task>
     <task id="LOCAL-00001" summary="Initial push">
       <option name="closed" value="true" />
@@ -160,7 +166,23 @@
       <option name="project" value="LOCAL" />
       <updated>1697291045660</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="WIP: asteroid spawing">
+      <option name="closed" value="true" />
+      <created>1698066682570</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1698066682570</updated>
+    </task>
+    <task id="LOCAL-00005" summary="- Improved asteroid spawning behavior (spawns just outside visible area, pointing in the player's direction with added offset).&#10;&#10;- Added a function to calculate the angle of a vector relative to the x-axis.">
+      <option name="closed" value="true" />
+      <created>1698272633517</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1698272633517</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,7 +196,7 @@
             <list>
               <RecentGroup>
                 <option name="FILTER_VALUES">
-                  <option value="origin/temp" />
+                  <option value="HEAD" />
                 </option>
               </RecentGroup>
               <RecentGroup>
@@ -187,6 +209,11 @@
                   <option value="main" />
                 </option>
               </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/temp" />
+                </option>
+              </RecentGroup>
             </list>
           </value>
         </entry>
@@ -196,7 +223,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="false" />
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -208,7 +241,10 @@
     <MESSAGE value="Refactor project structure, add features&#10;&#10;Restructure the project for better code navigation. Split classes into two folders: 'Managers' and 'GameObjects' to reflect their roles. Update classes with methods for new features like debug mode and pause function. Introduce 'DebugWindow' class for managing debug actions and display information. Some classes were updated to enhance encapsulation and some changes made in member fields to adjust scope. DebugWindow.java and Asteroid.java file were newly created, and several other classes like Player.java, Blob.java and InputHandler.java among others were modified." />
     <MESSAGE value="Cells spawn every second with variable sizes, WIP: spawn cells in and around the visible area" />
     <MESSAGE value="Cells spawn every second with variable sizes, added function for the camera to calculate visible area bounds. WIP: spawn cells in and around the visible area" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cells spawn every second with variable sizes, added function for the camera to calculate visible area bounds. WIP: spawn cells in and around the visible area" />
+    <MESSAGE value="WIP: asteroid spawing" />
+    <MESSAGE value="Improved asteroid spawning behavior. " />
+    <MESSAGE value="- Improved asteroid spawning behavior (spawns just outside visible area, pointing in the player's direction with added offset).&#10;&#10;- Added a function to calculate the angle of a vector relative to the x-axis." />
+    <option name="LAST_COMMIT_MESSAGE" value="- Improved asteroid spawning behavior (spawns just outside visible area, pointing in the player's direction with added offset).&#10;&#10;- Added a function to calculate the angle of a vector relative to the x-axis." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

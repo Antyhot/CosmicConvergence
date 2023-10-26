@@ -1,12 +1,10 @@
 package Managers;
 
-import GameObjects.Asteroid;
-import GameObjects.Camera;
-import GameObjects.Cell;
-import GameObjects.GameObject;
-import GameObjects.Player;
+import GameObjects.*;
 import GameObjects.UI.DebugWindow;
 import GameObjects.UI.Grid;
+import GameObjects.UI.ScoreCounter;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -16,7 +14,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.ArrayList;
-import javax.swing.*;
+import javax.swing.JPanel;
 
 /**
  * GameManager class for the game.
@@ -42,7 +40,8 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
 
     Player player;
     Camera camera = new Camera(this);
-    DebugWindow debugWindow = new DebugWindow(this);
+    DebugWindow debugWindow;
+    ScoreCounter scoreCounter;
 
     Thread gameThread;
     InputHandler inputHandler = new InputHandler(this);
@@ -89,6 +88,7 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
     public void init() {
         this.player = new Player(this, inputHandler);
         this.debugWindow = new DebugWindow(this);
+        this.scoreCounter = new ScoreCounter(this);
 
         this.gameObjects.clear();
         this.gameObjects.add(new Grid(this));
@@ -134,12 +134,14 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
 
                 for (int i = 0; i < 5; i++) {
                     this.pendingGameObjects.add(new Cell(this, Math.random() * 50 + 50));
-                    this.pendingGameObjects.add(new Asteroid(this));
                 }
+
+                this.pendingGameObjects.add(new Asteroid(this));
 
             }
         }
     }
+
 
     /**
      * Updates the game.
@@ -183,7 +185,9 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
             this.debugWindow.draw(g2d);
         }
 
+        Graphics2D g2dCopy = (Graphics2D) g.create();
         this.camera.draw(g2d);
+
         ArrayList<GameObject> copy = new ArrayList<>(this.gameObjects);
         for (GameObject object : copy) {
             object.draw(g2d);
@@ -199,6 +203,8 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
                 10 * 2
             );
         }
+
+        this.scoreCounter.draw(g2dCopy);
 
         g2d.dispose();
     }
@@ -262,7 +268,7 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
     }
 
     public double getScore() {
-        return this.player.calcTotalSize();
+        return this.player.calcTotalScore();
     }
 
     public int getDrawCount() {
