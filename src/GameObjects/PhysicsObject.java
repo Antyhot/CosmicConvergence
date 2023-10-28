@@ -41,15 +41,10 @@ public class PhysicsObject<T extends PhysicsObject<?>> extends GameObject {
 
         if (!this.isStatic) {
             this.oldPosition.set(this.position);
+
             this.velocity.add(this.acceleration);
             this.position.add(this.velocity);
 
-            // FIXME: This is not working as intended. After a while, the blob 
-            // will start to move faster and faster.
-            // 
-            // this.velocity.add(this.acceleration.copy().multiply(delta));
-            // this.position.add(this.velocity.copy().multiply(delta));
-    
             this.acceleration.set(0, 0);
         }
     }

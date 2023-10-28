@@ -85,7 +85,6 @@ public class Blob extends PhysicsObject<Blob> {
             (int) (radius * 2)
         );
 
-        // FIXME: Sometimes the text is not visible, I don't know why.
         String text = this.player.name;
         double maxTextLength = 2 * radius 
             * this.gameManager.getCamera().dzoom / 10;

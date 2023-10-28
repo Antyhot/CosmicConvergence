@@ -56,9 +56,6 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
     public GameManager() {
         this.setPreferredSize(new Dimension(this.screenWidth, this.screenHeight));
         this.setBackground(Color.BLACK);
-        // TODO: check if this is really needed. It seems that the game works better without it.
-        // this.setDoubleBuffered(true);
-
         this.addMouseListener(this.inputHandler);
         this.addMouseMotionListener(this.inputHandler);
         this.addKeyListener(this.inputHandler);

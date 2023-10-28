@@ -9,7 +9,6 @@ import java.awt.*;
 public class CircleCollider<T extends PhysicsObject<?>>
     extends GameObject implements Collider<CircleCollider<?>> {
 
-    // FIXME: Find a way to generalize isActive variable
     protected boolean isActive = true;
     public double radius;
     public T parent;
