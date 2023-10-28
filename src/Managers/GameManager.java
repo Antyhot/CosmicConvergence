@@ -159,6 +159,8 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
             return;
         }
 
+        this.scoreCounter.update(delta);
+
         this.camera.update(delta);
 
         this.physicsManager.handleCollisions();
