@@ -1,7 +1,7 @@
 package gameObjects;
 
-import managers.GameManager;
 import java.awt.*;
+import managers.GameManager;
 
 /**
  * Camera.

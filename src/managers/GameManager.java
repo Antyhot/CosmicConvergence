@@ -1,15 +1,19 @@
 package managers;
 
-import gameObjects.*;
+import gameObjects.Asteroid;
+import gameObjects.Camera;
+import gameObjects.Cell;
+import gameObjects.GameObject;
+import gameObjects.Player;
 import gameObjects.UI.DebugWindow;
 import gameObjects.UI.Grid;
 import gameObjects.UI.ScoreCounter;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.ArrayList;
+import javax.swing.*;
+
 
 /**
  * The GameManager class manages the game logic and rendering.
@@ -202,7 +206,9 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
      */
     public void paintComponent(Graphics g) {
 
-        if (!this.initialized) return;
+        if (!this.initialized) {
+            return;
+        }
 
         super.paintComponent(g);
 

@@ -1,11 +1,8 @@
 package gameObjects.UI;
 
 import gameObjects.GameObject;
-import managers.GameManager;
-
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import managers.GameManager;
 
 /**
  * Grid.
@@ -60,6 +57,5 @@ public class Grid extends GameObject {
             }
         }
 
-        List<Integer> list = new ArrayList<>();
     }
 }

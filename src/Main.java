@@ -1,8 +1,9 @@
-import managers.GameManager;
 import javax.swing.JFrame;
+import managers.GameManager;
 
 /**
- * The Main class is responsible for starting the game by creating a JFrame window and adding a GameManager instance to it.
+ * The Main class is responsible for starting the game by creating a JFrame
+ * window and adding a GameManager instance to it.
  * The game window is set to a fixed size of SCREEN_WIDTH and SCREEN_HEIGHT.
  */
 public class Main {
