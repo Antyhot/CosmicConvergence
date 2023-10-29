@@ -87,14 +87,16 @@ public class Blob extends PhysicsObject<Blob> {
             (int) (radius * 2)
         );
 
+        if (! gameManager.getDebug()) return;
+
         String text = this.player.name;
-        double maxTextLength = 2 * radius 
+        double maxTextLength = 2 * radius
             * this.gameManager.getCamera().dzoom / 10;
-        double fontSize = maxTextLength 
+        double fontSize = maxTextLength
             / g2d.getFontMetrics().stringWidth(text) * g2d.getFont().getSize2D();
 
         g2d.setFont(new Font(
-            "Monospace", 
+            "Monospace",
             Font.BOLD,
             (int) (fontSize)
         ));
@@ -110,14 +112,14 @@ public class Blob extends PhysicsObject<Blob> {
         );
 
         g2d.setFont(new Font(
-            "Monospace", 
+            "Monospace",
             Font.BOLD,
             (int) (fontSize / 2)
         ));
 
         text = Integer.toString((int) (this.size));
         lineWidth = g2d.getFontMetrics().stringWidth(text);
-    
+
         g2d.drawString(
             text,
             (int) (this.screenPosition.getX() - lineWidth / 2),
