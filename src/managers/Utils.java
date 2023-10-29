@@ -1,4 +1,4 @@
-package Managers;
+package managers;
 
 import java.awt.Graphics2D;
 
@@ -6,13 +6,14 @@ import java.awt.Graphics2D;
  * Utils class.
  */
 public class Utils {
-    
+
     /**
-     * Draws text on the screen.
-     * @param g2d Graphics2D object
-     * @param text Text to be drawn
-     * @param x x coordinate
-     * @param y y coordinate
+     * Draws multi-line text on the Graphics2D object.
+     *
+     * @param g2d The Graphics2D object where the text will be drawn.
+     * @param text The text string to be drawn.
+     * @param x The x-coordinate of the text.
+     * @param y The y-coordinate of the text.
      */
     public static void drawText(Graphics2D g2d, String text, int x, int y) {
         String[] lines = text.split("\n");
@@ -32,6 +33,11 @@ public class Utils {
      */
     public static double randomBetween(double a, double b) {
 
-        return a + Math.random() * (b - a);
+        if (a <= b) {
+            return a + Math.random() * (b - a);
+        } else {
+            return b + Math.random() * (a - b);
+        }
     }
+
 }

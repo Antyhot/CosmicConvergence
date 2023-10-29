@@ -1,9 +1,11 @@
-package GameObjects.UI;
+package gameObjects.UI;
 
-import GameObjects.GameObject;
-import Managers.GameManager;
-import java.awt.Color;
-import java.awt.Graphics2D;
+import gameObjects.GameObject;
+import managers.GameManager;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Grid.
@@ -21,11 +23,6 @@ public class Grid extends GameObject {
      */
     double getGridSize() {
         return 25;
-    }
-
-    @Override
-    public void init() {
-        super.init();
     }
 
     @Override
@@ -62,5 +59,7 @@ public class Grid extends GameObject {
                 );
             }
         }
+
+        List<Integer> list = new ArrayList<>();
     }
 }

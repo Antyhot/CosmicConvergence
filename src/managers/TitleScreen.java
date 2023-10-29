@@ -1,40 +1,36 @@
-package Managers;
+package managers;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /**
- * TitleScreen class for the game.
+ * The TitleScreen class represents the title screen panel of the game.
+ * It extends JPanel and contains components like title label, start button, exit button, and score label.
  */
 public class TitleScreen extends JPanel {
-    GameManager gameManager;
+    final GameManager gameManager;
+    final JLabel scoreLabel = new JLabel();
 
     /**
      * Constructor for the TitleScreen class.
-     * 
+     *
      * @param gameManager The game manager.
      */
     public TitleScreen(GameManager gameManager) {
         this.gameManager = gameManager;
 
-        this.setBackground(Color.BLACK);
 
+        this.setBackground(Color.BLACK);
         this.init();
     }
 
+    /**
+     * Initializes the TitleScreen by setting the layout to GridBagLayout,
+     * creating and adding the title label, start button, exit button, and
+     * score label to the panel.
+     */
     private void init() {
         // Set layout to GridBagLayout
         this.setLayout(new GridBagLayout());
@@ -63,12 +59,7 @@ public class TitleScreen extends JPanel {
             BorderFactory.createLineBorder(Color.WHITE, 2),
             BorderFactory.createEmptyBorder(10, 20, 10, 20)
         ));
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                startGameThread();
-            }
-        });
+        startButton.addActionListener(e -> startGameThread());
         startButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -100,12 +91,7 @@ public class TitleScreen extends JPanel {
             BorderFactory.createLineBorder(Color.WHITE, 2),
             BorderFactory.createEmptyBorder(10, 20, 10, 20)
         ));
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        exitButton.addActionListener(e -> System.exit(0));
         exitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -125,14 +111,40 @@ public class TitleScreen extends JPanel {
         exitGbc.insets = new Insets(20, 0, 0, 0);
 
         this.add(exitButton, exitGbc);
+
+        scoreLabel.setForeground(Color.WHITE);
+        scoreLabel.setFont(new Font("Arial", Font.BOLD, 24));
+
+        // Add the label to the panel with center constraints
+        GridBagConstraints scoreGbc = new GridBagConstraints();
+        scoreGbc.gridx = GridBagConstraints.CENTER;
+        scoreGbc.gridy = GridBagConstraints.CENTER + 2;
+        scoreGbc.insets = new Insets(20, 0, 20, 0);
+
+        this.add(scoreLabel, scoreGbc);
+    }
+
+
+    public void startGameThread() {
+        this.setVisible(false);
+        this.gameManager.startGameThread();
     }
 
     /**
-     * Starts the game thread.
+     * Displays the given score on the panel.
+     *
+     * @param score the score to be displayed
      */
-    public void startGameThread() {
-        this.setVisible(false);
+    public void displayScore(int score) {
+        // Format the score to the desired string
+        String scoreText = String.format("Score: %d", score);
 
-        this.gameManager.startGameThread();
+        // Initialize a JLabel with the score text
+        this.scoreLabel.setText(scoreText);
+
+        // Redraw the panel to show the new label
+        this.revalidate();
+        this.repaint();
     }
+
 }

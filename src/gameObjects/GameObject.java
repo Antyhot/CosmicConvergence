@@ -1,6 +1,6 @@
-package GameObjects;
+package gameObjects;
 
-import Managers.GameManager;
+import managers.GameManager;
 import java.awt.Graphics2D;
 
 /**
@@ -22,6 +22,7 @@ public class GameObject {
         this.oldPosition = new Vector2D();
         this.position = new Vector2D();
         this.active = true;
+
     }
 
     public Boolean isActive() {
@@ -33,7 +34,11 @@ public class GameObject {
     }
 
     /**
-     * Sets the position of the GameObject.
+     * Sets the screen position of the GameObject.
+     * <p>
+     * This method calculates the position of the GameObject relative to the screen based on its position in the game world and the camera position.
+     * <p>
+     * This method should be called whenever the position of the GameObject or the camera changes.
      */
     public void setScreenPosition() {
         this.screenPosition.set(this.position);
@@ -76,6 +81,20 @@ public class GameObject {
     public String debugInfo() {
         // Override this method
         return "";
+    }
+
+    public void checkForRemoval() {
+        Vector2D[] visibleArea = this.gameManager.getCamera().visibleArea;
+        double visibleAreaWidth = this.gameManager.getCamera().calcVisibleAreaWidth();
+        double visibleAreaHeight = this.gameManager.getCamera().calcVisibleAreaHeight();
+
+        if (this.position.getX() < visibleArea[0].getX() - visibleAreaWidth
+                || this.position.getX() > visibleArea[1].getX() + visibleAreaWidth
+                || this.position.getY() < visibleArea[0].getY() - visibleAreaHeight
+                || this.position.getY() > visibleArea[2].getY() + visibleAreaHeight) {
+
+            this.markObjectForRemoval();
+        }
     }
 
     public Vector2D getScreenPosition() {

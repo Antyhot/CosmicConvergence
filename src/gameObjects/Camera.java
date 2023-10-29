@@ -1,6 +1,6 @@
-package GameObjects;
+package gameObjects;
 
-import Managers.GameManager;
+import managers.GameManager;
 import java.awt.*;
 
 /**
@@ -13,7 +13,7 @@ public class Camera extends GameObject {
     Player player;
     public double zoom;
     public double dzoom;
-    public Vector2D[] visibleArea = new Vector2D[4];
+    public final Vector2D[] visibleArea = new Vector2D[4];
 
     public Camera(GameManager gameManager) {
         super(gameManager);

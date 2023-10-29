@@ -1,18 +1,18 @@
-package GameObjects.UI;
+package gameObjects.UI;
 
-import GameObjects.GameObject;
-import GameObjects.Player;
-import Managers.GameManager;
+import gameObjects.GameObject;
+import gameObjects.Player;
+import managers.GameManager;
+
 import java.awt.*;
 
 /**
  * ScoreCounter class.
  */
 public class ScoreCounter extends GameObject {
-    Player player;
-    
     static final int WIDTH = 200;
     static final int HEIGHT = 36;
+    Player player;
 
     /**
      * Constructor for the GameObject class.
@@ -25,6 +25,7 @@ public class ScoreCounter extends GameObject {
 
     /**
      * Init method for the ScoreCounter class.
+     *
      * @param player The player.
      */
     public void init(Player player) {
@@ -41,8 +42,8 @@ public class ScoreCounter extends GameObject {
 
         // Set the position of the score counter to the top center of the screen
         this.position.set(
-            this.gameManager.screenWidth / 2 - ScoreCounter.WIDTH / 2,
-            0
+                (double) this.gameManager.screenWidth / 2 - (double) ScoreCounter.WIDTH / 2,
+                0
         );
     }
 
@@ -53,21 +54,21 @@ public class ScoreCounter extends GameObject {
         // draw background
         g2d.setColor(new Color(255, 255, 255, 50));
         g2d.fillRect(
-            (int) this.position.getX(),
-            (int) this.position.getY(),
-            ScoreCounter.WIDTH,
-            ScoreCounter.HEIGHT
+                (int) this.position.getX(),
+                (int) this.position.getY(),
+                ScoreCounter.WIDTH,
+                ScoreCounter.HEIGHT
         );
 
-        String scoreText = String.format("%.0f", this.gameManager.getScore());
+        String scoreText = String.format("%d", this.gameManager.getScore());
         g2d.setFont(new Font("Arial", Font.BOLD, 18));
         g2d.setColor(Color.WHITE);
 
         g2d.drawString(
-            scoreText,
-            (int) this.position.getX() + ScoreCounter.WIDTH / 2 
-                  - g2d.getFontMetrics().stringWidth(scoreText) / 2,
-            (int) this.position.getY() + ScoreCounter.HEIGHT / 2 + 10
+                scoreText,
+                (int) this.position.getX() + ScoreCounter.WIDTH / 2
+                        - g2d.getFontMetrics().stringWidth(scoreText) / 2,
+                (int) this.position.getY() + ScoreCounter.HEIGHT / 2 + 10
         );
     }
 }

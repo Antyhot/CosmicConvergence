@@ -1,26 +1,18 @@
-package Managers;
+package managers;
 
-import GameObjects.Asteroid;
-import GameObjects.Camera;
-import GameObjects.Cell;
-import GameObjects.GameObject;
-import GameObjects.Player;
-import GameObjects.UI.DebugWindow;
-import GameObjects.UI.Grid;
-import GameObjects.UI.ScoreCounter;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import gameObjects.*;
+import gameObjects.UI.DebugWindow;
+import gameObjects.UI.Grid;
+import gameObjects.UI.ScoreCounter;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.ArrayList;
-import javax.swing.JPanel;
 
 /**
- * GameManager class for the game.
+ * The GameManager class manages the game logic and rendering.
  */
 public class GameManager extends JPanel implements Runnable, ComponentListener {
     public static boolean GAME_RUNNING = false;
@@ -36,10 +28,11 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
 
     static final int FPS = 60;
 
-    TitleScreen titleScreen = new TitleScreen(this);
+    final TitleScreen titleScreen = new TitleScreen(this);
 
+    //Two arrays are used to avoid concurrent modification exceptions
     public ArrayList<GameObject> gameObjects = new ArrayList<>();
-    ArrayList<GameObject> pendingGameObjects = new ArrayList<>();
+    final ArrayList<GameObject> pendingGameObjects = new ArrayList<>();
 
     Player player;
     Camera camera = new Camera(this);
@@ -49,6 +42,7 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
     Thread gameThread;
     InputHandler inputHandler = new InputHandler(this);
     PhysicsManager physicsManager = new PhysicsManager();
+    private boolean initialized = false;
 
     /**
      * Constructor for the GameManager class.
@@ -77,13 +71,19 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
         GAME_RUNNING = true;
         this.setFocusable(true);
         this.requestFocusInWindow();
-    
+
+
         this.gameThread = new Thread(this);
         this.gameThread.start();
     }
 
     /**
      * Initializes the game.
+     * This method initializes the game by creating player, a debug window, score counter,
+     * and initializing game objects.
+     * It also clears the existing game objects and physics objects,
+     * and adds the grid and player objects to the game objects list.
+     * Finally, it initializes the camera and sets the initialized flag to true.
      */
     public void init() {
         this.player = new Player(this, inputHandler);
@@ -91,6 +91,8 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
         this.scoreCounter = new ScoreCounter(this);
 
         this.gameObjects.clear();
+        this.physicsManager.physicsObjects.clear();
+
         this.gameObjects.add(new Grid(this));
         this.gameObjects.add(player);
 
@@ -99,8 +101,16 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
         for (GameObject object : this.gameObjects) {
             object.init();
         }
+
+        this.initialized = true;
     }
 
+    /**
+     * Runs the game.
+     * This method is the main loop of the game.
+     * It initializes the game using the init() method, and then enters a while loop.
+     * The loop continues as long as the game thread is not null and the GAME_RUNNING flag is true.
+     */
     @Override
     public void run() {
         this.init();
@@ -110,6 +120,9 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
         long lastTime = System.nanoTime();
         long currentTime;
         long timer = 0;
+
+        long asteroidDelay = (long) 1e9;
+        long lastAsteroidSpawn = System.nanoTime();
 
         while (this.gameThread != null && GAME_RUNNING) {
             currentTime = System.nanoTime();
@@ -128,6 +141,12 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
                 drawCount++;
             }
 
+            asteroidDelay = Math.max(100000000, asteroidDelay - 1);
+            if (System.nanoTime() - lastAsteroidSpawn >= asteroidDelay) {
+                this.pendingGameObjects.add(new Asteroid(this));
+                lastAsteroidSpawn = System.nanoTime();
+            }
+
             if (timer >= 1e9 && !PAUSED) {
                 drawCount = 0;
                 timer = 0;
@@ -136,7 +155,6 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
                     this.pendingGameObjects.add(new Cell(this, Math.random() * 50 + 50));
                 }
 
-                this.pendingGameObjects.add(new Asteroid(this));
 
             }
         }
@@ -144,13 +162,15 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
 
 
     /**
-     * Updates the game.
+     * Updates the game state based on the elapsed time since the last update.
      */
     public void update(double delta) {
         if (this.player.isDead()) {
             GAME_RUNNING = false;
+
             this.gameThread = null;
             this.titleScreen.setVisible(true);
+            this.titleScreen.displayScore(this.player.score);
             this.repaint();
 
             return;
@@ -176,9 +196,14 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
     }
 
     /**
-     * Paints the game.
+     * The paintComponent method is responsible for rendering the game graphics on the screen.
+     *
+     * @param g the Graphics object to be used for rendering
      */
     public void paintComponent(Graphics g) {
+
+        if (!this.initialized) return;
+
         super.paintComponent(g);
 
         Graphics2D g2d = (Graphics2D) g;
@@ -209,6 +234,13 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
         this.scoreCounter.draw(g2dCopy);
 
         g2d.dispose();
+    }
+
+    /**
+     * Toggles pause.
+     */
+    public void togglePause() {
+        PAUSED = !PAUSED;
     }
 
     public ArrayList<GameObject> getGameObjects() {
@@ -256,21 +288,14 @@ public class GameManager extends JPanel implements Runnable, ComponentListener {
     }
 
     /**
-     * Toggles pause.
-     */
-    public void togglePause() {
-        PAUSED = !PAUSED;
-    }
-
-    /**
      * Toggles debug mode.
      */
     public void toggleDebug() {
         DEBUG = !DEBUG;
     }
 
-    public double getScore() {
-        return this.player.calcTotalScore();
+    public int getScore() {
+        return this.player.score;
     }
 
     public int getDrawCount() {

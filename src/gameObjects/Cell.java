@@ -1,13 +1,13 @@
-package GameObjects;
+package gameObjects;
 
-import Managers.GameManager;
+import managers.GameManager;
 import java.awt.*;
 
 /**
  * Cell class.
  */
 public class Cell extends PhysicsObject<Cell> {
-    public double size;
+    public final double size;
     private Color hue;
 
     /**
@@ -82,17 +82,4 @@ public class Cell extends PhysicsObject<Cell> {
         g2d.setStroke(new BasicStroke(1));
     }
 
-    private void checkForRemoval() {
-        Vector2D[] visibleArea = this.gameManager.getCamera().visibleArea;
-        double visibleAreaWidth = this.gameManager.getCamera().calcVisibleAreaWidth();
-        double visibleAreaHeight = this.gameManager.getCamera().calcVisibleAreaHeight();
-
-        if (this.position.getX() < visibleArea[0].getX() - visibleAreaWidth 
-            || this.position.getX() > visibleArea[1].getX() + visibleAreaWidth 
-            || this.position.getY() < visibleArea[0].getY() - visibleAreaHeight 
-            || this.position.getY() > visibleArea[2].getY() + visibleAreaHeight) {
-
-            this.markObjectForRemoval();
-        }
-    }
 }

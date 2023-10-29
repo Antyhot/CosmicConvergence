@@ -1,15 +1,17 @@
-package Managers;
+package managers;
 
-import GameObjects.Vector2D;
+import gameObjects.Vector2D;
 import java.awt.event.*;
 
 /**
- * InputHandler class for the game.
+ * The InputHandler class implements MouseListener, MouseMotionListener, and KeyListener interfaces
+ * to handle user input events such as mouse clicks, mouse movements, and key presses.
  */
 public class InputHandler implements MouseListener, MouseMotionListener, KeyListener {
 
+    // The mouse position is stored in a Vector2D object.
     private final Vector2D mousePosition = new Vector2D(0, 0);
-    public GameManager gameManager;
+    public final GameManager gameManager;
 
     /**
      * Constructor for the InputHandler class.
@@ -57,12 +59,17 @@ public class InputHandler implements MouseListener, MouseMotionListener, KeyList
         // Override this method
     }
 
+    /**
+     * Handles the keyTyped event.
+     *
+     * @param e the keyTyped event to be processed
+     */
     @Override
     public void keyTyped(KeyEvent e) {
         switch (e.getKeyChar()) {
             case KeyEvent.VK_ESCAPE -> this.gameManager.togglePause();
             case 'd' -> this.gameManager.toggleDebug();
-            case 'f' -> this.gameManager.player.fill();
+//            case 'f' -> this.gameManager.player.fill();
             default -> { }
         }
     }

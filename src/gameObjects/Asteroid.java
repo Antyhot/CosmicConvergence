@@ -1,13 +1,15 @@
-package GameObjects;
+package gameObjects;
 
-import Managers.GameManager;
-import Managers.Utils;
+import managers.GameManager;
+import managers.Utils;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Asteroid class.
+ * Asteroid class represents an asteroid object in the game.
+ * It extends the PhysicsObject class,
+ * which provides functionality for handling physics and collisions.
  */
 public class Asteroid extends PhysicsObject<Asteroid> {
     private static final int MIN_SIDES = 5;
@@ -119,7 +121,6 @@ public class Asteroid extends PhysicsObject<Asteroid> {
 
     @Override
     public void onCollision(PhysicsObject<?> other) {
-        super.onCollision(other);
 
         if (other instanceof Blob blob) {
             blob.size -= this.size;
@@ -138,7 +139,7 @@ public class Asteroid extends PhysicsObject<Asteroid> {
     public void draw(Graphics2D g2d) {
         super.draw(g2d);
 
-        g2d.setColor(Color.WHITE);
+        g2d.setColor(Color.GRAY);
         g2d.fillPolygon(
             new Polygon(
                 this.polygonPoints.stream()
@@ -152,17 +153,5 @@ public class Asteroid extends PhysicsObject<Asteroid> {
         );
     }
 
-    private void checkForRemoval() {
-        Vector2D[] visibleArea = this.gameManager.getCamera().visibleArea;
-        double visibleAreaWidth = this.gameManager.getCamera().calcVisibleAreaWidth();
-        double visibleAreaHeight = this.gameManager.getCamera().calcVisibleAreaHeight();
 
-        if (this.position.getX() < visibleArea[0].getX() - visibleAreaWidth 
-            || this.position.getX() > visibleArea[1].getX() + visibleAreaWidth 
-            || this.position.getY() < visibleArea[0].getY() - visibleAreaHeight 
-            || this.position.getY() > visibleArea[2].getY() + visibleAreaHeight) {
-
-            this.markObjectForRemoval();
-        }
-    }
 }

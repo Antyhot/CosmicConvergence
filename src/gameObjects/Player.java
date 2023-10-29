@@ -1,7 +1,7 @@
-package GameObjects;
+package gameObjects;
 
-import Managers.GameManager;
-import Managers.InputHandler;
+import managers.GameManager;
+import managers.InputHandler;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -10,10 +10,11 @@ import java.util.ArrayList;
  */
 public class Player extends GameObject {
     public static final int MAX_SIZE = 1500;
-    public String name = "ABC";
+    public final String name = "ABC";
 
-    InputHandler inputHandler;
-    public ArrayList<Blob> blobs = new ArrayList<>();
+    final InputHandler inputHandler;
+    public final ArrayList<Blob> blobs = new ArrayList<>();
+    public int score = 0;
 
     /**
      * Constructor for the Player class.
@@ -54,7 +55,7 @@ public class Player extends GameObject {
     public double calcTotalSize() {
         double totalSize = 0;
 
-        // Sqrt allows natural zoom out effect on large amount of blobs.
+        // Sqrt allows natural zoom-out effect on large number of blobs.
         // since sqrt(a + b) <= sqrt(a) + sqrt(b)
         for (Blob blob: this.blobs) {
             totalSize += Math.sqrt(blob.size);
@@ -82,7 +83,7 @@ public class Player extends GameObject {
     }
 
     /**
-     * A method that auto fills blobs with cells. Used for testing.
+     * A method that auto-fills blobs with cells. Used for testing.
      */
     public void fill() {
         for (Blob blob: this.blobs) {
@@ -134,6 +135,6 @@ public class Player extends GameObject {
 
 
     public boolean isDead() {
-        return this.blobs.size() == 0;
+        return this.blobs.isEmpty();
     }
 }

@@ -1,24 +1,29 @@
-package GameObjects.UI;
+package gameObjects.UI;
 
-import GameObjects.GameObject;
-import Managers.GameManager;
-import Managers.Utils;
+import gameObjects.GameObject;
+import managers.GameManager;
+import managers.Utils;
 import java.awt.*;
 
 /**
- * DebugWindow class.
+ * The DebugWindow class represents a debug window in a game. It extends the GameObject class.
  */
 public class DebugWindow extends GameObject {
 
     /**
-     * Creates a new DebugWindow object.
+     * Initializes a new instance of the DebugWindow class.
      *
-     * @param gameManager the game manager for the debug window
+     * @param gameManager The game manager associated with the debug window.
      */
     public DebugWindow(GameManager gameManager) {
         super(gameManager);
     }
 
+    /**
+     * Draws the debug information on the debug window.
+     *
+     * @param g2d The Graphics2D object used for drawing.
+     */
     @Override
     public void draw(Graphics2D g2d) {
         super.draw(g2d);
@@ -36,6 +41,11 @@ public class DebugWindow extends GameObject {
         Utils.drawText(g2d, debugInfo.toString(), 5, 16);
     }
 
+    /**
+     * Returns the debug information as a formatted string.
+     *
+     * @return The debug information.
+     */
     @Override
     public String debugInfo() {
         return String.format(

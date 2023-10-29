@@ -1,13 +1,14 @@
-package GameObjects;
+package gameObjects;
 
 import java.awt.*;
 
 /**
- * Arrow class for the game.
+ * Represents an arrow with a specified starting point, ending point, and length.
+ * Used for debugging purposes.
  */
 public class Arrow {
-    public Vector2D from = new Vector2D();
-    public Vector2D to = new Vector2D();
+    public final Vector2D from = new Vector2D();
+    public final Vector2D to = new Vector2D();
 
     /**
      * Constructor for the Arrow class.

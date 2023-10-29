@@ -1,4 +1,4 @@
-package GameObjects;
+package gameObjects;
 
 // import Managers.GameManager;
 // import Managers.Utils;
@@ -14,16 +14,18 @@ public class Blob extends PhysicsObject<Blob> {
     private final Player player;
     public double size = 1300;
     private double dsize = 0;
-    public double maxForce = 2;
+    public final double maxForce = 2;
     public boolean canCombine = false;
 
     // make a variable for time needed to merge back
     // make a variable for time needed to split
-    public long mergeDelayMillis = 15000;
+    public final long mergeDelayMillis = 15000;
     public long lastSplitTime = 0;
-    
+
     /**
-     * Constructor for the Blob class.
+     * Creates a new Blob object for the given player.
+     *
+     * @param player the player object for which the blob is created
      */
     public Blob(Player player) {
         super(player.gameManager);
@@ -127,12 +129,12 @@ public class Blob extends PhysicsObject<Blob> {
     public void onCollision(PhysicsObject<?> other) {
         boolean contains = this.getCollider().contains(other.getCollider());
 
-        // Cell eat behavior
+        // Cell eating behavior
         if (other instanceof Cell cell) {
-            // if (contains) {
             this.size += cell.size;
+            this.player.score += (int) cell.size;
             cell.markObjectForRemoval();
-            // }
+
         }
 
         // Merge behaviour

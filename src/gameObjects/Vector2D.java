@@ -1,4 +1,4 @@
-package GameObjects;
+package gameObjects;
 
 /**
  * Vector2D class. Represents a 2D vector.

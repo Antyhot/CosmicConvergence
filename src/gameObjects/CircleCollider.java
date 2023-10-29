@@ -1,6 +1,6 @@
-package GameObjects;
+package gameObjects;
 
-import Managers.GameManager;
+import managers.GameManager;
 import java.awt.*;
 
 /**

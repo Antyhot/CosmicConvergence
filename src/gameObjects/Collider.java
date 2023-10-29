@@ -1,4 +1,4 @@
-package GameObjects;
+package gameObjects;
 
 /**
  * Collider class.
@@ -24,7 +24,6 @@ interface Collider<T> {
      * resolve collision with another collider.
      * 
      * @param other collider to resolve collision with.
-     * @return Vector2D representing the new velocity to push out of collision.
      */
     void resolveCollision(T other);
 }
